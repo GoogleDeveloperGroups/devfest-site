@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Python Google App Engines Sample</title>
+    <style type=text/css>
+      td  { vertical-align: top; padding: 0.5em }
+      img { border:0 }
+
+      iframe {
+      height: 100%;
+      vertical-align: bottom;
+      width: 100%;
+      }
+    </style>
+
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+
+  </head>
+  <body>
+    <center>
+      <h1>Welcome to +</h1>
+
+      <p>This is a simple app that shows some public activities from your stream.</p>
+      </center>
+
+    <div class="box">
+      <center>
+	<b>{{ me.displayName|escape }}</b><br/>
+	<b><img src="{{ me.image.url }}"></b>
+	<h2>YOU</h2>
+      </center>
+
+    </div> 
+
+    <div class="box">
+      <p>Your public activities' content</p>
+      <p>
+    <table border=0 width=350>
+      {% for activity in activities %}
+      <tr valign=top>
+        <td>{{ activity.object.content|striptags }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    </p>
+    </div>
+
+    <div class="box">
+      <p>FIRST ACTIVITY CONTENT:</p>
+      <table border=0>
+	<tr valign=top>
+          <td>{{ top_activity_content|striptags }}</td>
+	</tr>
+      </table>
+    </div>
+    
+</body>
+
+</html>
+
