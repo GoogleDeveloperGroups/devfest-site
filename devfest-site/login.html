@@ -1,6 +1,10 @@
 <!doctype html>
 <html>
 <head>
+
+ <!-- Required to render the Google+ sign-in button -->
+  <script src="https://plus.sandbox.google.com/js/plusone.js"></script>
+  
     <style type=text/css>
       td  { vertical-align: top; padding: 0.5em }
       img { border:0 }
@@ -20,6 +24,15 @@
     <h2>Login</h2>
   </center>
 
+  
+  <h2>Sign in with Google+</h2>       
+    <div id="panel-sign-in">
+      <g:plus action="connect"
+              clientid="{{ APPLICATION_ID }}"
+              redirecturi="http://pplokijuz.appspot.com:5000/oauth2callback"
+              callback="onSignIn" state="{{state}}"></g:plus>
+    </div>    	
+	
 <div class="box">
   <center>
     <h3>Welcome to +</h3>
@@ -32,4 +45,18 @@
 
 
 </div>
+
+
+<script>
+  // Code that does stuff related to History API
+
+  /**
+   * The simplest (and laziest) possible solution to this callback. In a real
+   * application you would probably want to use AJAX to replace the button with
+   * markup that indicates the signed in state.
+   */
+  function onSignIn() {
+    window.location = "/play";
+  }
+</script>
 </body>

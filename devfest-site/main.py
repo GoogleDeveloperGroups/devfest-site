@@ -49,7 +49,8 @@ from google.appengine.ext.webapp import template
 decorator = OAuth2Decorator(
     client_id=settings.CLIENT_ID,
     client_secret=settings.CLIENT_SECRET,
-    scope = 'https://www.googleapis.com/auth/plus.me' )
+    scope = 'https://www.googleapis.com/auth/plus.me'  +
+      'https://www.googleapis.com/auth/plus.moments.write')
 
 http = httplib2.Http(memcache)
 httpUnauth = httplib2.Http(memcache)
@@ -114,7 +115,7 @@ class LoginHandler(webapp.RequestHandler):
         path = os.path.join(os.path.dirname(__file__), 'login.html')
 
         self.response.out.write(
-            template.render(path, {}))
+            template.render(path, {state="abc", APPLICATION_ID = settings.CLIENT_ID}))
 
         return
 
