@@ -1,0 +1,79 @@
+{
+  "AddActivity":{
+    "type":"http://schemas.google.com/AddActivity",
+    "target":{
+      "url":"https://developers.google.com/+/plugins/snippet/examples/thing"
+    }
+  },
+  "BuyActivity":{
+    "type":"http://schemas.google.com/BuyActivity",
+    "target":{
+      "url":"https://developers.google.com/+/plugins/snippet/examples/a-book"
+    }
+  },
+  "CheckInActivity":{
+    "type":"http://schemas.google.com/CheckInActivity",
+    "target":{
+      "url":"https://developers.google.com/+/plugins/snippet/examples/place"
+    }
+  },
+  "CommentActivity":{
+    "type":"http://schemas.google.com/CommentActivity",
+    "target":{
+      "url":"https://developers.google.com/+/plugins/snippet/examples/blog-entry"
+    },
+    "result":{
+      "type":"http://schema.org/Comment",
+      "url":"https://developers.google.com/+/plugins/snippet/examples/blog-entry#comment-1",
+      "name":"This is amazing!",
+      "text":"I can not wait to use it on my site :)"
+    }
+  },
+  "CreateActivity":{
+    "type":"http://schemas.google.com/CreateActivity",
+    "target":{
+      "url":"https://developers.google.com/+/plugins/snippet/examples/photo"
+    }
+  },
+  "ListenActivity":{
+    "type":"http://schemas.google.com/ListenActivity",
+    "target":{
+      "url":"https://developers.google.com/+/plugins/snippet/examples/song"
+    }
+  },
+  "ReserveActivity":{
+    "type":"http://schemas.google.com/ReserveActivity",
+    "target":{
+      "url":"https://developers.google.com/+/plugins/snippet/examples/restaurant"
+    },
+    "result":{
+      "type":"http://schemas.google.com/Reservation",
+      "startDate":"2012-06-28T19:00:00-08:00",
+      "attendeeCount":"3"
+    }
+  },
+  "ReviewActivity":{
+    "type":"http://schemas.google.com/ReviewActivity",
+    "target":{
+      "url":"https://developers.google.com/+/plugins/snippet/examples/widget"
+    },
+    "result":{
+      "type":"http://schema.org/Review",
+      "name":"A Humble Review of Widget",
+      "url":"https://developers.google.com/+/plugins/snippet/examples/review",
+      "text":"It is amazingly effective at whatever it is that it is supposed to do.",
+      "reviewRating":[{
+        "type": "http://schema.org/Rating",
+        "ratingValue":"100",
+        "bestRating":"100",
+        "worstRating":"0"
+      }]
+    }
+  },
+  "ViewActivity":{
+    "type":"http://schemas.google.com/ViewActivity",
+    "target":{
+      "url":"https://developers.google.com/+/plugins/snippet/examples/video"
+    }
+  }
+}

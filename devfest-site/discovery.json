@@ -1,0 +1,572 @@
+{
+  "kind": "discovery#restDescription",
+  "discoveryVersion": "v1",
+  "id": "plus:v1moments",
+  "name": "plus",
+  "version": "v1moments",
+  "revision": "20120430",
+  "title": "Google+ API",
+  "description": "The Google+ API enables developers to build on top of the Google+ platform.",
+  "icons": {
+    "x16": "http://www.google.com/images/icons/product/gplus-16.png",
+    "x32": "http://www.google.com/images/icons/product/gplus-32.png"
+  },
+  "documentationLink": "http://developers.google.com/+/api/",
+  "protocol": "rest",
+  "baseUrl": "https://www.googleapis.com/plus/v1moments/people/",
+  "basePath": "/plus/v1moments/people/",
+  "rootUrl": "https://www.googleapis.com/",
+  "servicePath": "plus/v1moments/people/",
+  "batchPath": "batch",
+  "parameters": {
+    "alt": {
+      "type": "string",
+      "description": "Data format for the response.",
+      "default": "json",
+      "enum": [
+        "json"
+      ],
+      "enumDescriptions": [
+        "Responses with Content-Type of application/json"
+      ],
+      "location": "query"
+    },
+    "fields": {
+      "type": "string",
+      "description": "Selector specifying which fields to include in a partial response.",
+      "location": "query"
+    },
+    "key": {
+      "type": "string",
+      "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+      "location": "query"
+    },
+    "oauth_token": {
+      "type": "string",
+      "description": "OAuth 2.0 token for the current user.",
+      "location": "query"
+    },
+    "prettyPrint": {
+      "type": "boolean",
+      "description": "Returns response with indentations and line breaks.",
+      "default": "true",
+      "location": "query"
+    },
+    "quotaUser": {
+      "type": "string",
+      "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+      "location": "query"
+    },
+    "userIp": {
+      "type": "string",
+      "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+      "location": "query"
+    }
+  },
+  "auth": {
+    "oauth2": {
+      "scopes": {
+        "https://www.googleapis.com/auth/plus.me": {
+          "description": "Know who you are on Google"
+        },
+        "https://www.googleapis.com/auth/userinfo.email": {
+          "description": "View your email address"
+        }
+      }
+    }
+  },
+  "schemas": {
+    "ItemScope": {
+      "id": "ItemScope",
+      "type": "object",
+      "properties": {
+        "about": {
+          "$ref": "ItemScope",
+          "description": "The subject matter of the content."
+        },
+        "additionalName": {
+          "type": "array",
+          "description": "An additional name for a Person, can be used for a middle name.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "associated_media": {
+          "type": "array",
+          "description": "The encoding.",
+          "items": {
+            "$ref": "ItemScope"
+          }
+        },
+        "attendees": {
+          "type": "array",
+          "description": "A person attending the event.",
+          "items": {
+            "$ref": "ItemScope"
+          }
+        },
+        "author": {
+          "type": "array",
+          "description": "The person who created this scope.",
+          "items": {
+            "$ref": "ItemScope"
+          }
+        },
+        "birthDate": {
+          "type": "string",
+          "description": "Date of birth."
+        },
+        "caption": {
+          "type": "string",
+          "description": "The caption for this object."
+        },
+        "contentSize": {
+          "type": "string",
+          "description": "File size in (mega/kilo) bytes."
+        },
+        "contentUrl": {
+          "type": "string",
+          "description": "Actual bytes of the media object, for example the image file or video file."
+        },
+        "contributor": {
+          "type": "array",
+          "description": "The list of contributors for this scope.",
+          "items": {
+            "$ref": "ItemScope"
+          }
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "The date this scope was created."
+        },
+        "dateModified": {
+          "type": "string",
+          "description": "The date this scope was last modified."
+        },
+        "datePublished": {
+          "type": "string",
+          "description": "The initial date this scope was published."
+        },
+        "description": {
+          "type": "string",
+          "description": "The string describing the content of this scope."
+        },
+        "duration": {
+          "type": "string",
+          "description": "The duration of the item (movie, audio recording, event, etc.) in ISO 8601 date format."
+        },
+        "embedUrl": {
+          "type": "string",
+          "description": "A URL pointing to a player for a specific video. In general, this is the information in the src element of an embed tag and should not be the same as the content of the loc tag."
+        },
+        "endDate": {
+          "type": "string",
+          "description": "The end date and time of the event (in ISO 8601 date format)."
+        },
+        "familyName": {
+          "type": "string",
+          "description": "Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the Name property."
+        },
+        "gender": {
+          "type": "string",
+          "description": "Gender of the person."
+        },
+        "givenName": {
+          "type": "string",
+          "description": "Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the Name property."
+        },
+        "height": {
+          "type": "string",
+          "description": "The height of the media object."
+        },
+        "id": {
+          "type": "string",
+          "description": "The id for this item scope."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "A url to the image for this scope."
+        },
+        "kind": {
+          "type": "string",
+          "description": "Identifies this resource as an itemScope.",
+          "default": "plus#itemScope"
+        },
+        "location": {
+          "$ref": "ItemScope",
+          "description": "The location of the event or organization."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of this scope."
+        },
+        "performers": {
+          "type": "array",
+          "description": "The main performer or performers of the event—for example, a presenter, musician, or actor.",
+          "items": {
+            "$ref": "ItemScope"
+          }
+        },
+        "playerType": {
+          "type": "string",
+          "description": "Player type required—for example, Flash or Silverlight."
+        },
+        "startDate": {
+          "type": "string",
+          "description": "The start date and time of the event (in ISO 8601 date format)."
+        },
+        "thumbnail": {
+          "$ref": "ItemScope",
+          "description": "Thumbnail image for an image or video."
+        },
+        "thumbnailUrl": {
+          "type": "string",
+          "description": "A url to a thumbnail image for this scope."
+        },
+        "tickerSymbol": {
+          "type": "string",
+          "description": "The exchange traded instrument associated with a Corporation object. The tickerSymbol is expressed as an exchange and an instrument name separated by a space character. For the exchange component of the tickerSymbol attribute, we reccommend using the controlled vocaulary of Market Identifier Codes (MIC) specified in ISO15022."
+        },
+        "type": {
+          "type": "string",
+          "description": "The item type."
+        },
+        "url": {
+          "type": "string",
+          "description": "A url for this scope."
+        },
+        "width": {
+          "type": "string",
+          "description": "The width of the media object."
+        }
+      }
+    },
+    "Moment": {
+      "id": "Moment",
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "Identifies this resource as a moment.",
+          "default": "plus#moment"
+        },
+        "result": {
+          "$ref": "ItemScope",
+          "description": "The object generated by performing the action on the item"
+        },
+        "startDate": {
+          "type": "string",
+          "description": "Timestamp of the action (when it occured) in RFC3339 format."
+        },
+        "target": {
+          "$ref": "ItemScope",
+          "description": "The object on which the action was performed"
+        },
+        "type": {
+          "type": "string",
+          "description": "The schema.org activity type"
+        },
+        "verb": {
+          "type": "object",
+          "description": "The action the user performed",
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "Url name of the verb"
+            }
+          }
+        }
+      }
+    },
+    "Person": {
+      "id": "Person",
+      "type": "object",
+      "properties": {
+        "aboutMe": {
+          "type": "string",
+          "description": "A short biography for this person."
+        },
+        "birthday": {
+          "type": "string",
+          "description": "The person's date of birth, represented as YYYY-MM-DD."
+        },
+        "currentLocation": {
+          "type": "string",
+          "description": "The current location for this person."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The name of this person, suitable for display."
+        },
+        "emails": {
+          "type": "array",
+          "description": "A list of email addresses for this person.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "primary": {
+                "type": "boolean",
+                "description": "If \"true\", indicates this email address is the person's primary one."
+              },
+              "type": {
+                "type": "string",
+                "description": "The type of address. Possible values are:  \n- \"home\" - Home email address. \n- \"work\" - Work email address. \n- \"other\" - Other."
+              },
+              "value": {
+                "type": "string",
+                "description": "The email address."
+              }
+            }
+          }
+        },
+        "etag": {
+          "type": "string",
+          "description": "ETag of this response for caching purposes."
+        },
+        "gender": {
+          "type": "string",
+          "description": "The person's gender. Possible values are:  \n- \"male\" - Male gender. \n- \"female\" - Female gender. \n- \"other\" - Other."
+        },
+        "hasApp": {
+          "type": "boolean",
+          "description": "If \"true\", indicates that the person has installed the app that is making the request and has chosen to expose this install state to the caller. A value of \"false\" indicates that the install state cannot be determined (it is either not installed or the person has chosen to keep this information private)."
+        },
+        "id": {
+          "type": "string",
+          "description": "The ID of this person."
+        },
+        "image": {
+          "type": "object",
+          "description": "The representation of the person's profile photo.",
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL of the person's profile photo. To re-size the image and crop it to a square, append the query string ?sz=x, where x is the dimension in pixels of each side."
+            }
+          }
+        },
+        "kind": {
+          "type": "string",
+          "description": "Identifies this resource as a person. Value: \"plus#person\".",
+          "default": "plus#person"
+        },
+        "languagesSpoken": {
+          "type": "array",
+          "description": "The languages spoken by this person.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "object",
+          "description": "An object representation of the individual components of a person's name.",
+          "properties": {
+            "familyName": {
+              "type": "string",
+              "description": "The family name (last name) of this person."
+            },
+            "formatted": {
+              "type": "string",
+              "description": "The full name of this person, including middle names, suffixes, etc."
+            },
+            "givenName": {
+              "type": "string",
+              "description": "The given name (first name) of this person."
+            },
+            "honorificPrefix": {
+              "type": "string",
+              "description": "The honorific prefixes (such as \"Dr.\" or \"Mrs.\") for this person."
+            },
+            "honorificSuffix": {
+              "type": "string",
+              "description": "The honorific suffixes (such as \"Jr.\") for this person."
+            },
+            "middleName": {
+              "type": "string",
+              "description": "The middle name of this person."
+            }
+          }
+        },
+        "nickname": {
+          "type": "string",
+          "description": "The nickname of this person."
+        },
+        "objectType": {
+          "type": "string",
+          "description": "Type of person within Google+. Possible values are:  \n- \"person\" - represents an actual person. \n- \"page\" - represents a page."
+        },
+        "organizations": {
+          "type": "array",
+          "description": "A list of current or past organizations with which this person is associated.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "department": {
+                "type": "string",
+                "description": "The department within the organization."
+              },
+              "description": {
+                "type": "string",
+                "description": "A short description of the person's role in this organization."
+              },
+              "endDate": {
+                "type": "string",
+                "description": "The date the person left this organization."
+              },
+              "location": {
+                "type": "string",
+                "description": "The location of this organization."
+              },
+              "name": {
+                "type": "string",
+                "description": "The name of the organization."
+              },
+              "primary": {
+                "type": "boolean",
+                "description": "If \"true\", indicates this organization is the person's primary one (typically interpreted as current one)."
+              },
+              "startDate": {
+                "type": "string",
+                "description": "The date the person joined this organization."
+              },
+              "title": {
+                "type": "string",
+                "description": "The person's job title or role within the organization."
+              },
+              "type": {
+                "type": "string",
+                "description": "The type of organization. Possible values are:  \n- \"work\" - Work. \n- \"school\" - School."
+              }
+            }
+          }
+        },
+        "placesLived": {
+          "type": "array",
+          "description": "A list of places where this person has lived.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "primary": {
+                "type": "boolean",
+                "description": "If \"true\", this place of residence is this person's primary residence."
+              },
+              "value": {
+                "type": "string",
+                "description": "A place where this person has lived. For example: \"Seattle, WA\", \"Near Toronto\"."
+              }
+            }
+          }
+        },
+        "relationshipStatus": {
+          "type": "string",
+          "description": "The person's relationship status. Possible values are:  \n- \"single\" - Person is single. \n- \"in_a_relationship\" - Person is in a relationship. \n- \"engaged\" - Person is engaged. \n- \"married\" - Person is married. \n- \"its_complicated\" - The relationship is complicated. \n- \"open_relationship\" - Person is in an open relationship. \n- \"widowed\" - Person is widowed. \n- \"in_domestic_partnership\" - Person is in a domestic partnership. \n- \"in_civil_union\" - Person is in a civil union."
+        },
+        "tagline": {
+          "type": "string",
+          "description": "The brief description (tagline) of this person."
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL of this person's profile."
+        },
+        "urls": {
+          "type": "array",
+          "description": "A list of URLs for this person.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "primary": {
+                "type": "boolean",
+                "description": "If \"true\", this URL is the person's primary URL."
+              },
+              "type": {
+                "type": "string",
+                "description": "The type of URL. Possible values are:  \n- \"home\" - URL for home. \n- \"work\" - URL for work. \n- \"blog\" - URL for blog. \n- \"profile\" - URL for profile. \n- \"other\" - Other."
+              },
+              "value": {
+                "type": "string",
+                "description": "The URL value."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "resources": {
+    "moments": {
+      "methods": {
+        "insert": {
+          "id": "plus.moments.insert",
+          "path": "{userId}/moments/{collection}",
+          "httpMethod": "POST",
+          "description": "Record a user activity (e.g Bill watched a video on Youtube)",
+          "parameters": {
+            "collection": {
+              "type": "string",
+              "description": "The collection to which to write moments.",
+              "required": true,
+              "enum": [
+                "vault"
+              ],
+              "enumDescriptions": [
+                "All moments written here are private until shared by the user."
+              ],
+              "location": "path"
+            },
+            "debug": {
+              "type": "boolean",
+              "description": "Return the moment as written. Should be used only for debugging.",
+              "location": "query"
+            },
+            "userId": {
+              "type": "string",
+              "description": "The ID of the user to get activities for. The special value \"me\" can be used to indicate the authenticated user.",
+              "required": true,
+              "pattern": "me",
+              "location": "path"
+            }
+          },
+          "parameterOrder": [
+            "userId",
+            "collection"
+          ],
+          "request": {
+            "$ref": "Moment"
+          },
+          "response": {
+            "$ref": "Moment"
+          }
+        }
+      }
+    },
+    "people": {
+      "methods": {
+        "get": {
+          "id": "plus.people.get",
+          "path": "{userId}",
+          "httpMethod": "GET",
+          "description": "Get a person's profile.",
+          "parameters": {
+            "userId": {
+              "type": "string",
+              "description": "The ID of the person to get the profile for. The special value \"me\" can be used to indicate the authenticated user.",
+              "required": true,
+              "location": "path"
+            }
+          },
+          "parameterOrder": [
+            "userId"
+          ],
+          "response": {
+            "$ref": "Person"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/plus.me",
+            "https://www.googleapis.com/auth/userinfo.email"
+          ]
+        }
+      }
+    }
+  }
+}

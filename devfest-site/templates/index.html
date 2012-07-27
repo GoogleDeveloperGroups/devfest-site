@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+  <title>Google+ History API Server Side Starter</title>
+  <!-- Required to render the Google+ sign-in button -->
+  <script src="https://plus.sandbox.google.com/js/plusone.js"></script>
+
+  <!-- jQuery just to make our life a bit easier and prettier -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+  <link rel="stylesheet"
+        href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/start/jquery-ui.css"/>
+
+  <link rel="stylesheet" href="/static/screen.css"/>
+</head>
+<body>
+<header>
+  <h1>Google+ History API Starter</h1>
+
+  <p>server side edition</p>
+</header>
+{% if 'message' in session %}
+<aside>
+  {{session['message']}}
+</aside>
+{% endif %}
+<ol>
+  <li>
+    <h2>Sign in with Google+</h2>
+    {% if 'credentials' in session %}
+    <p>Logged in as {{person['displayName']}}</p>
+    <a href="/signout?state={{session['state']}}">Sign out</a>
+    {% else %}
+    <div id="panel-sign-in">
+      <g:plus action="connect"
+              clientid="{{ APPLICATION_ID }}"
+              redirecturi="http://localhost:5000/oauth2callback"
+              callback="onSignIn" state="{{session['state']}}"></g:plus>
+    </div>
+    {% endif %}
+  </li>
+  <li>
+    <h2>Write moments to Google</h2>
+    {% if 'credentials' in session %}
+    <div id="panel-communicate-moments">
+      <div id="mode-tabs">
+        <ul>
+          <li><a href="#write-sample-moments">Write sample moments</a></li>
+          <li><a href="#write-custom-moments">Write custom moments</a></li>
+        </ul>
+        <div id="write-sample-moments">
+          <h3>Write sample moments</h3>
+          <div id="sample-activity-buttons">
+            <form action='writemoment' method='post'>
+              <input type='hidden' value='{
+  "type":"http://schemas.google.com/AddActivity",
+  "target":{
+  "url":"https://developers.google.com/+/plugins/snippet/examples/thing"
+  }
+}' name='activity-json'/>
+              <button type='submit' class='write-sample' >AddActivity</button>
+            </form>
+          </div>
+        </div>
+        <div id="write-custom-moments">
+          <h3>Write a custom moment</h3>
+          <form action="writemoment" method="post">
+            <label>Specify JSON:
+              <textarea id="custom-json" name="activity-json">{
+  "type":"http://schemas.google.com/AddActivity",
+  "target":{
+    "url":"https://developers.google.com/+/plugins/snippet/examples/thing"
+  }
+}</textarea></label>
+            <button id="custom-json-submit">Write it</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </li>
+  <li>
+    <h2>
+      See Results <a href="https://plus.google.com/history">on
+      Google+</a>
+    </h2>
+  </li>
+</ol>
+<script>
+  // Code that does stuff related to this API
+
+  /**
+   * The simplest (and laziest) possible solution to this callback. In a real
+   * application you would probably want to use AJAX to replace the button with
+   * markup that indicates the signed in state.
+   */
+  function onSignIn() {
+    window.location.reload(true);
+  }
+  // Boring code to make the application pretty and fun
+  $(document).ready(function() {
+    // Load the sampleActivities
+    sampleActivities = {};
+    $.getJSON("static/sampleActivities.json", function(data) {
+      sampleActivities = data;
+      // render button forms
+      $.each(sampleActivities, function(name, body) {
+        var buttonHtml = "<form action='writemoment' method='post'>" +
+                "<input type='hidden' value='" + JSON.stringify(body) + "' name='activity-json'/>" +
+                "<button type='submit' class='write-sample' >" + name + "</button></form>";
+
+        $("#sample-activity-buttons").append(buttonHtml);
+      });
+
+      // pretty the buttons
+      $(".write-sample").button();
+    });
+
+    //jQuery UI make prettyness
+    $("#mode-tabs").tabs();
+    $("button").button();
+  });
+</script>
+</body>
+</html>

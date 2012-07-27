@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Done Signing In</title>
+  {% if credentials %}
+  <script src="https://apis.google.com/js/plusone.js"></script>
+  <script>
+    gapi.load('connect', function() {
+      // Complete the connection and automatically close this window
+      gapi.connect.complete({
+        "id_token":"{{ credentials.id_token|safe }}",
+        "access_token":"{{ credentials.access_token|safe }}",
+        "expires_in": "{{ credentials.expires_in|safe }}",
+        "state": "{{ credentials.state|safe }}"
+      });
+    });
+  </script>
+  {% endif %}
+</head>
+
+<body>
+<!-- Display message in case automatic close fails -->
+<p>Done signing in your account. You can close this window.</p>
+</body>
+</html>
