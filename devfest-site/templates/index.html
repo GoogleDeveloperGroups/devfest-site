@@ -1,0 +1,17 @@
+{% extends "global.html" %}
+{% block head %}
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{ maps_api_key }}&sensor=true"></script>
+{% endblock %}
+
+{% block document_ready %}
+var mapOptions = {
+  center: new google.maps.LatLng(0, 0),
+  zoom: 2,
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+};
+var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+{% endblock %}
+
+{% block content %}
+<div id="map_canvas"></div>
+{% endblock %}

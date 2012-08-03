@@ -1,15 +1,26 @@
-application: pplokijuz
-version: 1
-runtime: python
+application: mygreatapplication
+runtime: python27
 api_version: 1
+version: 1
+threadsafe: true
+
+libraries:
+- name: jinja2
+  version: latest
+
 
 handlers:
-- url: /css
-  static_dir: css
+- url: /css/(.*)
+  static_files: css/\1
+  upload: css/(.*)
 
-- url: /oauth2callback
-  script: oauth2client/appengine.py
+- url: /images/(.*)
+  static_files: images/\1
+  upload: images/(.*)
 
-- url: .*
-  script: main.py
+- url: /.*
+  script: index.app
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: 'settings'
 
