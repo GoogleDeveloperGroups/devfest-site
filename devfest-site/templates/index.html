@@ -1,17 +1,69 @@
-{% extends "global.html" %}
-{% block head %}
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{ maps_api_key }}&sensor=true"></script>
-{% endblock %}
+{% extends "global.html" %} {% block head %}
+<script type="text/javascript"
+	src="http://maps.googleapis.com/maps/api/js?key={{ maps_api_key }}&sensor=true"></script>
+{% endblock %} {% block document_ready %} var mapOptions = { center: new
+google.maps.LatLng(0, 0), zoom: 2, mapTypeId:
+google.maps.MapTypeId.ROADMAP }; var map = new
+google.maps.Map(document.getElementById("map_canvas"), mapOptions); {%
+endblock %} {% block content %}
 
-{% block document_ready %}
-var mapOptions = {
-  center: new google.maps.LatLng(0, 0),
-  zoom: 2,
-  mapTypeId: google.maps.MapTypeId.ROADMAP
-};
-var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-{% endblock %}
 
-{% block content %}
-<div id="map_canvas"></div>
+
+<div class="container">
+
+
+	<div class="hero-unit" style="padding:30px;">	
+		<div id="title">
+		<h1 style="font-size:25px;">Bringing developers together</h1>
+			<div class="plusonec">
+				<div id="___plusone_0">
+					<iframe allowtransparency="true" frameborder="0" hspace="0"
+						marginheight="0" marginwidth="0" scrolling="no"
+						style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; height: 20px; left: 0px; visibility: visible;"
+						tabindex="0" vspace="0" width="100%" id="I0_1344067745842"
+						name="I0_1344067745842"
+						src="https://plusone.google.com/_/+1/fastbutton?bsv=pr&amp;url=https%3A%2F%2Fdevelopers.google.com%2F&amp;size=medium&amp;count=true&amp;source=google%3Adevelopers&amp;origin=https%3A%2F%2Fdevelopers.google.com&amp;hl=en-US&amp;jsh=m%3B%2F_%2Fapps-static%2F_%2Fjs%2Fgapi%2F__features__%2Frt%3Dj%2Fver%3DKApM7FKP_ww.en_GB.%2Fsv%3D1%2Fam%3D!SQxz7F5VozeYIa9SGw%2Fd%3D1%2Frs%3DAItRSTNhzRZSsbymq8qSviERQLiUBugXUA#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Conload&amp;id=I0_1344067745842&amp;parent=https%3A%2F%2Fdevelopers.google.com"
+						title="+1"></iframe>
+				</div>
+			</div>
+		</div>
+		<div id="map_canvas"></div>
+	</div>
+
+	<div class="row">
+		<div class="span4" >
+			<h2 id="xheadings">DevFest</h2>
+			<hr>
+			<p style="text-align:justify">Donec id elit non mi porta gravida at eget metus. Fusce
+				dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+				ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+				magna mollis euismod. Donec sed odio dui.</p>
+			<p>
+				<a class="btn" href="#">View details &raquo;</a>
+			</p>
+		</div>
+		<div class="span4">
+			<h2  id="xheadings"> Google Developer Group</h2>
+			<hr>
+			<p style="text-align:justify">Donec id elit non mi porta gravida at eget metus. Fusce
+				dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+				ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+				magna mollis euismod. Donec sed odio dui.</p>
+			<p>
+				<a class="btn" href="#">View details &raquo;</a>
+			</p>
+		</div>
+		<div class="span4">
+			<h2  id="xheadings">Upcoming Events</h2>
+			<hr>
+			<p style="text-align:justify">Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
+				egestas eget quam. Vestibulum id ligula porta felis euismod semper.
+				Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
+				nibh, ut fermentum massa justo sit amet risus.</p>
+			<p>
+				<a class="btn" href="#">View details &raquo;</a>
+			</p>
+		</div>
+	</div>
+</div>
 {% endblock %}
