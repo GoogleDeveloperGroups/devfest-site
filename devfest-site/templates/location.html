@@ -1,0 +1,19 @@
+{% extends "global.html" %}
+{% block head %}
+{% endblock %}
+
+{% block document_ready %}
+{% endblock %}
+
+{% block content %}
+
+<h1>{{event.city}}<h1>
+<div class="event">
+<img src="{{event.gplus_img_url}}">
+{{event.date}}
+{# TODO show default images for content types}
+{{event.agenda}}
+</div>
+
+
+{% endblock %}

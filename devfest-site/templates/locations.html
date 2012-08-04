@@ -1,0 +1,18 @@
+{% extends "global.html" %}
+{% block head %}
+{% endblock %}
+
+{% block document_ready %}
+{% endblock %}
+
+{% block content %}
+
+{% for event in events %}
+<div class="event">
+<a href="location.html?id={{event.id}}"><img src="{{event.gplus_img_url}}"></a>
+{{event.location}}
+{{event.date}}
+{{event.agenda_description}}
+</div>
+
+{% endblock %}
