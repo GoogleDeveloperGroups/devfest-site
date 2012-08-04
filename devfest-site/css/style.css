@@ -1,9 +1,132 @@
-body { color: #000000; font-family: Arial, Helvetica, sans-serif; font-size: 13px; margin: 0; padding: 0; }
+body {
+	color: #000000;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	margin: 0;
+	padding: 0;
+}
 
-header>h1 { background: #f1f1f1 url('/images/gdg-logo.png') no-repeat 17px 4px; color: #6b6c6c; margin: 0; padding: 26px 104px; }
-header>ul { background-color: #444444; height: 39px; list-style-type: none; margin: 0; overflow: hidden; padding: 0 0 0 44px; }
-header>ul>li { color: #ffffff; font-size: 15px; float: left; line-height: 39px; margin: 0 30px 0 0; padding: 1px 0 0 0; }
-header>ul>li.active { background: url("data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAABgAAAAKCAYAAACuaZ5oAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAH1JREFUeNpi/P//PwORgBmIJ0DZBUD8lyhdIAuIwEJAvP0/AmyHihHUS4zhKkB8+z8muA2Vo8gCeyB++x83eAtVQ5YFOUD88z9h8AeqlmgLmIF48n/SwWSoXrwWoEcmqQAj8omJTFIBSuQTG5mkAnjkwyLzz3/qA3DkAwQYABEvANn67PzPAAAAAElFTkSuQmCC") no-repeat scroll center 32px transparent; font-weight: bold; margin-top: 1px; }
+header .banner {
+	background: #f1f1f1 url(/images/gdd.png) repeat-x 120px 112px;
+	padding: 16px 0 20px 26px;
+	z-index: 0;
+}
 
-body>section { margin: 21px 44px;  }
-#map_canvas { height: 400px; width: 100%; }
+.banner .lines {
+	margin: 0;
+}
+
+.banner #logo img {
+	height: 75px;
+	float: left;
+	margin: 0;
+}
+
+.banner h1 { 
+	font-family: 'Istok Web', sans-serif;
+	color: #6b6c6c;
+	font-size: 6em;
+	padding: 20px;
+	margin-top: 5px;
+	font-weight: bold;
+}
+
+.banner h4 {
+	color: #0099CC;
+	margin-bottom: 10px;
+}
+
+header>ul {
+	background-color: #444444;
+	height: 39px;
+	list-style-type: none;
+	margin: 0;
+	overflow: hidden;
+	padding: 0 0 0 44px;
+}
+
+header>ul>li {
+	color: #ffffff;
+	font-size: 15px;
+	float: left;
+	line-height: 39px;
+	margin: 0 30px 0 0;
+	padding: 1px 0 0 0;
+}
+
+header>ul>li.active {
+	background:
+		url("data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAABgAAAAKCAYAAACuaZ5oAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAH1JREFUeNpi/P//PwORgBmIJ0DZBUD8lyhdIAuIwEJAvP0/AmyHihHUS4zhKkB8+z8muA2Vo8gCeyB++x83eAtVQ5YFOUD88z9h8AeqlmgLmIF48n/SwWSoXrwWoEcmqQAj8omJTFIBSuQTG5mkAnjkwyLzz3/qA3DkAwQYABEvANn67PzPAAAAAElFTkSuQmCC")
+		no-repeat scroll center 32px transparent;
+	font-weight: bold;
+	margin-top: 1px;
+}
+
+body>section {
+	margin: 21px 44px;
+}
+
+#map_canvas {
+	height: 400px;
+	width: 100%;
+}
+
+#title {
+	width: 100%;
+	padding: 0;
+}
+
+#xheadings{
+	font-family: "open sans", Arial;
+	font-size:20px;
+}
+
+.plusonec {
+	float: left;
+	margin: 5px 0 0 10px;
+}
+
+#title h1 {
+	float: left;
+	margin-bottom: 30px; font-weight : normal;
+	font-family: "open sans", Arial;
+	font-weight: normal;
+}
+
+
+
+#footer {
+	overflow: hidden;
+	zoom: 1px;
+	background-color: #444444;
+	color:#fff;
+	font-size:12px;
+	padding:6px;
+	min-height: 20px;
+}
+
+#footmenu {
+	padding:10px;
+	float: left;
+	width: 75%;
+}
+
+#footmenu>ul{
+	display: block;
+	list-style:none;
+}
+
+#footmenu>ul>li{
+	display:inline;
+
+}
+
+#footmenu>ul>li a{
+	color:#fff;
+	margin-left:20px;
+}
+
+#copyright{
+    padding:10px;
+	float:left;
+}
