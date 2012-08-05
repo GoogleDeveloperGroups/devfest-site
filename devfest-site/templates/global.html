@@ -15,7 +15,7 @@
     
  <!-- CSS --> 
  	 <link href="/css/base.css" rel="stylesheet" type="text/css" />
- 	 <link href="/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />  
+ 	 <link href="/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />  
  	 <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />  
      <link href="/css/style.css" rel="stylesheet" type="text/css" />
 	<link href='http://fonts.googleapis.com/css?family=Istok+Web:400,700|Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
@@ -38,10 +38,11 @@
       <h4>Engage, Learn & Share with the Google Developer Community</h4>
       </div>
       <ul>
-        <li class="active">Home</li>
+        <li class="active"><a href="/">Home</a></li>
         <li>About</li>
-        <li>Locations</li>
+        <li><a href="/location">Locations</a></li>
       </ul>
+	{% block subnav %}{% endblock %}   
     </header>
     <section>
       {% block content %}{% endblock %}
