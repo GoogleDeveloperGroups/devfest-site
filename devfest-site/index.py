@@ -8,7 +8,7 @@ from pages.LoginPage import *
 app = webapp2.WSGIApplication([
                               ('^/login$', LoginPage),
                               ('^/$', StartPage),
-                              ('^/location$', EventPage),
+                              ('^/location/(.*)$', EventPage),
                               ],
                               debug=True)
 

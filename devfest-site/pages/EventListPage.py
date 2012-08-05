@@ -7,6 +7,6 @@ class StartPage(FrontendPage):
     user = users.get_current_user()
     self.template = 'locations'
 
-    interestedEvents = Event.gql("WHERE status='interested'")
-    plannedEvents = Event.gql("WHERE status='planned'")
-    confirmedEvents = Event.gql("WHERE status='confirmed'")
+    interestedEvents = Event.all().filter('status =', 'interested')
+    plannedEvents = Event.all().filter('status =', 'planned')
+    confirmedEvents = Event.all().filter('status =', 'confirmed')
