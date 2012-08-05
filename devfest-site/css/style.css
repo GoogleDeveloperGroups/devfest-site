@@ -130,3 +130,69 @@ body>section {
     padding:10px;
 	float:left;
 }
+
+
+.event .eventtype{
+padding:10px;
+margin-bottom:30px;	
+}
+
+.event .eventtype .gdglogo{
+	width:250px;
+	height:250px;
+}
+
+
+#event-list-container .event-column {
+	float: left;
+	width: 45%;
+	margin-left: 20px;
+	font-family: "open sans", sans-serif;
+}
+
+#event-list-container .event-column .event-no-bullets {
+	list-style-type: none;
+	margin-left: -20px;
+	padding: 1em;
+	padding-left: 2em;
+}
+
+#event-list-container .event-column .event-no-bullets .event-pl {
+	margin-bottom: 40px;
+}
+
+#event-list-container .event-column .event-no-bullets a {
+	color: #15c;
+}
+
+.thin-line {
+	height: 0;
+	border: 0;
+	border-top: 1px solid #CCC;
+	background-color: #CCC;
+	margin: 1em 0;
+	clear: both;
+}
+
+.icon-event {
+	float:left;
+	width: 48px;
+	height: 56px;
+	margin:-1em 0 0 0;
+	padding:10px;
+}
+
+.icon-event-barcamp{
+	background-image: url("../images/icons/barcamp-icon.png");
+	background-repeat: no-repeat
+}
+	
+.icon-event-hack{
+	background-image: url("../images/icons/hack-icon.png");
+	background-repeat: no-repeat
+}
+
+.icon-event-conf{
+	background-image: url("../images/icons/conf-icon.png");
+	background-repeat: no-repeat
+}

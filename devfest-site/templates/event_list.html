@@ -1,18 +1,137 @@
-{% extends "global.html" %}
-{% block head %}
-{% endblock %}
+{% extends "global.html" %} 
+{% block head %} 
+{% endblock %} 
 
-{% block document_ready %}
-{% endblock %}
+{% block document_ready %} 
+{% endblock %} 
 
 {% block content %}
+<!-- Replace Static Data with variables -->
+<div class="container-fluid">
 
-{% for event in events %}
-<div class="event">
-<a href="location.html?id={{event.id}}"><img src="{{event.gplus_img_url}}"></a>
-{{event.location}}
-{{event.date}}
-{{event.agenda_description}}
+	<div class="row">
+		<div id="title">
+			<h1 style="font-size: 25px; float: none; margin-bottom: 10px">DevFest
+				around the world !</h1>
+		</div>
+		<hr class="thin-line">
+	</div>
+	<div class="span3">
+		<div class="row">
+			<span style="margin-left: 5px"> <img src="images/gdgbig.png">
+
+			</span>
+		</div>
+	</div>
+	<div id="event-list-container">
+		<div class="span12">
+			<div class="row">
+				
+				<div class="event-column">
+					<!-- First Column - Place For Loop here -->
+					<ul class="event-no-bullets">
+						<li>
+							<div class="row span4">
+							<!-- Country Name -->
+								<h3>Armenia</h3>
+								<ul class="event-no-bullets">
+									<li>
+									<!-- Type of Event- Use <i> tag and class icon-event-* -->
+									<i class="icon-event icon-event-barcamp"></i>
+										<h4>
+										<!--  GDG Chapter Name & link to event details -->
+											<a href="#">GDG
+												Armenia</a>
+										</h4>
+										<!-- Event Address & Date -->
+										<h5>Tower Center, Armenia</h5>
+										<h6>21 September</h6></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				
+				<!-- To show multiple GDG under <ul> -->
+					<ul class="event-no-bullets">
+						<li>
+							<div class="row span5">
+								<h3>Australia</h3>
+								<ul class="event-no-bullets">
+									<li class="event-pl"><i class="icon-event icon-event-conf"></i>
+										<h4>
+											<a href="#">GDG
+												Melbourne</a>
+										</h4>
+										<h5>Tower Center, Melbourne</h5>
+										<h6>22 September</h6></li>
+										
+								<!-- Multiple GDG listing using <li> -->
+									<li class="event-pl"><i class="icon-event icon-event-conf"></i><i
+										class="icon-event icon-event-hack"></i>
+										<h4>
+											<a href="#">GDG
+												Sydney</a>
+										</h4>
+										<h5>Tower Center, Sydney</h5>
+										<h6>25 September</h6></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- End of First Column -->
+				
+				<!-- Second Column - Place For Loop here , you need to divide the data -->
+				<div class="event-column">
+					<ul class="event-no-bullets">
+						<li>
+							<div class="row span4">
+								<h3>India</h3>
+								<ul class="event-no-bullets">
+									<li><i class="icon-event icon-event-conf"></i><i class="icon-event icon-event-barcamp"></i>
+										<h4>
+											<a href="#">GDG
+												New Delhi</a>
+										</h4>
+										<h5>Tower Center, New Delhi</h5>
+										<h6>21 September</h6></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+
+					<ul class="event-no-bullets">
+						<li>
+							<div class="row span5">
+								<h3>USA</h3>
+								<ul class="event-no-bullets">
+									<li class="event-pl"><i
+										class="icon-event icon-event-hack"></i>
+										<h4>
+											<a href="#">GDG
+												Silicon Valley</a>
+										</h4>
+										<h5>Tower Center, San Francisco</h5>
+										<h6>22 September</h6></li>
+
+									<li class="event-pl"><i class="icon-event icon-event-conf"></i><i class="icon-event icon-event-barcamp"></i>
+										<h4>
+											<a href="#">GDG
+												Moutain View</a>
+										</h4>
+										<h5>Tower Center, Mountain View</h5>
+										<h6>25 September</h6></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+				<!-- End of Second Column -->
+				
+			</div>
+		</div>
+	</div>
 </div>
 
 {% endblock %}
