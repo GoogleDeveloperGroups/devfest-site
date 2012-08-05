@@ -4,11 +4,13 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from pages.StartPage import *
 from pages.LoginPage import *
+from pages.EventPages import *
 
 app = webapp2.WSGIApplication([
                               ('^/login$', LoginPage),
                               ('^/$', StartPage),
-                              ('^/location/(.*)$', EventPage),
+                              ('^/events$', EventListPage),
+                              ('^/event/(.*)$', EventPage),
                               ],
                               debug=True)
 
