@@ -6,6 +6,10 @@ body {
 	padding: 0;
 }
 
+.btn{
+	color:#444;
+}
+
 header .banner {
 	background: #e1e1e1 url(/images/gdd.png) repeat-x 120px 112px;
 	padding: 16px 0 20px 26px;
@@ -22,7 +26,7 @@ header .banner {
 	margin: 0;
 }
 
-.banner h1 { 
+.banner h1 {
 	font-family: 'Istok Web', sans-serif;
 	color: #6b6c6c;
 	font-size: 6em;
@@ -54,6 +58,11 @@ header>ul>li {
 	padding: 1px 0 0 0;
 }
 
+header>ul>li a{
+	color: #ffffff;
+}
+
+
 header>ul>li.active {
 	background:
 		url("data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAABgAAAAKCAYAAACuaZ5oAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAH1JREFUeNpi/P//PwORgBmIJ0DZBUD8lyhdIAuIwEJAvP0/AmyHihHUS4zhKkB8+z8muA2Vo8gCeyB++x83eAtVQ5YFOUD88z9h8AeqlmgLmIF48n/SwWSoXrwWoEcmqQAj8omJTFIBSuQTG5mkAnjkwyLzz3/qA3DkAwQYABEvANn67PzPAAAAAElFTkSuQmCC")
@@ -76,9 +85,9 @@ body>section {
 	padding: 0;
 }
 
-#xheadings{
+#xheadings {
 	font-family: "open sans", Arial;
-	font-size:20px;
+	font-size: 20px;
 }
 
 .plusonec {
@@ -88,60 +97,56 @@ body>section {
 
 #title h1 {
 	float: left;
-	margin-bottom: 30px; font-weight : normal;
+	margin-bottom: 30px;
+	font-weight: normal;
 	font-family: "open sans", Arial;
 	font-weight: normal;
 }
-
-
 
 #footer {
 	overflow: hidden;
 	zoom: 1px;
 	background-color: #444444;
-	color:#fff;
-	font-size:12px;
-	padding:6px;
+	color: #fff;
+	font-size: 12px;
+	padding: 6px;
 	min-height: 20px;
 }
 
 #footmenu {
-	padding:10px;
+	padding: 10px;
 	float: left;
 	width: 75%;
 }
 
-#footmenu>ul{
+#footmenu>ul {
 	display: block;
-	list-style:none;
+	list-style: none;
 }
 
-#footmenu>ul>li{
-	display:inline;
-
+#footmenu>ul>li {
+	display: inline;
 }
 
-#footmenu>ul>li a{
-	color:#fff;
-	margin-left:20px;
+#footmenu>ul>li a {
+	color: #fff;
+	margin-left: 20px;
 }
 
-#copyright{
-    padding:10px;
-	float:left;
+#copyright {
+	padding: 10px;
+	float: left;
 }
 
-
-.event .eventtype{
-padding:10px;
-margin-bottom:30px;	
+.event .eventtype {
+	padding: 10px;
+	margin-bottom: 30px;
 }
 
-.event .eventtype .gdglogo{
-	width:250px;
-	height:250px;
+.event .eventtype .gdglogo {
+	width: 250px;
+	height: 250px;
 }
-
 
 #event-list-container .event-column {
 	float: left;
@@ -175,24 +180,24 @@ margin-bottom:30px;
 }
 
 .icon-event {
-	float:left;
+	float: left;
 	width: 48px;
 	height: 56px;
-	margin:-1em 0 0 0;
-	padding:10px;
+	margin: -1em 0 0 0;
+	padding: 10px;
 }
 
-.icon-event-barcamp{
+.icon-event-barcamp {
 	background-image: url("../images/icons/barcamp-icon.png");
 	background-repeat: no-repeat
 }
-	
-.icon-event-hack{
+
+.icon-event-hack {
 	background-image: url("../images/icons/hack-icon.png");
 	background-repeat: no-repeat
 }
 
-.icon-event-conf{
+.icon-event-conf {
 	background-image: url("../images/icons/conf-icon.png");
 	background-repeat: no-repeat
 }
