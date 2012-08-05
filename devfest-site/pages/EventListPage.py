@@ -1,6 +1,6 @@
 from lib.view import FrontendPage
 from google.appengine.api import users
-from datamodel import Event
+from lib.model import Event
 
 class StartPage(FrontendPage):
   def show(self):
