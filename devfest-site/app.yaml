@@ -10,6 +10,10 @@ libraries:
 
 
 handlers:
+- url: /js/(.*)
+  static_files: js/\1
+  upload: js/(.*)
+
 - url: /css/(.*)
   static_files: css/\1
   upload: css/(.*)
