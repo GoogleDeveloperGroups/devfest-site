@@ -1,6 +1,6 @@
 from google.appengine.ext import db
 
-class Event (db.Model):    
+class Event(db.Model):    
   gplus_id = db.StringProperty()
   gplus_img_url = db.StringProperty()
   gplus_event_url = db.StringProperty()
@@ -9,7 +9,7 @@ class Event (db.Model):
   city = db.StringProperty()
   country = db.StringProperty()
   geo_location = db.GeoPtProperty()
-  agenda = db.StringListProperty (choices=set(["Conference", "Hackathon/VHackAndroid", "Barcamp", "Google Developer Live sessions"]))
+  agenda = db.StringListProperty(choices=set(["Conference", "Hackathon/VHackAndroid", "Barcamp", "Google Developer Live sessions"]))
   agenda_description = db.StringProperty()
     
 class UserGroup(db.Model):
@@ -25,7 +25,7 @@ class UserSettings(db.Model):
   default_zoom = db.IntegerProperty(default=13)
   admin_user_group = db.ReferenceProperty(UserGroup)
   
-class Sponsor (db.Model):
+class Sponsor(db.Model):
   gplus_id = db.StringProperty()
   img_url = db.StringProperty()
   event = db.ReferenceProperty()
