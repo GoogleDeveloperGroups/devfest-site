@@ -73,7 +73,7 @@ class EventListPage(FrontendPage):
     user = users.get_current_user()
     self.template = 'event_list'
 
-    self.values['events'] = CEventList().get()
+    self.values['events'] = CEventList()
 
     interested_events = Event.all().filter('status =', 'interested')
     planned_events = Event.all().filter('status =', 'planned')
