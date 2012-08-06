@@ -3,6 +3,7 @@ from google.appengine.api import memcache
 from google.appengine.ext import db, search
 from google.appengine.datastore import entity_pb
 from lib.model import Event
+import math
 import pickle
 
 class CachedObject():
@@ -78,6 +79,30 @@ class CEventList(OCachedObject):
 
   def get(self):
     return self.entity_collection
+
+  def get_first_half(self):
+    length = len(self.entity_collection)
+    half_length = int(math.ceil(length/2))
+    return_value = {}
+    i = 0
+    for key in self.entity_collection:
+      if i < half_length:
+        return_value[key] = self.entity_collection[key]
+      i = i+1
+
+    return return_value
+
+  def get_second_half(self):
+    length = len(self.entity_collection)
+    half_length = int(math.ceil(length/2))
+    return_value = {}
+    i = 0
+    for key in self.entity_collection:
+      if i >= half_length:
+        return_value[key] = self.entity_collection[key]
+      i = i+1
+
+    return return_value
 
 class CEvent(CachedObject):
   def __init__(self, event_id):
