@@ -1,6 +1,27 @@
 from lib.view import FrontendPage
 from google.appengine.api import users
 from lib.model import Event
+from lib.forms import EventForm
+
+class EventCreatePage(FrontendPage):
+  def show(self):
+    form = EventForm()
+    self.values['form'] = form
+    self.template = 'event_create'
+
+  def show_post(self):
+    form = EventForm(self.request.POST)
+    
+    if form.validate():
+      event = Event()
+      event.gplus_event_url = self.request.get('gplus_event_url')
+      event.location = self.request.get('location')
+      event.status = self.request.get('status')
+      event.agenda = self.request.get_all('agenda')
+      event.put()
+      self.values['created_successful'] = True
+    self.values['form'] = form
+    self.template = 'event_create'
 
 class EventPage(FrontendPage):
   def show(self, *paths):
