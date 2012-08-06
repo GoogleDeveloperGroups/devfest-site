@@ -1,0 +1,30 @@
+{% extends "global.html" %}
+
+{% macro with_errors(field) %}
+  <div class="form_field">
+  {{ field.label }}
+  {% if field.errors %}
+    <ul class="errors">{% for error in field.errors %}<li>{{ error|e }}</li>{% endfor %}</ul>
+    {% set css_class = 'has_error ' + kwargs.pop('class', '') %}
+    {{ field(class=css_class, **kwargs) }}
+  {% else %}
+    {{ field(**kwargs) }}
+  {% endif %}
+  </div>
+{% endmacro %}
+
+{% block content %}
+
+{% if created_successful %}
+Successful.
+{% endif %}
+<form method="post">
+  {{ with_errors(form.gplus_event_url) }}
+  {{ with_errors(form.location) }}
+  {{ with_errors(form.status) }}
+  {{ with_errors(form.agenda) }}
+  <div>
+    <input type="submit" />
+  </div>
+</form>
+{% endblock %}
