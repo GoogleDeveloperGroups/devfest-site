@@ -201,3 +201,8 @@ body>section {
 	background-image: url("../images/icons/conf-icon.png");
 	background-repeat: no-repeat
 }
+
+.icon-event-live {
+	background-image: url("../images/icons/live-icon.png");
+	background-repeat: no-repeat
+}
