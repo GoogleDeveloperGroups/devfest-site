@@ -4,6 +4,7 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from lib.model import Event
 from lib.forms import EventForm
+from lib.cobjects import CEventList, CEvent
 import urllib
 import json
 
@@ -42,13 +43,13 @@ class EventCreatePage(FrontendPage):
 
     if result.status_code == 200:
       data = json.loads(result.content)
-      if data.has_key('results') and len(data['results']) > 0:
+      if 'results' in data and len(data['results']) > 0:
         event_location = data['results'][0]
-        if event_location.has_key('geometry') and event_location['geometry'].has_key('location'):
+        if 'geometry' in event_location and 'location' in event_location['geometry']:
           lat = event_location['geometry']['location']['lat']
           long = event_location['geometry']['location']['lng']
 
-        if event_location.has_key('address_components'):
+        if 'address_components' in event_location:
           for component in event_location['address_components']:
             print component
             if "locality" in component['types']:
@@ -72,6 +73,8 @@ class EventListPage(FrontendPage):
     user = users.get_current_user()
     self.template = 'event_list'
 
-    interestedEvents = Event.all().filter('status =', 'interested')
-    plannedEvents = Event.all().filter('status =', 'planned')
-    confirmedEvents = Event.all().filter('status =', 'confirmed')
+    self.values['events'] = CEventList().get()
+
+    interested_events = Event.all().filter('status =', 'interested')
+    planned_events = Event.all().filter('status =', 'planned')
+    confirmed_events = Event.all().filter('status =', 'confirmed')
