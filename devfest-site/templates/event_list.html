@@ -48,10 +48,10 @@
                       {% if '4' in event.agenda %}
                         <i class="icon-event icon-event-live"></i>
                       {% endif %}
-										<h4><a href="#">GDG {{ event.city }}</a></h4>
+                    <h4><a href="/event/{{ event.id }}">GDG {{ event.city }}</a></h4>
 										<!-- Event Address & Date -->
                     <h5>{{ event.location }}</h5>
-                    <h6>21 September</h6>
+                    <h6>{{ event.eventdate  }}</h6>
                   </li>
                   {% endfor %}
 								</ul>
@@ -82,10 +82,10 @@
                       {% if '4' in event.agenda %}
                         <i class="icon-event icon-event-live"></i>
                       {% endif %}
-										<h4><a href="#">GDG {{ event.city }}</a></h4>
+                    <h4><a href="/event/{{ event.id }}">GDG {{ event.city }}</a></h4>
 										<!-- Event Address & Date -->
                     <h5>{{ event.location }}</h5>
-                    <h6>21 September</h6>
+                    <h6>{{ event.eventdate  }}</h6>
                   </li>
                   {% endfor %}
 								</ul>
