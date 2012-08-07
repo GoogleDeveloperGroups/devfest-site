@@ -1,6 +1,5 @@
 import webapp2
 import jinja2
-from google.appengine.api import users
 import json
 
 try:
@@ -47,6 +46,7 @@ class FrontendPage(Page):
   def pre_output(self):
     self.template = ''
     self.values = {}
+    self.settings = settings
     self.values['current_date'] = datetime.datetime.now().strftime("%B %d, %Y %H:%M")
     self.values['maps_api_key'] = settings.MAPS_API_KEY
 
