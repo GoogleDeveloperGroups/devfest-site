@@ -64,9 +64,10 @@ class EventPage(FrontendPage):
     user = users.get_current_user()
     self.template = 'single_event'
     
-    raw_id = paths[0]
-    id = int(raw_id)
-    event = Event.get_by_id(id)
+    event_id = paths[0]
+    self.values['event'] = CEvent(event_id).get()
+    print 'test'
+    print self.values['event']
 
 class EventListPage(FrontendPage):
   def show(self):
