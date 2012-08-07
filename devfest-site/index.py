@@ -7,6 +7,7 @@ from pages.LoginPage import *
 from pages.EventPages import *
 
 app = webapp2.WSGIApplication([
+                              ('^/logout$', LogoutPage),
                               ('^/login$', LoginPage),
                               ('^/$', StartPage),
                               ('^/event/create$', EventCreatePage),
@@ -14,4 +15,3 @@ app = webapp2.WSGIApplication([
                               ('^/event/(.*)$', EventPage),
                               ],
                               debug=True)
-
