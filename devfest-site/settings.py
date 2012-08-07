@@ -1,3 +1,9 @@
 import os
 
 MAPS_API_KEY=None
+
+DOCSAPI_CONSUMER_KEY = None
+DOCSAPI_CONSUMER_SECRET = None
+DOCSAPI_SCOPES = ['https://spreadsheets.google.com/feeds/']
+DOCSAPI_SPREADSHEET_ID = '0Auc0VI3Sdz3JdDhTUzFOS3dRb0pwRmd6bUlzc2hJelE'
+DOCSAPI_SPREADSHEET_WORKSHEET_ID = 'od6'
