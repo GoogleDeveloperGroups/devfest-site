@@ -1,6 +1,7 @@
 from google.appengine.ext import db
 
-class Event(db.Model):    
+class Event(db.Model):
+  user = db.UserProperty()
   gplus_id = db.StringProperty()
   gplus_img_url = db.StringProperty()
   gplus_event_url = db.StringProperty()
@@ -9,6 +10,8 @@ class Event(db.Model):
   city = db.StringProperty()
   country = db.StringProperty()
   geo_location = db.GeoPtProperty()
+  start = db.DateTimeProperty()
+  end = db.DateTimeProperty()
   agenda = db.StringListProperty()
   agenda_description = db.StringProperty()
     
