@@ -31,7 +31,7 @@
 					<ul class="event-no-bullets">
 						<li>
 							<div class="row span4">
-                <h3>{{ country}}</h3>
+                <h3>{{ country }}</h3>
                 <ul class="event-no-bullets">
                   {% for event in events %}
                   <li>
@@ -48,10 +48,10 @@
                       {% if '4' in event.agenda %}
                         <i class="icon-event icon-event-live"></i>
                       {% endif %}
-                    <h4><a href="/event/{{ event.id }}">GDG {{ event.city }}</a></h4>
+                    <h4><a href="/event/{{ event.key() }}">GDG {{ event.city }}</a></h4>
 										<!-- Event Address & Date -->
                     <h5>{{ event.location }}</h5>
-                    <h6>{{ event.eventdate  }}</h6>
+                    <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
                   </li>
                   {% endfor %}
 								</ul>
@@ -65,7 +65,7 @@
 					<ul class="event-no-bullets">
 						<li>
 							<div class="row span4">
-                <h3>{{ country}}</h3>
+                <h3>{{ country }}</h3>
                 <ul class="event-no-bullets">
                   {% for event in events %}
                   <li>
@@ -82,10 +82,10 @@
                       {% if '4' in event.agenda %}
                         <i class="icon-event icon-event-live"></i>
                       {% endif %}
-                    <h4><a href="/event/{{ event.id }}">GDG {{ event.city }}</a></h4>
+                    <h4><a href="/event/{{ event.key.id }}">GDG {{ event.city }}</a></h4>
 										<!-- Event Address & Date -->
                     <h5>{{ event.location }}</h5>
-                    <h6>{{ event.eventdate  }}</h6>
+                    <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
                   </li>
                   {% endfor %}
 								</ul>
