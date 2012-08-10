@@ -5,16 +5,25 @@ from google.appengine.ext import db
 from lib.model import Event
 from lib.forms import EventForm
 from lib.cobjects import CEventList, CEvent
+from datetime import datetime
 import urllib
 import json
 
 class EventCreatePage(FrontendPage):
   def show(self):
+    user = users.get_current_user()
+    if not user:
+      return self.redirect(users.create_login_url("/event/create"))
+
     form = EventForm()
     self.values['form'] = form
     self.template = 'event_create'
 
   def show_post(self):
+    user = users.get_current_user()
+    if not user:
+      return self.redirect(users.create_login_url("/event/create"))
+
     form = EventForm(self.request.POST)
     
     if form.validate():
@@ -23,11 +32,14 @@ class EventCreatePage(FrontendPage):
       event.location = self.request.get('location')
       lat, long, city, country = self.get_geolocation(self.request.get('location'))
 
+      event.user = user
       event.city = city
       event.country = country
       event.geo_location = db.GeoPt(lat, long)
       event.status = self.request.get('status')
       event.agenda = self.request.get_all('agenda')
+      event.start = datetime.strptime(self.request.get('start'), '%Y-%m-%d %H:%M')
+      event.end = datetime.strptime(self.request.get('end'), '%Y-%m-%d %H:%M')
       event.put()
       self.values['created_successful'] = True
     self.values['form'] = form
@@ -66,8 +78,6 @@ class EventPage(FrontendPage):
     
     event_id = paths[0]
     self.values['event'] = CEvent(event_id).get()
-    print 'test'
-    print self.values['event']
 
 class EventListPage(FrontendPage):
   def show(self):
