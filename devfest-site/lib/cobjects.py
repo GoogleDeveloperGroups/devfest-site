@@ -10,6 +10,7 @@ from google.appengine.api import memcache
 from google.appengine.ext import db, search
 from google.appengine.datastore import entity_pb
 from lib.model import Event
+import datetime
 import math
 import pickle
 
@@ -162,3 +163,18 @@ class CEvent(CachedObject):
 
   def get(self):
     return self.entity_collection
+
+
+class CEventScheduleList(CachedObject):
+  def __init__(self):
+    self.cache_key = "EventScheduleList"
+    self.entity_collection = []
+    self.max_time = 10
+    CachedObject.__init__(self)
+
+  def load_from_db(self):
+    self.entity_collection = Event.all().filter('start >=', datetime.datetime.now()).order('start')
+
+  def get(self):
+    return self.entity_collection
+

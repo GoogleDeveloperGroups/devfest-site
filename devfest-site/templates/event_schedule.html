@@ -1,0 +1,12 @@
+{% extends "global.html" %} 
+{% block head %} 
+{% endblock %} 
+
+{% block document_ready %} 
+{% endblock %} 
+
+{% block content %}
+  {% for event in events %}
+    {{ event.start }} {{ event.city }}
+  {% endfor %}
+{% endblock %}

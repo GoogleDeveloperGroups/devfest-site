@@ -4,10 +4,15 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from lib.model import Event
 from lib.forms import EventForm
-from lib.cobjects import CEventList, CEvent
+from lib.cobjects import CEventList, CEvent, CEventScheduleList
 from datetime import datetime
 import urllib
 import json
+
+class EventSchedulePage(FrontendPage):
+  def show(self):
+    self.template = 'event_schedule'
+    self.values['events'] = CEventScheduleList().get()
 
 class EventCreatePage(FrontendPage):
   def show(self):

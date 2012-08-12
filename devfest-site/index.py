@@ -12,6 +12,7 @@ app = webapp2.WSGIApplication([
                               ('^/$', StartPage),
                               ('^/event/create$', EventCreatePage),
                               ('^/events$', EventListPage),
+                              ('^/events/schedule$', EventSchedulePage),
                               ('^/event/(.*)$', EventPage),
                               ],
                               debug=True)
