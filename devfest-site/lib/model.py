@@ -3,8 +3,7 @@ from google.appengine.api import users
 
 class Event(db.Model):
   user = db.ListProperty(users.User)
-  gplus_id = db.StringProperty()
-  gplus_img_url = db.StringProperty()
+  gdg_chapters = db.StringListProperty()
   gplus_event_url = db.StringProperty()
   status = db.StringProperty()
   location = db.StringProperty()
@@ -16,6 +15,10 @@ class Event(db.Model):
   end = db.DateTimeProperty()
   agenda = db.StringListProperty()
   agenda_description = db.StringProperty()
+  technologies = db.StringListProperty()
+  kind_of_support = db.TextProperty()
+  expected_participants = db.StringProperty()
+  subdomain = db.StringProperty()
     
 class UserGroup(db.Model):
   gplus_id = db.StringProperty(required=True)

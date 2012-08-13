@@ -60,6 +60,9 @@ class EventUploadPage(UploadPage):
       event.agenda = self.request.get_all('agenda')
       event.start = datetime.strptime(self.request.get('start'), '%Y-%m-%d %H:%M')
       event.end = datetime.strptime(self.request.get('end'), '%Y-%m-%d %H:%M')
+      event.technologies = self.request.get_all('technologies')
+      event.gdg_chapters = self.request.get('gdg_chapters').split(',')
+      event.kind_of_support = self.request.get('kind_of_support')
       event.put()
       self.values['created_successful'] = True
     self.values['form'] = form

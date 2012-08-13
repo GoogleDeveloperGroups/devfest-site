@@ -1,4 +1,4 @@
-from wtforms import Form, TextField, SelectField, SelectMultipleField, DateTimeField, FileField, widgets, validators
+from wtforms import Form, TextField, TextAreaField, SelectField, SelectMultipleField, DateTimeField, FileField, widgets, validators
 from wtforms.ext.appengine.db import model_form
 from lib.model import Event
 
@@ -11,6 +11,10 @@ class EventForm(Form):
   location = TextField('Location', [validators.Length(min=3), validators.Required()])
   status = SelectField('Status', choices=[('1', 'interested'), ('2', 'planned'), ('3', 'confirmed')])
   logo = FileField('Logo')
-  agenda = MultiCheckboxField('Agenda', choices=[('1', '<img src="\images/icons/conf-icon.png">Conference'), ('2', '<img src="\images/icons/hack-icon.png"> Hackathon/VHackAndroid'), ('3', '<img src="\images/icons/barcamp-icon.png"> Barcamp'), ('4', '<img src="\images/icons/gdl-icon.png"> Google Developer Live sessions'),('5', '<img src="\images/icons/others-icon.png"> Others')])
+  agenda = MultiCheckboxField('Agenda', choices=[('1', '<img src="\images/icons/conf-icon.png"> Conference'), ('2', '<img src="\images/icons/hack-icon.png"> Hackathon/VHackAndroid'), ('3', '<img src="\images/icons/barcamp-icon.png"> Barcamp'), ('4', '<img src="\images/icons/gdl-icon.png"> Google Developer Live sessions'),('5', '<img src="\images/icons/others-icon.png"> Others')])
   start = DateTimeField('Start', format="%Y-%m-%d %H:%M")
   end = DateTimeField('End', format="%Y-%m-%d %H:%M")
+  gdg_chapters = TextField('GDG Chapters', [validators.Required()], description='Comma seperated list')
+  technologies = MultiCheckboxField('What products, technologies you propose to cover in the event', choices=[('Android', 'Android'), ('Chrome', 'Chrome'), ('Google+', 'Google+'), ('App Engine', 'App Engine'), ('Games', 'Games'), ('Google Maps', 'Google Maps'), ('Google Apps', 'Google Apps'), ('Google TV', 'Google TV'), ('Commerce', 'Commerce'), ('Youtube', 'Youtube'), ('Other', 'Other')])
+  kind_of_support = TextAreaField('What kind of support you expect for this event?', [validators.Required()])
+  subdomain = TextField('Preferred subdomain for the event website')
