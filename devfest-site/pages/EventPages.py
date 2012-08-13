@@ -37,10 +37,7 @@ class EventUploadPage(UploadPage):
       return self.redirect(users.create_login_url("/event/create"))
 
     form = EventForm(self.request.POST)
-    upload_files = self.get_uploads('logo')
-    blob_info = []
-    if len(upload_files) > 0:
-      blob_info = upload_files[0]
+
     self.values['form_url'] = blobstore.create_upload_url('/event/upload')
 
     if form.validate():
@@ -53,8 +50,12 @@ class EventUploadPage(UploadPage):
       event.city = city
       event.country = country
       event.geo_location = db.GeoPt(lat, long)
-      if blob_info:
+
+      upload_files = self.get_uploads('logo')
+      if len(upload_files) > 0:
+        blob_info = upload_files[0]
         event.logo = '%s' % blob_info.key()
+
       event.status = self.request.get('status')
       event.agenda = self.request.get_all('agenda')
       event.start = datetime.strptime(self.request.get('start'), '%Y-%m-%d %H:%M')
