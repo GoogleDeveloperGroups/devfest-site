@@ -1,6 +1,8 @@
 from lib.view import FrontendPage
+from lib.view import UploadPage
 from google.appengine.api import urlfetch
 from google.appengine.api import users
+from google.appengine.ext import blobstore
 from google.appengine.ext import db
 from lib.model import Event
 from lib.forms import EventForm
@@ -22,15 +24,20 @@ class EventCreatePage(FrontendPage):
 
     form = EventForm()
     self.values['form'] = form
+    self.values['form_url'] = blobstore.create_upload_url('/event/upload')
     self.template = 'event_create'
 
+class EventUploadPage(UploadPage):
   def show_post(self):
     user = users.get_current_user()
     if not user:
       return self.redirect(users.create_login_url("/event/create"))
 
     form = EventForm(self.request.POST)
-    
+    upload_files = self.get_uploads('logo')
+    blob_info = upload_files[0]
+    self.values['form_url'] = blobstore.create_upload_url('/event/upload')
+
     if form.validate():
       event = Event()
       event.gplus_event_url = self.request.get('gplus_event_url')
@@ -41,6 +48,7 @@ class EventCreatePage(FrontendPage):
       event.city = city
       event.country = country
       event.geo_location = db.GeoPt(lat, long)
+      event.logo = '%s' % blob_info.key()
       event.status = self.request.get('status')
       event.agenda = self.request.get_all('agenda')
       event.start = datetime.strptime(self.request.get('start'), '%Y-%m-%d %H:%M')
