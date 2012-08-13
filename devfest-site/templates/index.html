@@ -4,13 +4,14 @@
 {% endblock %}
 
 {% block document_ready %}
+/*
 var mapOptions = {
   center: new google.maps.LatLng(0, 0),
   zoom: 2,
   mapTypeId: google.maps.MapTypeId.ROADMAP
 };
 var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-
+*/
 var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
 po.src = 'https://apis.google.com/js/plusone.js';
 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
@@ -24,8 +25,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
 		<div class="plusonec">
 		<div class="g-plusone" data-size="small" data-annotation="inline" data-width="300"></div>			
 		</div>
-	</div>
-	<div id="map_canvas"></div>
+  </div>
+  <iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?ie=UTF8&amp;hl=en&amp;oe=UTF8&amp;msa=0&amp;msid=215267263806243008928.0004c5a6836c218030833&amp;t=m&amp;z=2&amp;output=embed"></iframe>
+  <!-- <div id="map_canvas"></div> -->
 </div>
 	
 <div class="row">
