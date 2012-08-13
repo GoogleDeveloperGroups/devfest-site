@@ -108,7 +108,7 @@ class CEventList(OCachedObject):
     return_value = {}
     i = 0
     for key in self.entity_collection:
-      if i <= half_length:
+      if i < half_length:
         return_value[key] = self.entity_collection[key]
       i = i+1
 
@@ -120,7 +120,7 @@ class CEventList(OCachedObject):
     return_value = {}
     i = 0
     for key in self.entity_collection:
-      if i > half_length:
+      if i >= half_length:
         return_value[key] = self.entity_collection[key]
       i = i+1
 
