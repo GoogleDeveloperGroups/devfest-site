@@ -54,9 +54,9 @@
 
 		</div>
 		<ul>
-			<li class="active"><a href="/">Home</a></li>
+      <li{% if current_navigation == 'start' %} class="active"{% endif %}><a href="/">Home</a></li>
 			<li>About</li>
-			<li><a href="/events">Locations</a></li>
+      <li{% if current_navigation == 'events' %} class="active"{% endif %}><a href="/events">Locations</a></li>
 		</ul>
 		{% block subnav %}{% endblock %}
 	</header>

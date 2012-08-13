@@ -14,10 +14,12 @@ import json
 class EventSchedulePage(FrontendPage):
   def show(self):
     self.template = 'event_schedule'
+    self.values['current_navigation'] = 'events'
     self.values['events'] = CEventScheduleList().get()
 
 class EventCreatePage(FrontendPage):
   def show(self):
+    self.values['current_navigation'] = 'events'
     user = users.get_current_user()
     if not user:
       return self.redirect(users.create_login_url("/event/create"))
@@ -29,6 +31,7 @@ class EventCreatePage(FrontendPage):
 
 class EventUploadPage(UploadPage):
   def show_post(self):
+    self.values['current_navigation'] = 'events'
     user = users.get_current_user()
     if not user:
       return self.redirect(users.create_login_url("/event/create"))
@@ -86,6 +89,7 @@ class EventUploadPage(UploadPage):
 
 class EventPage(FrontendPage):
   def show(self, *paths):
+    self.values['current_navigation'] = 'events'
     user = users.get_current_user()
     self.template = 'single_event'
     
@@ -94,6 +98,7 @@ class EventPage(FrontendPage):
 
 class EventListPage(FrontendPage):
   def show(self):
+    self.values['current_navigation'] = 'events'
     user = users.get_current_user()
     self.template = 'event_list'
 
