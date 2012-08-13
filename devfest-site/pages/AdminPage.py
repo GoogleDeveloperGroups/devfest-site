@@ -1,7 +1,22 @@
 import gdata.gauth
 import gdata.docs.client
+import gdata.spreadsheets.client
 from lib.view import FrontendPage
 from google.appengine.api import users
+
+class AdminImportPage(FrontendPage):
+  def show(self):
+    self.template = 'admin/index'
+    client = gdata.spreadsheets.client.SpreadsheetsClient(source='Devfest-Website-v1')
+    access_token = gdata.gauth.AeLoad('spreadsheed_token')
+    feed = client.get_list_feed(self.settings.DOCSAPI_SPREADSHEET_ID,
+                                self.settings.DOCSAPI_SPREADSHEET_WORKSHEET_ID,
+                                auth_token=access_token)
+    if feed.entry:
+      print 'test'
+      for entry in feed.entry:
+        event = entry.to_dict()
+        print event
 
 class AdminPage(FrontendPage):
   def show(self):

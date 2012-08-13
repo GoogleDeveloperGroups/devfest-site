@@ -1,7 +1,8 @@
 from google.appengine.ext import db
+from google.appengine.api import users
 
 class Event(db.Model):
-  user = db.UserProperty()
+  user = db.ListProperty(users.User)
   gplus_id = db.StringProperty()
   gplus_img_url = db.StringProperty()
   gplus_event_url = db.StringProperty()
