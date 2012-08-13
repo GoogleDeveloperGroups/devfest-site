@@ -38,14 +38,16 @@
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
     <header>
 		<div class="banner">
-		
-				<div class="dev-login">
-				<i class="icon-user"></i><p> Sign in using your Google Account !<p>
-					 <a href="/login"
-						id="loginLink" class="btn btn_small">Sign in</a>
-				</div>
-			<a id="logo" href="/"> <img src="/images/logo.png" alt="DevFest" >
-			</a>
+      <div class="dev-login">
+        <i class="icon-user"></i>
+        {% if user %}
+        {{ user.nickname() }}
+        {% else%}
+        <p>Sign in using your Google Account!<p>
+        <a href="/login" id="loginLink" class="btn btn_small">Sign in</a>
+        {% endif %}
+			</div>
+  		<a id="logo" href="/"><img src="/images/logo.png" alt="DevFest"></a>
 
 			<h1>&nbsp;</h1>
 			<h4>Engage, Learn & Share with the Google Developer Community</h4>
