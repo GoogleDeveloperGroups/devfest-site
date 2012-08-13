@@ -40,9 +40,62 @@ header .banner {
 	margin-bottom: 10px;
 }
 
+.banner .dev-login{
+	float: right;
+	font-size: 12px;
+	margin-top: 5px;
+	margin-right:8px;
+}
+
+.banner .dev-login p{
+	width:100px;
+	
+}
+
+.banner .dev-login .icon-user{
+
+	margin-right:101px;
+}
+
+.banner .btn_small{
+margin-top:40px;
+margin-right:-2px;
+background:#eee;
+color:#666;
+cursor: pointer;
+display: inline-block;
+line-height: 27px;
+font-weight:bold;
+min-width: 52px;
+padding: 0 3px;
+text-align: center;
+text-decoration: none;
+border-radius:none;
+-webkit-border-radius:none;
+-moz-border-radius:none;
+-o-border-radius:none;
+border-box-shadow:none;
+-webkit-box-shadow:none;
+-moz-box-shadow:none;
+-o-box-shadow:none;
+-moz-transition-property: all;
+-webkit-transition-property: all;
+-o-transition-property: all;
+transition-property: all;
+-moz-transition-duration: 0.218s;
+-webkit-transition-duration: 0.218s;
+-o-transition-duration: 0.218s;
+transition-duration: 0.218s;
+}
+
+.banner .btn_large:hover{
+font-size:14px;
+
+}
+
 header>ul {
 	background-color: #444444;
-	height: 39px;
+	height: 49px;
 	list-style-type: none;
 	margin: 0;
 	overflow: hidden;
@@ -53,8 +106,8 @@ header>ul>li {
 	color: #ffffff;
 	font-size: 15px;
 	float: left;
-	line-height: 39px;
-	margin: 0 30px 0 0;
+	line-height: 49px;
+	margin: 5px 40px 0 0;
 	padding: 1px 0 0 0;
 }
 
@@ -68,7 +121,7 @@ header>ul>li.active {
 		url("data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAABgAAAAKCAYAAACuaZ5oAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAH1JREFUeNpi/P//PwORgBmIJ0DZBUD8lyhdIAuIwEJAvP0/AmyHihHUS4zhKkB8+z8muA2Vo8gCeyB++x83eAtVQ5YFOUD88z9h8AeqlmgLmIF48n/SwWSoXrwWoEcmqQAj8omJTFIBSuQTG5mkAnjkwyLzz3/qA3DkAwQYABEvANn67PzPAAAAAElFTkSuQmCC")
 		no-repeat scroll center 32px transparent;
 	font-weight: bold;
-	margin-top: 1px;
+	margin-top: 7px;
 }
 
 body>section {
@@ -78,6 +131,17 @@ body>section {
 #map_canvas {
 	height: 400px;
 	width: 100%;
+}
+
+#create_map_canvas {
+	height: 400px;
+	width: 470px;
+	float: right;
+	margin: 10px 50px 0 0;
+	background: #F7F7F7;
+	-webkit-box-shadow: 0px 0px 4px #aaa;
+	-moz-box-shadow: 0px 0px 4px #aaa;
+	box-shadow: 0px 0px 4px #aaa;
 }
 
 #title {
@@ -203,6 +267,230 @@ body>section {
 }
 
 .icon-event-live {
-	background-image: url("../images/icons/live-icon.png");
+	background-image: url("../images/icons/gdl-icon.png");
 	background-repeat: no-repeat
 }
+
+.gdg-home-image{
+	margin:4px 0 10px 0;
+}
+
+#gdg-create-event {
+	float: left;
+	border: 1px solid #ddd;
+	padding: 30px 40px 20px 40px;
+	margin: 0px;
+	width:90%;
+	background: #fff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0px 0 50px #ccc;
+	-moz-box-shadow: 0px 0 50px #ccc;
+	box-shadow: 0px 0 50px #ccc;
+}
+
+#gdg-create-event label{
+	display:block;
+	color:#666;
+	font-weight:bold;
+}
+
+#gdg-create-event .form_field{
+	margin-bottom:10px;
+}
+
+#gdg-create-event #agenda{
+	list-style:none;
+	display:inline;
+	width:100%;
+}
+
+#gdg-create-event #agenda li{
+	margin:5px 0px 15px 2px;
+	background: #F7F7F7;
+	padding:10px;
+	-webkit-box-shadow: 0px 0px 4px #aaa;
+	-moz-box-shadow: 0px 0px 4px #aaa;
+	box-shadow: 0px 0px 4px #aaa;
+	
+}
+
+#gdg-create-event #agenda li:hover{
+	-webkit-box-shadow: 0px 0px 1px #aaa;
+	-moz-box-shadow: 0px 0px 1px #aaa;
+	box-shadow: 0px 0px 1px #aaa;
+	
+}
+
+#gdg-create-event #agenda input[type="checkbox"],input[type="radio"] {
+	float:right;
+	padding: 0px;
+	margin-top:20px;
+	width: 13px;
+	height: 13px;
+}
+
+#gdg-create-event select
+{
+	font-size: 14px;
+	color: #555;
+	border: 1px #eee solid;
+	-webkit-box-shadow: 0px 0px 4px #aaa;
+	-moz-box-shadow: 0px 0px 4px #aaa;
+	box-shadow: 0px 0px 4px #aaa;
+	width: 240px;
+	margin-bottom: 20px;
+}
+
+#gdg-create-event input[type="text"],textarea,input[type="file"] {
+	padding: 8px;
+	margin: 4px 0 20px 0;
+	background: #fff;
+	width: 220px;
+	font-size: 14px;
+	color: #555;
+	border: 1px #eee solid;
+	-webkit-box-shadow: 0px 0px 4px #aaa;
+	-moz-box-shadow: 0px 0px 4px #aaa;
+	box-shadow: 0px 0px 4px #aaa;
+}
+
+#gdg-create-event input[type="submit"] {
+	width: 150px;
+	color: #eee;
+	height:30px;
+	text-transform: uppercase;
+	margin-top: 10px;
+	background-color: #18a5cc;
+	border: none;
+	/* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
+	-webkit-transition: -webkit-box-shadow 0.3s linear;
+	/* -- CSS3 Shadow - create a shadow around each input element -- */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#18a5cc),
+		to(#0a85a8) );
+	background: -moz-linear-gradient(25% 75% 90deg, #0a85a8, #18a5cc);
+	/* -- CSS3 - Rounded Corners -- */
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	float: left;
+}
+
+#gdg-create-event input[type="submit"]:hover {
+	-webkit-box-shadow: 0px 0px 20px #555;
+	-moz-box-shadow: 0px 0px 20px #aaa;
+	box-shadow: 0px 0px 20px #555;
+	cursor: pointer;
+}
+
+
+
+#gdg-create-event textarea {
+	width: 270px;
+	height: 175px;
+}
+
+#gdg-create-event .error ul {
+	list-style:none;
+}
+
+#gdg-create-event .error .alert{
+	width:50%;
+	background:none;
+	border:none;
+	padding:4px;
+	margin-top:-10px;
+	margin-left:-2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*****Turn****************************/
+
+
+#turn_wrapper {
+	width: 80px;
+	height: 80px;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#turn_hideme {
+	width: 85%;
+	height: 85%;
+	overflow: hidden;
+	display: block;
+	position: absolute;
+	float: left;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+#turn_object{
+	position: relative;
+}
+
+#turn_wrapper.right #turn_hideme *,
+#turn_wrapper.right #turn_object {
+	float: right !important;
+}
+
+#turn_wrapper.right #turn_hideme {
+	float: right !important;
+	right: 0 !important;
+	left: auto;
+}
+#turn_wrapper.right #turn_object {
+	right: 0 !important;
+	border:none;
+	left: auto !important;
+}
+
+#turn_wrapper.right {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 0;
+	right: 0 !important;
+}
+
+#turn_wrapper.right #turn_object * {
+	position: absolute;
+	right: 0 !important;
+}
+
+#turn_wrapper #turn_object img#turn_fold {
+	display: block;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+	right: 0;
+	position: absolute;
+}
+
+/* the jQuery CSS Framework */
+#turn_wrapper .ui-resizable { position: relative;}
+#turn_wrapper .ui-resizable-handle { position: absolute;font-size: 0.1px;z-index: 99999; display: block; background-image: url(#none)}
+#turn_wrapper .ui-resizable-se { cursor: se-resize; width: 12px; height: 12px; right: 0; bottom: 0; }
+#turn_wrapper .ui-resizable-sw { cursor: sw-resize; width: 12px; height: 12px; left: 0; bottom: 0; }

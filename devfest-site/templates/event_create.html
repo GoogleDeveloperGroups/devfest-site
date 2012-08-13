@@ -1,12 +1,33 @@
 {% extends "global.html" %}
 
+{% block head %}
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{ maps_api_key }}&sensor=true"></script>
+{% endblock %}
+
+{% block document_ready %}
+var mapOptions = {
+  center: new google.maps.LatLng(0, 0),
+  zoom: 2,
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+};
+  var map = new google.maps.Map(document.getElementById("create_map_canvas"), mapOptions);
+
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+po.src = 'https://apis.google.com/js/plusone.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+
+{% endblock %}
+
+
 {% macro with_errors(field) %}
-  <div class="form_field">
+<div class="form_field">
   {{ field.label }}
-  {% if field.errors %}
-    <ul class="errors">{% for error in field.errors %}<li>{{ error|e }}</li>{% endfor %}</ul>
+   {% if field.errors %}
     {% set css_class = 'has_error ' + kwargs.pop('class', '') %}
     {{ field(class=css_class, **kwargs) }}
+    <div class="error">
+    <ul class="alert alert-error">{% for error in field.errors %}<li>{{ error|e }}</li>{% endfor %}</ul>
+        </div>
   {% else %}
     {{ field(**kwargs) }}
   {% endif %}
@@ -15,18 +36,66 @@
 
 {% block content %}
 
-{% if created_successful %}
-Successful.
-{% endif %}
-<form method="post">
-  {{ with_errors(form.gplus_event_url) }}
-  {{ with_errors(form.location) }}
-  {{ with_errors(form.status) }}
-  {{ with_errors(form.agenda) }}
-  {{ with_errors(form.start) }}
-  {{ with_errors(form.end) }}
-  <div>
-    <input type="submit" />
-  </div>
-</form>
+<div class="container-fluid">
+
+	<div class="row">
+		<div id="title">
+			<h1 style="font-size: 25px; float: none; margin-bottom: 10px">Create your DevFest !</h1>
+		</div>
+		<hr class="thin-line">
+	</div>
+	
+	   <div class="row-fluid">
+			<div class="span3">
+				<div class="row">
+					<span style="margin-left: 5px"> <img src="/images/gdgbig.png">
+		
+					</span>
+				</div>
+			</div>
+	
+			<div class="span9">
+						<div class="row">
+						<div id="gdg-create-event">
+							
+												<form method="post" class="form-horizontal">
+												{% if created_successful %}
+												<div class="alert alert-success">Event Created Successfully ! Happy Organizing !</div>
+												{% endif %}
+												<br>
+												<h3>Basic Details</h3>
+												<hr>
+												<div id="create_map_canvas"></div>
+												  {{ with_errors(form.gplus_event_url) }}
+												  {{ with_errors(form.location) }}
+												  {{ with_errors(form.status) }}
+												  {{ with_errors(form.logo) }}
+												<br><br>
+												<h3>Event Details</h3>
+												<hr>
+												  {{ with_errors(form.agenda) }}
+												
+												  {{ with_errors(form.start) }}
+												  {{ with_errors(form.end) }}
+												  <div>
+												    <input type="submit" />
+												  </div>
+												</form>
+										
+											
+											
+											
+							</div>
+					</div>
+			</div>
+		</div>	
+	
+	</div>
+	
+	
+	
+
+
+
+
 {% endblock %}

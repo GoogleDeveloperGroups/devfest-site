@@ -14,37 +14,52 @@
 	<title>DevFest{% block title %}{% endblock %}</title>
     
  <!-- CSS --> 
- 	 <link href="/css/base.css" rel="stylesheet" type="text/css" />
- 	 <link href="/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />  
+ 	 <link href="/css/base.css" rel="stylesheet" type="text/css" />  
  	 <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />  
      <link href="/css/style.css" rel="stylesheet" type="text/css" />
-	<link href='http://fonts.googleapis.com/css?family=Istok+Web:400,700|Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+	<!--<link href='http://fonts.googleapis.com/css?family=Istok+Web:400,700|Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'> -->
 
 {% block head %}{% endblock %}
 
 <script src="/js/lib/modernizr-2.5.3.min.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> 
+<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+<script src="/js/lib/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/js/lib/jquery-ui.min.js"></script>
+
+	<script type="text/javascript" src="/js/turn.js"></script>
+	<script type="text/javascript">
+	  $(document).ready(function(){
+	    $( '.dev-login' ).fold({side: 'right'});
+	  });
+	</script> 
   
   </head>
   <body>
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
     <header>
-    <div class="banner">
-   	<a id="logo" href="/">
-    <img src="/images/logo.png" alt="DevFest">
- 	 </a>
- 	
-      <h1>&nbsp;</h1>
-      <h4>Engage, Learn & Share with the Google Developer Community</h4>
-      </div>
-      <ul>
-        <li class="active"><a href="/">Home</a></li>
-        <li>About</li>
-        <li><a href="/events">Locations</a></li>
-      </ul>
-	{% block subnav %}{% endblock %}   
-    </header>
+		<div class="banner">
+		
+				<div class="dev-login">
+				<i class="icon-user"></i><p> Sign in using your Google Account !<p>
+					 <a href="/login"
+						id="loginLink" class="btn btn_small">Sign in</a>
+				</div>
+			<a id="logo" href="/"> <img src="/images/logo.png" alt="DevFest" >
+			</a>
+
+			<h1>&nbsp;</h1>
+			<h4>Engage, Learn & Share with the Google Developer Community</h4>
+
+		</div>
+		<ul>
+			<li class="active"><a href="/">Home</a></li>
+			<li>About</li>
+			<li><a href="/events">Locations</a></li>
+		</ul>
+		{% block subnav %}{% endblock %}
+	</header>
     <section>
+    
       {% block content %}{% endblock %}
     </section>
     
@@ -73,7 +88,7 @@
     
   
  
-  <script>window.jQuery || document.write('<script src="/js/lib/jquery-1.7.1.min.js"><\/script>')</script>
+ 
 
   <script src="/js/plugins.js"></script>
   <script src="/js/script.js"></script>
