@@ -48,7 +48,7 @@
                       {% if '4' in event.agenda %}
                         <i class="icon-event icon-event-live"></i>
                       {% endif %}
-                    <h4><a href="/event/{{ event.key() }}">GDG {{ event.city }}</a></h4>
+                    <h4><a href="/event/{{ event.key() }}">DevFest {{ event.city }}</a></h4>
 										<!-- Event Address & Date -->
                     <h5>{{ event.location }}</h5>
                     <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
@@ -82,7 +82,7 @@
                       {% if '4' in event.agenda %}
                         <i class="icon-event icon-event-live"></i>
                       {% endif %}
-                    <h4><a href="/event/{{ event.key.id }}">GDG {{ event.city }}</a></h4>
+                    <h4><a href="/event/{{ event.key.id }}">DevFest {{ event.city }}</a></h4>
 										<!-- Event Address & Date -->
                     <h5>{{ event.location }}</h5>
                     <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
