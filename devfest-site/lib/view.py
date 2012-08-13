@@ -1,6 +1,8 @@
 import webapp2
 import jinja2
 import json
+from google.appengine.ext.webapp import blobstore_handlers
+from google.appengine.api import users
 
 try:
   import settings_local as settings
@@ -49,6 +51,33 @@ class FrontendPage(Page):
     self.settings = settings
     self.values['current_date'] = datetime.datetime.now().strftime("%B %d, %Y %H:%M")
     self.values['maps_api_key'] = settings.MAPS_API_KEY
+    user = users.get_current_user()
+    if user:
+      self.values['user'] = user
+
+  def post_output(self):
+    self.response.headers['Content-Type'] = 'text/html; charset=UTF-8'
+    jinja_environment = jinja2.Environment(
+            loader=jinja2.FileSystemLoader(os.path.dirname(__file__) +'/../templates/'))
+
+    template = jinja_environment.get_template(self.template +'.html')
+    self.response.out.write(template.render(self.values))
+ 
+class UploadPage(blobstore_handlers.BlobstoreUploadHandler):
+  def post(self, *paths):
+    self.pre_output()
+    self.show_post(*paths)
+    self.post_output()
+
+  def pre_output(self):
+    self.template = ''
+    self.values = {}
+    self.settings = settings
+    self.values['current_date'] = datetime.datetime.now().strftime("%B %d, %Y %H:%M")
+    self.values['maps_api_key'] = settings.MAPS_API_KEY
+    user = users.get_current_user()
+    if user:
+      self.values['user'] = user
 
   def post_output(self):
     self.response.headers['Content-Type'] = 'text/html; charset=UTF-8'
