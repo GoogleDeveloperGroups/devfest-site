@@ -11,6 +11,10 @@ libraries:
   version: latest
 
 handlers:
+- url: /favicon.ico
+  static_files: images/favicon.ico
+  upload: images/favicon.ico
+
 - url: /js/(.*)
   static_files: js/\1
   upload: js/(.*)
