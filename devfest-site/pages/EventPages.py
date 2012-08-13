@@ -37,7 +37,7 @@ class EventCreatePage(FrontendPage):
       event.location = self.request.get('location')
       lat, long, city, country = self.get_geolocation(self.request.get('location'))
 
-      event.user = user
+      event.user = [user]
       event.city = city
       event.country = country
       event.geo_location = db.GeoPt(lat, long)
@@ -51,7 +51,7 @@ class EventCreatePage(FrontendPage):
     self.template = 'event_create'
 
   def get_geolocation(self, location):
-    url = "http://maps.google.com/maps/api/geocode/json?address=%s&sensor=false" % (urllib.quote(location))
+    url = u"http://maps.google.com/maps/api/geocode/json?address=%s&sensor=false" % (urllib.quote(location.encode('utf-8')))
     result = urlfetch.fetch(url)
     lat = 0.0
     long = 0.0
