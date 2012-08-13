@@ -8,6 +8,7 @@ class Event(db.Model):
   gplus_event_url = db.StringProperty()
   status = db.StringProperty()
   location = db.StringProperty()
+  logo = db.StringProperty()
   city = db.StringProperty()
   country = db.StringProperty()
   geo_location = db.GeoPtProperty()
