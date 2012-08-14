@@ -107,7 +107,7 @@ header>ul>li {
 	font-size: 15px;
 	float: left;
 	line-height: 49px;
-	margin: 5px 40px 0 0;
+	margin: 0px 40px 0 0;
 	padding: 1px 0 0 0;
 }
 
@@ -117,11 +117,9 @@ header>ul>li a{
 
 
 header>ul>li.active {
-	background:
-		url("data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAABgAAAAKCAYAAACuaZ5oAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAH1JREFUeNpi/P//PwORgBmIJ0DZBUD8lyhdIAuIwEJAvP0/AmyHihHUS4zhKkB8+z8muA2Vo8gCeyB++x83eAtVQ5YFOUD88z9h8AeqlmgLmIF48n/SwWSoXrwWoEcmqQAj8omJTFIBSuQTG5mkAnjkwyLzz3/qA3DkAwQYABEvANn67PzPAAAAAElFTkSuQmCC")
-		no-repeat scroll center 32px transparent;
+	background: url("data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAABgAAAAKCAYAAACuaZ5oAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAH1JREFUeNpi/P//PwORgBmIJ0DZBUD8lyhdIAuIwEJAvP0/AmyHihHUS4zhKkB8+z8muA2Vo8gCeyB++x83eAtVQ5YFOUD88z9h8AeqlmgLmIF48n/SwWSoXrwWoEcmqQAj8omJTFIBSuQTG5mkAnjkwyLzz3/qA3DkAwQYABEvANn67PzPAAAAAElFTkSuQmCC") no-repeat scroll center 38px transparent;
 	font-weight: bold;
-	margin-top: 7px;
+	margin-top: 1px;
 }
 
 body>section {
