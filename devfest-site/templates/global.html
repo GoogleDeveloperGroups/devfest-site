@@ -36,13 +36,13 @@
   </head>
   <body>
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-    <header>
+   <header>
 		<div class="banner">
       <div class="dev-login">
-        <i class="icon-user"></i>
         {% if user %}
-        {{ user.nickname() }}
+        <p style="margin-right:20px;">Hi,{{ user.nickname() }}</p>
         {% else%}
+        <i class="icon-user"></i>
         <p>Sign in using your Google Account!<p>
         <a href="/login" id="loginLink" class="btn btn_small">Sign in</a>
         {% endif %}
@@ -67,15 +67,13 @@
       {% block content %}{% endblock %}
     </section>
     
-    <footer id="footer">
+     <footer id="footer">
 		
 		<div id="footmenu">
 		<ul>		            
-            <li><a href="#">GDG DevFest</a></li>
-<!--            <li><a href="#">Terms of Service</a></li>
-<li><a href="#">Privacy Policy</a></li> -->
+            <li><a href="/about">GDG DevFest</a></li>
             <li><a href="https://developers.google.com/groups/">GDG</a></li>
-            <li><a href="#">Report a bug</a></li>
+            <li><a href="/report">Report a bug</a></li>
           </ul>
 		</div>
 		<div id="copyright">
