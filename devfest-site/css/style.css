@@ -232,7 +232,7 @@ body>section {
 	color: #15c;
 }
 
-#event-list-container .label {
+#event-list-container .event-column .event-no-bullets .label{
 	color:#fff;
 }
 
