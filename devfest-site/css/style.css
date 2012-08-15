@@ -232,6 +232,10 @@ body>section {
 	color: #15c;
 }
 
+#event-list-container .label {
+	color:#fff;
+}
+
 .thin-line {
 	height: 0;
 	border: 0;
