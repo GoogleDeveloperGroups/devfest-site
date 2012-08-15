@@ -273,7 +273,7 @@ body>section {
 	margin:4px 0 10px 0;
 }
 
-#gdg-create-event {
+#gdg-container,#gdg-create-event {
 	float: left;
 	border: 1px solid #ddd;
 	padding: 30px 40px 20px 40px;
@@ -288,6 +288,7 @@ body>section {
 	box-shadow: 0px 0 50px #ccc;
 }
 
+
 #gdg-create-event label{
 	display:block;
 	color:#666;
@@ -298,13 +299,13 @@ body>section {
 	margin-bottom:10px;
 }
 
-#gdg-create-event #agenda{
+#gdg-create-event #agenda,#gdg-create-event #technologies{
 	list-style:none;
 	display:inline;
 	width:100%;
 }
 
-#gdg-create-event #agenda li{
+#gdg-create-event #agenda li,#gdg-create-event #technologies li{
 	margin:5px 0px 15px 2px;
 	background: #F7F7F7;
 	padding:10px;
@@ -314,7 +315,7 @@ body>section {
 	
 }
 
-#gdg-create-event #agenda li:hover{
+#gdg-create-event #agenda li:hover, #gdg-create-event #technologies li:hover{
 	-webkit-box-shadow: 0px 0px 1px #aaa;
 	-moz-box-shadow: 0px 0px 1px #aaa;
 	box-shadow: 0px 0px 1px #aaa;
@@ -325,6 +326,14 @@ body>section {
 	float:right;
 	padding: 0px;
 	margin-top:20px;
+	width: 13px;
+	height: 13px;
+}
+
+#gdg-create-event #technologies input[type="checkbox"],input[type="radio"]{
+	float:right;
+	padding: 0px;
+	margin-top:10px;
 	width: 13px;
 	height: 13px;
 }
@@ -403,10 +412,24 @@ body>section {
 }
 
 
+.about-list li{
+	margin-left:20px;
+}
 
+.about-text{
+	text-align:justify;
+}
 
+.about-text a{
+	color:#08F;
+}
 
-
+.gen-logo {
+	height:100%;
+}
+.gen-logo a{
+	color:#08C;
+}
 
 
 
