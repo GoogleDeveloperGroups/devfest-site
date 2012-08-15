@@ -5,6 +5,7 @@ from google.appengine.ext import db
 from pages.StartPage import *
 from pages.LoginPage import *
 from pages.EventPages import *
+from pages.OtherPages import *
 
 app = webapp2.WSGIApplication([
                               ('^/logout$', LogoutPage),
