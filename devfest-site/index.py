@@ -16,5 +16,9 @@ app = webapp2.WSGIApplication([
                               ('^/events$', EventListPage),
                               ('^/events/schedule$', EventSchedulePage),
                               ('^/event/(.*)$', EventPage),
+                              ('^/about$', AboutPage),
+                              ('^/report$', ReportBugPage),
+                              ('^/branding$', BrandingPage),
+                              ('^/faq$', FaqPage),
                               ],
                               debug=True)
