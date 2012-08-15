@@ -24,13 +24,13 @@
 		</div>
 	</div>
 	<div id="event-list-container">
-		<div class="span9">
+		<div class="span12">
 			<div class="row">
         <div class="event-column">
           {% for country, events in events.get_first_half().items(): %}
 					<ul class="event-no-bullets">
 						<li>
-							<div class="row span4">
+							<div class="row span6">
                 <h3>{{ country }}</h3>
                 <ul class="event-no-bullets">
                   {% for event in events %}
@@ -52,6 +52,7 @@
 										<!-- Event Address & Date -->
                     <h5>{{ event.location }}</h5>
                     <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
+                     <br><a class="label label-info" href="#">Register Now</a>
                   </li>
                   {% endfor %}
 								</ul>
@@ -64,7 +65,7 @@
           {% for country, events in events.get_second_half().items(): %}
 					<ul class="event-no-bullets">
 						<li>
-							<div class="row span4">
+							<div class="row span6">
                 <h3>{{ country }}</h3>
                 <ul class="event-no-bullets">
                   {% for event in events %}
@@ -86,7 +87,7 @@
 										<!-- Event Address & Date -->
                     <h5>{{ event.location }}</h5>
                     <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
-                    <br><a class="label label-important" href="#">Register Now</a>
+                    <br><a class="label label-info" href="#">Register Now</a>
                   </li>
                   {% endfor %}
 								</ul>
