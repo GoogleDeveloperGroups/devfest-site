@@ -420,6 +420,10 @@ body>section {
 	margin-left:20px;
 }
 
+.about-list li a{
+		color:#08F;
+}
+
 .about-text{
 	text-align:justify;
 }
