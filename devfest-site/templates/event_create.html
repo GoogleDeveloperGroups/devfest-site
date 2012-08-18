@@ -61,7 +61,8 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
 						<div class="row">
 						<div id="gdg-create-event">
 							
-                <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{{ form_url }}">
+              <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{{ form_url }}">
+                  {% if edit %}<input type="hidden" name="edit" value="{{ edit }}">{% endif %}
 												{% if created_successful %}
 												<div class="alert alert-success">Event Created Successfully ! Happy Organizing !</div>
 												{% endif %}

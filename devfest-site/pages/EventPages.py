@@ -28,6 +28,24 @@ class EventCreatePage(FrontendPage):
     if not user:
       return self.redirect(users.create_login_url("/event/create"))
 
+class EventEditPage(FrontendPage):
+  def show(self):
+    self.template = 'event_create'
+    user = users.get_current_user()
+    form = EventForm()
+    if not user:
+      return self.redirect(users.create_login_url("/event/create"))
+    else:
+      event = Event.all().filter('user =', user).get()
+      if event:
+        self.values['edit'] = str(event.key())
+        form = EventForm(obj=event)
+        form.gdg_chapters.process_formdata([','.join(event.gdg_chapters)])
+    
+    self.values['current_navigation'] = 'events'
+    self.values['form'] = form
+    self.values['form_url'] = blobstore.create_upload_url('/event/upload')
+
 class EventUploadPage(UploadPage):
   def show_post(self):
     self.values['current_navigation'] = 'events'
@@ -41,6 +59,15 @@ class EventUploadPage(UploadPage):
 
     if form.validate():
       event = Event()
+      if self.request.get('edit') != '':
+        ev = Event.get(self.request.get('edit'))
+        if user in ev.user:
+          event = ev
+
+      existing_event = Event.all().filter('user =', user).get()
+      if existing_event:
+        event = existing_event
+
       event.gplus_event_url = self.request.get('gplus_event_url')
       event.location = self.request.get('location')
 
@@ -58,7 +85,9 @@ class EventUploadPage(UploadPage):
       event.technologies = self.request.get_all('technologies')
       event.gdg_chapters = self.request.get('gdg_chapters').split(',')
       event.kind_of_support = self.request.get('kind_of_support')
+      event.subdomain = self.request.get('subdomain')
       event.put()
+      self.values['edit'] = str(event.key())
       self.values['created_successful'] = True
     self.values['form'] = form
     self.template = 'event_create'
