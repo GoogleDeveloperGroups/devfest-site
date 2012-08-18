@@ -24,16 +24,16 @@
 		</div>
 	</div>
 	<div id="event-list-container">
-		<div class="span12">
+		<div class="span9">
 			<div class="row">
         <div class="event-column">
-          {% for country, events in events.get_first_half().items(): %}
+          {% for country in events.get_first_half()|sort(attribute='name') %}
 					<ul class="event-no-bullets">
 						<li>
 							<div class="row span6">
-                <h3>{{ country }}</h3>
+                <h3>{{ country.name }}</h3>
                 <ul class="event-no-bullets">
-                  {% for event in events %}
+                  {% for event in country.data %}
                   <li>
                       <!-- Type of Event- Use <i> tag and class icon-event-* -->
                       {% if '1' in event.agenda %}
@@ -48,10 +48,12 @@
                       {% if '4' in event.agenda %}
                         <i class="icon-event icon-event-live"></i>
                       {% endif %}
-                    <h4><a href="/event/{{ event.key() }}">DevFest {{ event.city }}</a></h4>
+                    <h4><a href="/event/{{ event.key() }}">DevFest {% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
 										<!-- Event Address & Date -->
                     <h5>{{ event.location }}</h5>
-                    <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
+                    {% if event.start %}
+                      <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
+                    {% endif %}
                     <a class="label label-info" href="#">Register Now</a>
                   </li>
                   {% endfor %}
@@ -62,13 +64,13 @@
           {% endfor %}
         </div>
 	      <div class="event-column">
-          {% for country, events in events.get_second_half().items(): %}
+          {% for country in events.get_second_half()|sort(attribute='name') %}
 					<ul class="event-no-bullets">
 						<li>
 							<div class="row span6">
-                <h3>{{ country }}</h3>
+                <h3>{{ country.name }}</h3>
                 <ul class="event-no-bullets">
-                  {% for event in events %}
+                  {% for event in country.data %}
                   <li>
                       <!-- Type of Event- Use <i> tag and class icon-event-* -->
                       {% if '1' in event.agenda %}
@@ -83,10 +85,12 @@
                       {% if '4' in event.agenda %}
                         <i class="icon-event icon-event-live"></i>
                       {% endif %}
-                    <h4><a href="/event/{{ event.key.id }}">DevFest {{ event.city }}</a></h4>
+                    <h4><a href="/event/{{ event.key() }}">DevFest {% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
 										<!-- Event Address & Date -->
                     <h5>{{ event.location }}</h5>
-                    <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
+                    {% if event.start %}
+                      <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
+                    {% endif %}
                     <a class="label label-info" href="#">Register Now</a>
                   </li>
                   {% endfor %}
