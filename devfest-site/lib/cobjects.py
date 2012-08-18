@@ -69,13 +69,13 @@ class CEventList(OCachedObject):
   def __init__(self):
     self.cache_key = "Eventlist"
     self.entity_collection = {}
-    self.max_time = 10
+    self.max_time = 3600
     CachedObject.__init__(self)
 
   def load_from_db(self):
     self.entity_collection = {}
 
-    events = Event.all()
+    events = Event.all().filter('approved =', True)
     event_list = {}
     for event in events:
       if event_list.has_key(event.country) is False:
@@ -84,20 +84,6 @@ class CEventList(OCachedObject):
       event_list[event.country].append(event)
 
     self.entity_collection = event_list
-#    self.entity_collection = {}
-#    client = gdata.spreadsheets.client.SpreadsheetsClient(source='Devfest-Website-v1')
-#    access_token = gdata.gauth.AeLoad('spreadsheed_token')
-#    feed = client.get_list_feed(settings.DOCSAPI_SPREADSHEET_ID,
-#                                settings.DOCSAPI_SPREADSHEET_WORKSHEET_ID,
-#                                auth_token=access_token)
-#    if feed.entry:
-#      for entry in feed.entry:
-#        event = entry.to_dict()
-#        if event['country'] not in self.entity_collection:
-#          self.entity_collection[event['country']] = []
-#
-#        event['id'] = entry.link[0].href.split('/')[-1]
-#        self.entity_collection[event['country']].append(event)
 
   def get(self):
     return self.entity_collection
@@ -105,11 +91,12 @@ class CEventList(OCachedObject):
   def get_first_half(self):
     length = len(self.entity_collection)
     half_length = int(math.ceil(length/2))
-    return_value = {}
+    return_value = []
     i = 0
-    for key in self.entity_collection:
+
+    for key in sorted(self.entity_collection.iterkeys()):
       if i < half_length:
-        return_value[key] = self.entity_collection[key]
+        return_value.append({'name': key, 'data': self.entity_collection[key]})
       i = i+1
 
     return return_value
@@ -117,11 +104,11 @@ class CEventList(OCachedObject):
   def get_second_half(self):
     length = len(self.entity_collection)
     half_length = int(math.ceil(length/2))
-    return_value = {}
+    return_value = []
     i = 0
-    for key in self.entity_collection:
+    for key in sorted(self.entity_collection.iterkeys()):
       if i >= half_length:
-        return_value[key] = self.entity_collection[key]
+        return_value.append({'name': key, 'data': self.entity_collection[key]})
       i = i+1
 
     return return_value
@@ -144,23 +131,6 @@ class CEvent(CachedObject):
     except:
       pass
 
-#    self.entity_collection = None
-#    client = gdata.spreadsheets.client.SpreadsheetsClient(source='Devfest-Website-v1')
-#    access_token = gdata.gauth.AeLoad('spreadsheed_token')
-#    feed = client.get_list_feed(settings.DOCSAPI_SPREADSHEET_ID,
-#                                settings.DOCSAPI_SPREADSHEET_WORKSHEET_ID,
-#                                auth_token=access_token)
-#
-#    event = None
-#    if feed.entry:
-#      for entry in feed.entry:
-#        event_id = entry.link[0].href.split('/')[-1]
-#        if event_id == self.event_id:
-#          event = entry.to_dict()
-#          event['id'] = self.event_id
-#
-#    self.entity_collection = event
-
   def get(self):
     return self.entity_collection
 
@@ -173,7 +143,7 @@ class CEventScheduleList(CachedObject):
     CachedObject.__init__(self)
 
   def load_from_db(self):
-    self.entity_collection = Event.all().filter('start >=', datetime.datetime.now()).order('start')
+    self.entity_collection = Event.all().filter('approved =', True).filter('start >=', datetime.datetime.now()).order('start')
 
   def get(self):
     return self.entity_collection
