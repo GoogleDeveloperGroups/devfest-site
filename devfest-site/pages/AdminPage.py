@@ -2,7 +2,9 @@ import gdata.gauth
 import gdata.docs.client
 import gdata.spreadsheets.client
 from lib.view import FrontendPage
+from lib.model import Event
 from google.appengine.api import users
+from datetime import datetime
 
 class AdminImportPage(FrontendPage):
   def show(self):
@@ -13,10 +15,33 @@ class AdminImportPage(FrontendPage):
                                 self.settings.DOCSAPI_SPREADSHEET_WORKSHEET_ID,
                                 auth_token=access_token)
     if feed.entry:
-      print 'test'
       for entry in feed.entry:
-        event = entry.to_dict()
-        print event
+        ev = entry.to_dict()
+        original_users = ev['organizerse-mailid'].split(',')
+        event_users = []
+        for user in original_users:
+          event_users.append(users.User(user.strip()))
+
+        event = Event()
+        event.user = event_users
+        event.location = "%s, %s" % (ev['city'], ev['country'])
+        event.gdg_chapters = [ev['gdgchaptername']]
+        event.subdomain = ev['preferredsubdomainfortheeventwebsite']
+        event.expected_participants = ev['expectednumberofparticipants']
+        event.kind_of_support = ev['whatkindofsupportyouexpectforthisevent']
+        event.approved = True
+        try:
+          event.start = datetime.strptime(ev['eventdate'], '%m/%d/%Y')
+        except:
+          pass
+
+        event.put()
+
+class AdminImportCompletePage(FrontendPage):
+  def show(self):
+    events = Event.all().filter('city =', None)
+    for event in events:
+      event.put()
 
 class AdminPage(FrontendPage):
   def show(self):
