@@ -11,8 +11,8 @@ app = webapp2.WSGIApplication([
                               ('^/logout$', LogoutPage),
                               ('^/login$', LoginPage),
                               ('^/$', StartPage),
-                              ('^/event/create$', EventCreatePage),
-                              ('^/event/upload$', EventUploadPage),
+#                              ('^/event/create$', EventCreatePage),
+#                              ('^/event/upload$', EventUploadPage),
                               ('^/events$', EventListPage),
                               ('^/events/schedule$', EventSchedulePage),
                               ('^/event/(.*)$', EventPage),
@@ -20,5 +20,6 @@ app = webapp2.WSGIApplication([
                               ('^/report$', ReportBugPage),
                               ('^/branding$', BrandingPage),
                               ('^/faq$', FaqPage),
+                              ('^/.*$', NotFoundPage),
                               ],
-                              debug=True)
+                              debug=False)

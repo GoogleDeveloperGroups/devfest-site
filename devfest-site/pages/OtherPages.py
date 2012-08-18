@@ -22,4 +22,9 @@ class FaqPage(FrontendPage):
     def show(self):
         user = users.get_current_user()
         self.values['current_navigation'] = 'faq'
-        self.template="eventfaq"   
+        self.template="eventfaq"
+
+class NotFoundPage(FrontendPage):
+    def show(self):
+        user = users.get_current_user()
+        self.template="error404"   
