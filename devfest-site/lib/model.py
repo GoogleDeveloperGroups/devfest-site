@@ -72,7 +72,7 @@ class Sponsor(db.Model):
   img_url = db.StringProperty()
   event = db.ReferenceProperty()
   
-class Session (db.Model):
+class Session(db.Model):
   title = db.StringProperty()
   abstract = db.StringProperty()
   event = db.ReferenceProperty(Event)
@@ -80,15 +80,15 @@ class Session (db.Model):
   end = db.DateTimeProperty()
   room = db.StringProperty()
   track = db.StringProperty()
-  is_keynote = db.BooleanProperty(default = false)
-  is_break = db.BooleanProperty(default = false)
+  is_keynote = db.BooleanProperty(default = False)
+  is_break = db.BooleanProperty(default = False)
   
-class Speaker (db.Model):
+class Speaker(db.Model):
   name = db.StringProperty()
   company = db.StringProperty()
   img_url = db.StringProperty()
   short_bio = db.StringProperty()
   
-class SpeakerSession (db.Model)
+class SpeakerSession(db.Model):
   speaker = db.ReferenceProperty(Speaker)
   session = db.ReferenceProperty(Session)
