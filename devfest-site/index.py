@@ -6,6 +6,7 @@ from pages.StartPage import *
 from pages.LoginPage import *
 from pages.EventPages import *
 from pages.OtherPages import *
+from pages.ContactPage import *
 
 app = webapp2.WSGIApplication([
                               ('^/logout$', LogoutPage),
@@ -21,6 +22,7 @@ app = webapp2.WSGIApplication([
                               ('^/report$', ReportBugPage),
                               ('^/branding$', BrandingPage),
                               ('^/faq$', FaqPage),
+                              ('^/contact$', ContactPage),
                               ('^/.*$', NotFoundPage),
                               ],
                               debug=False)

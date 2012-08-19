@@ -18,3 +18,12 @@ class EventForm(Form):
   technologies = MultiCheckboxField('What products, technologies you propose to cover in the event', choices=[('Android', 'Android'), ('Chrome', 'Chrome'), ('Google+', 'Google+'), ('App Engine', 'App Engine'), ('Games', 'Games'), ('Google Maps', 'Google Maps'), ('Google Apps', 'Google Apps'), ('Google TV', 'Google TV'), ('Commerce', 'Commerce'), ('Youtube', 'Youtube'), ('Other', 'Other')])
   kind_of_support = TextAreaField('What kind of support you expect for this event?', [validators.Required()])
   subdomain = TextField('Preferred subdomain for the event website')
+
+class ContactForm(Form):
+  name = TextField('Your Name', [validators.Required()])
+  email = TextField('Email Address', [validators.Email(), validators.Required()])
+  organizer = SelectField('Are you GDG organizer?', choices=[('0', 'No'), ('1', 'Yes')])
+  gdg_chapter = TextField('Your GDG Chapter')
+  subject = TextField('Subject', [validators.Required()])
+  message = TextAreaField('Message', [validators.Required()])
+
