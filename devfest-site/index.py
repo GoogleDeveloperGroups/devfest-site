@@ -22,6 +22,7 @@ app = webapp2.WSGIApplication([
                               ('^/report$', ReportBugPage),
                               ('^/branding$', BrandingPage),
                               ('^/faq$', FaqPage),
+                              ('^/register$', RegisterFormPage),
                               ('^/contact$', ContactPage),
                               ('^/.*$', NotFoundPage),
                               ],

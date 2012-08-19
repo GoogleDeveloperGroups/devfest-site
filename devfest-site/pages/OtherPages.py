@@ -24,6 +24,12 @@ class FaqPage(FrontendPage):
         self.values['current_navigation'] = 'faq'
         self.template="eventfaq"
 
+class RegisterFormPage(FrontendPage):
+    def show(self):
+        user = users.get_current_user()
+        self.values['current_navigation'] = 'register'
+        self.template="register"
+
 class NotFoundPage(FrontendPage):
     def show(self):
         user = users.get_current_user()
