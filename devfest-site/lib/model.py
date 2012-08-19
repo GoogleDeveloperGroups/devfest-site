@@ -86,5 +86,9 @@ class Session (db.Model):
 class Speaker (db.Model):
   name = db.StringProperty()
   company = db.StringProperty()
-  session = db.ReferenceProperty(Session)
   img_url = db.StringProperty()
+  short_bio = db.StringProperty()
+  
+class SpeakerSession (db.Model)
+  speaker = db.ReferenceProperty(Speaker)
+  session = db.ReferenceProperty(Session)
