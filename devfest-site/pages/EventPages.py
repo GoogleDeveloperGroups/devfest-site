@@ -33,29 +33,30 @@ class EventEditPage(FrontendPage):
     self.template = 'event_create'
     user = users.get_current_user()
     form = EventForm()
-    if not user:
-      return self.redirect(users.create_login_url("/event/create"))
-    else:
+    if user:
       event = Event.all().filter('user =', user).get()
       if event:
         self.values['edit'] = str(event.key())
         form = EventForm(obj=event)
         form.gdg_chapters.process_formdata([','.join(event.gdg_chapters)])
-    
     self.values['current_navigation'] = 'events'
-    self.values['form'] = form
     self.values['form_url'] = blobstore.create_upload_url('/event/upload')
+    self.values['form'] = form
+    if not user:
+      return self.redirect(users.create_login_url("/event/edit"))
+    
 
 class EventUploadPage(UploadPage):
   def show_post(self):
     self.values['current_navigation'] = 'events'
+    form = EventForm(self.request.POST)
+    self.values['form'] = form
+    self.template = 'event_create'
+    self.values['form_url'] = blobstore.create_upload_url('/event/upload')
     user = users.get_current_user()
     if not user:
-      return self.redirect(users.create_login_url("/event/create"))
+      return self.redirect(users.create_login_url("/event/edit"))
 
-    form = EventForm(self.request.POST)
-
-    self.values['form_url'] = blobstore.create_upload_url('/event/upload')
 
     if form.validate():
       event = Event()
@@ -89,8 +90,6 @@ class EventUploadPage(UploadPage):
       event.put()
       self.values['edit'] = str(event.key())
       self.values['created_successful'] = True
-    self.values['form'] = form
-    self.template = 'event_create'
 
 class EventPage(FrontendPage):
   def show(self, *paths):
