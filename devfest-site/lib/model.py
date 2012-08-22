@@ -5,9 +5,12 @@ import urllib
 import json
 
 class Event(db.Model):
-  user = db.ListProperty(users.User)
+  organizers = db.ListProperty(users.User)
   gdg_chapters = db.StringListProperty()
   gplus_event_url = db.StringProperty()
+  external_url = db.StringProperty()
+  external_width = db.IntegerProperty(default=400)
+  external_height = db.IntegerProperty(default=300)
   status = db.StringProperty()
   location = db.StringProperty()
   logo = db.StringProperty()

@@ -27,16 +27,38 @@
 		<div class="span9">
 			<div class="row">
 				<div id="gdg-container">
-						<h1>{{event.city}}</h1>
+						<h1>{% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</h1>
 						<hr>
 						<div class="eventtype">
-						<img src="{{event.gplus_img_url}}">
-						{{event.start}}
-						{{event.agenda}}
+						<img src="/blob/{{event.logo}}">
+						{{event.location}}<br/>
+						{{event.start|datetime}}<br/>
+                      <!-- Type of Event- Use <i> tag and class icon-event-* -->
+                      {% if '1' in event.agenda %}
+                        <i class="icon-event icon-event-conf"></i>
+                      {% endif %}
+                      {% if '2' in event.agenda %}
+                        <i class="icon-event icon-event-hack"></i>
+                      {% endif %}
+                      {% if '3' in event.agenda %}
+                        <i class="icon-event icon-event-barcamp"></i>
+                      {% endif %}
+                      {% if '4' in event.agenda %}
+                        <i class="icon-event icon-event-live"></i>
+                      {% endif %}
+
 					
 					<br><br>
 						
-					<a class="label label-important" href="#">Register Now</a>
+                      {% if event.external_url and event.external_width %}
+                      <iframe src="{{ event.external_url }}" width="{{ external_width }}" height="{{ external_height }}" border="0">
+                      {% endif %}
+      
+                      {% if event.external_url and not event.external_width %}
+					<a class="label label-info" href="{{ event.external_url }}">Register Now</a>
+                      {% else %}
+					<a class="label label-info" href="#">Register Now</a>
+                      {% endif %}
 				</div>
 						
 				</div>

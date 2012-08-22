@@ -45,6 +45,10 @@ class AdminImportCompletePage(FrontendPage):
 
 class AdminPage(FrontendPage):
   def show(self):
+    self.template = 'admin/index'
+
+class AdminAuthorizePage(FrontendPage):
+  def show(self):
     client = gdata.docs.client.DocsClient(source='Devfest-Website-v1')
 
     oauth_callback_url = 'http://%s/admin/get_access_token' % self.request.host
@@ -59,7 +63,7 @@ class AdminPage(FrontendPage):
 
     access_token = gdata.gauth.AeLoad('spreadsheed_token')
 
-    self.template = 'admin/index'
+    self.template = 'admin/authorize'
 
 class AdminAuthTokenPage(FrontendPage):
   def show(self):

@@ -34,7 +34,7 @@ class EventEditPage(FrontendPage):
     user = users.get_current_user()
     form = EventForm()
     if user:
-      event = Event.all().filter('user =', user).get()
+      event = Event.all().filter('organizers =', user).get()
       if event:
         self.values['edit'] = str(event.key())
         form = EventForm(obj=event)
@@ -62,17 +62,20 @@ class EventUploadPage(UploadPage):
       event = Event()
       if self.request.get('edit') != '':
         ev = Event.get(self.request.get('edit'))
-        if user in ev.user:
+        if user in ev.organizers:
           event = ev
 
-      existing_event = Event.all().filter('user =', user).get()
+      existing_event = Event.all().filter('organizers =', user).get()
       if existing_event:
         event = existing_event
 
       event.gplus_event_url = self.request.get('gplus_event_url')
+      event.external_url = self.request.get('external_url')
+      event.external_width = int(self.request.get('external_width'))
+      event.external_height = int(self.request.get('external_height'))
       event.location = self.request.get('location')
 
-      event.user = [user]
+      event.organizers = [user]
 
       upload_files = self.get_uploads('logo')
       if len(upload_files) > 0:

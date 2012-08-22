@@ -24,6 +24,7 @@ app = webapp2.WSGIApplication([
                               ('^/faq$', FaqPage),
                               ('^/register$', RegisterFormPage),
                               ('^/contact$', ContactPage),
+                              ('^/blob/(.*)$', BlobPage),
                               ('^/.*$', NotFoundPage),
                               ],
                               debug=False)
