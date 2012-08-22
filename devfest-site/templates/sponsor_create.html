@@ -1,0 +1,88 @@
+{% extends "global.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block document_ready %}
+
+{% endblock %}
+
+
+{% macro with_errors(field) %}
+<div class="form_field">
+  {{ field.label }}
+  {% if field.description %}
+  <div><small>{{ field.description }}</small></div>
+  {% endif %}
+   {% if field.errors %}
+    {% set css_class = 'has_error ' + kwargs.pop('class', '') %}
+    {{ field(class=css_class, **kwargs) }}
+    <div class="error">
+    <ul class="alert alert-error">{% for error in field.errors %}<li>{{ error|e }}</li>{% endfor %}</ul>
+        </div>
+  {% else %}
+    {{ field(**kwargs) }}
+  {% endif %}
+  </div>
+{% endmacro %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+	<div class="row">
+		<div id="title">
+			<h1 style="font-size: 25px; float: none; margin-bottom: 10px">Add your sponsor!</h1>
+		</div>
+		<hr class="thin-line">
+	</div>
+	
+	   <div class="row-fluid">
+			<div class="span3">
+				<div class="row">
+					<span style="margin-left: 5px"> <img src="/images/gdgbig.png">
+		
+					</span>
+				</div>
+			</div>
+	
+			<div class="span9">
+						<div class="row">
+						<div id="gdg-create-event">
+							
+              <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{{ form_url }}">
+                  {% if edit %}<input type="hidden" name="edit" value="{{ edit }}">{% endif %}
+												{% if created_successful %}
+												<div class="alert alert-success">Sponsor created/edited successfully ! </div>
+												{% endif %}
+												<br>
+												<h3>Details</h3>
+												<hr>												
+												  {{ with_errors(form.name) }}
+												  {{ with_errors(form.gplus_id) }}
+												  {{ with_errors(form.description) }}
+												  {{ with_errors(form.logo) }}
+												<br><br>
+												  <div>
+												    <input type="submit" />
+												  </div>
+												</form>
+										
+											
+											
+											
+							</div>
+					</div>
+			</div>
+		</div>	
+	
+	</div>
+	
+	
+	
+
+
+
+
+{% endblock %}

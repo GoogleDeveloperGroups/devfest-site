@@ -71,8 +71,11 @@ class UserSettings(db.Model):
   admin_user_group = db.ReferenceProperty(UserGroup)
   
 class Sponsor(db.Model):
+  name = db.StringProperty()
   gplus_id = db.StringProperty()
   img_url = db.StringProperty()
+  description = db.StringProperty()
+  level = db.StringProperty()
   event = db.ReferenceProperty()
   
 class Session(db.Model):
