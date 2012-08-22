@@ -33,7 +33,7 @@
 							<div class="row span6">
                 <h3>{{ country.name }}</h3>
                 <ul class="event-no-bullets">
-                  {% for event in country.data %}
+                  {% for event in country.data|sort(attribute='location') %}
                   <li>
                       <!-- Type of Event- Use <i> tag and class icon-event-* -->
                       {% if '1' in event.agenda %}
@@ -70,7 +70,7 @@
 							<div class="row span6">
                 <h3>{{ country.name }}</h3>
                 <ul class="event-no-bullets">
-                  {% for event in country.data %}
+                  {% for event in country.data|sort(attribute='location') %}
                   <li>
                       <!-- Type of Event- Use <i> tag and class icon-event-* -->
                       {% if '1' in event.agenda %}
