@@ -224,6 +224,11 @@ body>section {
 	padding-left: 2em;
 }
 
+#event-list-container .event-column .event-no-bullets li {
+	margin-bottom:20px;
+}
+
+
 #event-list-container .event-column .event-no-bullets .event-pl {
 	margin-bottom: 40px;
 }
