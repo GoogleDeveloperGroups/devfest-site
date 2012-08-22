@@ -71,6 +71,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
 												<hr>
 												<div id="create_map_canvas"></div>
 												  {{ with_errors(form.gplus_event_url) }}
+												  {{ with_errors(form.external_url) }}
+												  {{ with_errors(form.external_width) }}
+												  {{ with_errors(form.external_height) }}
 												  {{ with_errors(form.location) }}
 												  {{ with_errors(form.status) }}
 												  {{ with_errors(form.logo) }}

@@ -50,7 +50,15 @@
 					
 					<br><br>
 						
+                      {% if event.external_url and event.external_width %}
+                      <iframe src="{{ event.external_url }}" width="{{ external_width }}" height="{{ external_height }}" border="0">
+                      {% endif %}
+      
+                      {% if event.external_url and not event.external_width %}
+					<a class="label label-info" href="{{ event.external_url }}">Register Now</a>
+                      {% else %}
 					<a class="label label-info" href="#">Register Now</a>
+                      {% endif %}
 				</div>
 						
 				</div>

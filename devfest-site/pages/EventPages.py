@@ -62,7 +62,7 @@ class EventUploadPage(UploadPage):
       event = Event()
       if self.request.get('edit') != '':
         ev = Event.get(self.request.get('edit'))
-        if user in ev.user:
+        if user in ev.organizers:
           event = ev
 
       existing_event = Event.all().filter('organizers =', user).get()
@@ -70,6 +70,9 @@ class EventUploadPage(UploadPage):
         event = existing_event
 
       event.gplus_event_url = self.request.get('gplus_event_url')
+      event.external_url = self.request.get('external_url')
+      event.external_width = int(self.request.get('external_width'))
+      event.external_height = int(self.request.get('external_height'))
       event.location = self.request.get('location')
 
       event.organizers = [user]

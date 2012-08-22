@@ -1,4 +1,4 @@
-from wtforms import Form, TextField, TextAreaField, SelectField, SelectMultipleField, DateTimeField, FileField, widgets, validators
+from wtforms import Form, TextField, TextAreaField, SelectField, SelectMultipleField, DateTimeField, FileField, widgets, validators, IntegerField
 from wtforms.ext.appengine.db import model_form
 from lib.model import Event
 
@@ -8,6 +8,9 @@ class MultiCheckboxField(SelectMultipleField):
 
 class EventForm(Form):
   gplus_event_url = TextField('Google+ Event URL', [validators.URL(), validators.Required()])
+  external_url = TextField('External URL (in an iframe or linked to)', [validators.URL()])
+  external_width = IntegerField('Width of the iframe (if embedded)', [validators.NumberRange(min=0,max=700)])
+  external_height = IntegerField('Height of the iframe (if embedded)', [validators.NumberRange(min=0,max=500)])
   location = TextField('Location', [validators.Length(min=3), validators.Required()])
   status = SelectField('Status', choices=[('1', 'interested'), ('2', 'planned'), ('3', 'confirmed')])
   logo = FileField('Logo')
