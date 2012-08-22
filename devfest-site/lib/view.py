@@ -11,6 +11,14 @@ except:
 
 import datetime, time, os
 
+# shameless copy from stackoverflow... thanks tux21b!
+def format_datetime(value, format='full'):
+  if format == 'full':
+    format="%A, %d. %B %Y at %H:%M"
+  elif format == 'short':
+    format="%a %d. %m. %Y %H:%M"
+  return value.strftime(format)
+
 class Page(webapp2.RequestHandler):
   pass
 
@@ -60,6 +68,7 @@ class FrontendPage(Page):
     jinja_environment = jinja2.Environment(
             loader=jinja2.FileSystemLoader(os.path.dirname(__file__) +'/../templates/'))
 
+    jinja_environment.filters['datetime'] = format_datetime
     template = jinja_environment.get_template(self.template +'.html')
     self.response.out.write(template.render(self.values))
  
@@ -86,4 +95,3 @@ class UploadPage(blobstore_handlers.BlobstoreUploadHandler):
 
     template = jinja_environment.get_template(self.template +'.html')
     self.response.out.write(template.render(self.values))
- 
