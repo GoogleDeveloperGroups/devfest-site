@@ -30,3 +30,9 @@ class ContactForm(Form):
   subject = TextField('Subject', [validators.Required()])
   message = TextAreaField('Message', [validators.Required()])
 
+class SponsorForm(Form):
+  name = TextField('Name of Sponsor', [validators.Required()])
+  gplus_id = IntegerField('G+ ID (21 numbers)', [validators.number_range(100000000000000000000, 999999999999999999999, "21 digits required")])
+  description = TextField("Company Description", [validators.length(20, 250, "Text length must be between 20 and 250 characters")])
+  logo = FileField('Sponsor''s Logo')
+
