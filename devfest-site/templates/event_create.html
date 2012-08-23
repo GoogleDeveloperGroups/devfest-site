@@ -2,6 +2,10 @@
 
 {% block head %}
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{ maps_api_key }}&sensor=true"></script>
+<link href="/css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block head2 %}
+<script type="text/javascript" src="/js/lib/jquery-ui-timepicker-addon.js"></script>
 {% endblock %}
 
 {% block document_ready %}
@@ -101,7 +105,10 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
 										
 											
 											
-											
+<script type="text/javascript">
+  $('#start').datetimepicker({dateFormat:'yy-mm-dd'});
+  $('#end').datetimepicker({dateFormat:'yy-mm-dd'});
+</script>
 							</div>
 					</div>
 			</div>
