@@ -1,0 +1,27 @@
+{% extends "global.html" %} 
+{% block head %} 
+{% endblock %} 
+
+{% block document_ready %} 
+{% endblock %} 
+
+{% block content %}
+<!-- Replace Static Data with variables -->
+<div class="container-fluid" style="min-height:400px;">
+
+	<div class="row">
+		<div id="title">
+			<h1 style="font-size: 25px; float: none; margin-bottom: 10px">Select the GDG DevFest to edit</h1>
+		</div>
+		<hr class="thin-line">
+	</div>
+          {% for event in eventlist %}
+	<div class="row">
+          <a class="label" href="/event/edit/{{event.key()}}">{{event.location}} - {{event.city}}</a>
+          <a class="label label-important" href="/event/delete/{{event.key()}}" onclick="return confirm('Are you sure you want to delete the event?')">Delete event</a>
+	</div>
+          {% endfor %}
+					
+</div>
+
+{% endblock %}

@@ -43,11 +43,12 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
 
 	<div class="row">
 		<div id="title">
-		    {% if edit %}
-			<h1 style="font-size: 25px; float: none; margin-bottom: 10px">Create your GDG DevFest!</h1>
-			{% else %}
+                        {% if edit %}
 			<h1 style="font-size: 25px; float: none; margin-bottom: 10px">Update your GDG DevFest!</h1>
-			{% endif %}
+          <a class="label label-important" href="/event/delete/{{edit}}" onclick="return confirm('Are you sure you want to delete the event?')">Delete event</a>
+                        {% else %}
+			<h1 style="font-size: 25px; float: none; margin-bottom: 10px">Create your GDG DevFest!</h1>
+                        {% endif %}
 		</div>
 		<hr class="thin-line">
 	</div>

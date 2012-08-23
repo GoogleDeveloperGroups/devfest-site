@@ -1,5 +1,6 @@
 from lib.view import FrontendPage
 from lib.view import UploadPage
+from lib.view import Page
 from google.appengine.api import urlfetch
 from google.appengine.api import users
 from google.appengine.ext import blobstore
@@ -28,14 +29,39 @@ class EventCreatePage(FrontendPage):
     if not user:
       return self.redirect(users.create_login_url("/event/create"))
 
-class EventEditPage(FrontendPage):
+class EventSelectPage(FrontendPage):
   def show(self):
+    self.template = 'event_select'
+    user = users.get_current_user()
+    if not user:
+      return self.redirect(users.create_login_url("/event/edit"))
+    eventlist = Event.all().filter('organizers =', user).fetch(100)
+    eventnumber = len(eventlist)
+    if eventnumber == 1:
+      event = eventlist[0]
+      return self.redirect("/event/edit/" + str(event.key()))
+    if eventnumber == 0:
+      return self.redirect("/event/create")
+    self.values['eventlist'] = eventlist
+    self.values['current_navigation'] = 'events'
+    
+class EventDeletePage(Page):
+  def get(self,event_id):
+    event = Event.get(event_id)
+    user = users.get_current_user()
+    if user and event:
+      if user in event.organizers:
+        event.delete()
+    return self.redirect("/event/edit")
+
+class EventEditPage(FrontendPage):
+  def show(self,event_id):
     self.template = 'event_create'
     user = users.get_current_user()
     form = EventForm()
-    if user:
-      event = Event.all().filter('organizers =', user).get()
-      if event:
+    event = Event.get(event_id)
+    if user and event:
+      if user in event.organizers:
         self.values['edit'] = str(event.key())
         form = EventForm(obj=event)
         form.gdg_chapters.process_formdata([','.join(event.gdg_chapters)])
@@ -44,6 +70,8 @@ class EventEditPage(FrontendPage):
     self.values['form'] = form
     if not user:
       return self.redirect(users.create_login_url("/event/edit"))
+    if not event:
+      return self.redirect("/event/edit")
     
 
 class EventUploadPage(UploadPage):
@@ -64,10 +92,6 @@ class EventUploadPage(UploadPage):
         ev = Event.get(self.request.get('edit'))
         if user in ev.organizers:
           event = ev
-
-      existing_event = Event.all().filter('organizers =', user).get()
-      if existing_event:
-        event = existing_event
 
       event.gplus_event_url = self.request.get('gplus_event_url')
       event.external_url = self.request.get('external_url')

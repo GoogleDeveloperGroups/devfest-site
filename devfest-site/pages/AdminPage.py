@@ -23,7 +23,7 @@ class AdminImportPage(FrontendPage):
           event_users.append(users.User(user.strip()))
 
         event = Event()
-        event.user = event_users
+        event.organizers = event_users
         event.location = "%s, %s" % (ev['city'], ev['country'])
         event.gdg_chapters = [ev['gdgchaptername']]
         event.subdomain = ev['preferredsubdomainfortheeventwebsite']
