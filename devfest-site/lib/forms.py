@@ -36,3 +36,6 @@ class SponsorForm(Form):
   description = TextField("Company Description", [validators.length(20, 250, "Text length must be between 20 and 250 characters")])
   logo = FileField('Sponsor''s Logo')
 
+class SpeakerForm(Form):
+  first_name = TextField('Firstname', [validators.Required()])
+  last_name = TextField('Lastname', [validators.Required()])

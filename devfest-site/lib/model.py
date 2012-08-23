@@ -90,10 +90,14 @@ class Session(db.Model):
   is_break = db.BooleanProperty(default = False)
   
 class Speaker(db.Model):
-  name = db.StringProperty()
+  first_name = db.StringProperty()
+  last_name = db.StringProperty()
+  plusone_url = db.StringProperty()
+  thumbnail = db.StringProperty()
   company = db.StringProperty()
   img_url = db.StringProperty()
   short_bio = db.StringProperty()
+  events = db.ListProperty(Event)
   
 class SpeakerSession(db.Model):
   speaker = db.ReferenceProperty(Speaker)
