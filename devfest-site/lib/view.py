@@ -36,7 +36,7 @@ class JSONPage(Page):
   def pre_output(self):
     self.values = {}
     self.values['response'] = {}
-    self.values['current_date'] = datetime.datetime.now().strftime("%B %d, %Y %H:%M")
+    self.values['current_date'] = datetime.datetime.now()
 
   def post_output(self):
     self.response.headers['Content-Type'] = 'application/json; charset=UTF-8'
@@ -57,7 +57,7 @@ class FrontendPage(Page):
     self.template = ''
     self.values = {}
     self.settings = settings
-    self.values['current_date'] = datetime.datetime.now().strftime("%B %d, %Y %H:%M")
+    self.values['current_date'] = datetime.datetime.now()
     self.values['maps_api_key'] = settings.MAPS_API_KEY
     user = users.get_current_user()
     if user:
@@ -82,7 +82,7 @@ class UploadPage(blobstore_handlers.BlobstoreUploadHandler):
     self.template = ''
     self.values = {}
     self.settings = settings
-    self.values['current_date'] = datetime.datetime.now().strftime("%B %d, %Y %H:%M")
+    self.values['current_date'] = datetime.datetime.now()
     self.values['maps_api_key'] = settings.MAPS_API_KEY
     user = users.get_current_user()
     if user:
