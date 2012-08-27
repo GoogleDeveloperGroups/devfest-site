@@ -1,13 +1,17 @@
-{% set subtype = "speaker" %}
+{% set subtype = "session" %}
 {% extends "event_base.html" %}
 
+{% block head %}
+<link href="/css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" type="text/css" />
+{% endblock %}
 {% block head2 %}
+<script type="text/javascript" src="/js/lib/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-  $('#add_speaker').click(function() {
-    clone_field_list('#speakers li:last');
+  $('#add_session').click(function() {
+    clone_field_list('#sessions li:last');
   });
-  handle_delete_buttons('#speakers');
+  handle_delete_buttons('#sessions');
 });
 
 function handle_delete_buttons(selector) {
@@ -22,15 +26,15 @@ function handle_delete_buttons(selector) {
     $(selector).children('li').each(function() {
       var label = $(this).children('label')[0];
       var id = $(this).children('table').attr('id');
-      label.innerHTML = "<input type='button' onclick='del_speaker(\"" +
+      label.innerHTML = "<input type='button' onclick='del_session(\"" +
             id + "\");' value='delete' />";
     });
   }
 }
 
-function del_speaker(id) {
+function del_session(id) {
   $('#' + id).parent().remove();
-  handle_delete_buttons('#speakers');
+  handle_delete_buttons('#sessions');
 }
 
 function clone_field_list(selector) {
@@ -47,12 +51,16 @@ function clone_field_list(selector) {
   });
   new_element.children('label')[0].innerHTML = "New Speaker";
   $(selector).after(new_element);
-  handle_delete_buttons('#speakers');
+  handle_delete_buttons('#sessions');
 }
 </script>
 {% endblock %}
 
 {% block formfields %}
-{{ with_errors(form.speakers) }}
-<input type="button" id="add_speaker" value="add speaker">
+{{ with_errors(form.sessions) }}
+<script type="text/javascript">
+  $('#start').datetimepicker({dateFormat:'yy-mm-dd'});
+  $('#end').datetimepicker({dateFormat:'yy-mm-dd'});
+</script>
+<input type="button" id="add_session" value="add session">
 {% endblock %}

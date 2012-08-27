@@ -1,0 +1,51 @@
+{% set subtype = "base" %}
+{% extends "event_base.html" %}
+
+{% block head %}
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{ maps_api_key }}&sensor=true"></script>
+<link href="/css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block head2 %}
+<script type="text/javascript" src="/js/lib/jquery-ui-timepicker-addon.js"></script>
+{% endblock %}
+
+{% block document_ready %}
+var mapOptions = {
+  center: new google.maps.LatLng(0, 0),
+  zoom: 2,
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+};
+  var map = new google.maps.Map(document.getElementById("create_map_canvas"), mapOptions);
+
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+po.src = 'https://apis.google.com/js/plusone.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+{% endblock %}
+
+{% block formfields %}
+<div id="create_map_canvas"></div>
+<h3>Basic Details</h3>
+<hr>
+{{ with_errors(form.gplus_event_url) }}
+{{ with_errors(form.external_url) }}
+{{ with_errors(form.external_width) }}
+{{ with_errors(form.external_height) }}
+{{ with_errors(form.location) }}
+{{ with_errors(form.status) }}
+{{ with_errors(form.logo) }}
+<br><br>
+<h3>Event Details</h3>
+<hr>
+{{ with_errors(form.agenda) }}
+{{ with_errors(form.start) }}
+{{ with_errors(form.end) }}
+<hr>
+{{ with_errors(form.gdg_chapters) }}
+{{ with_errors(form.technologies) }}
+{{ with_errors(form.kind_of_support) }}
+{{ with_errors(form.subdomain) }}
+<script type="text/javascript">
+  $('#start').datetimepicker({dateFormat:'yy-mm-dd'});
+  $('#end').datetimepicker({dateFormat:'yy-mm-dd'});
+</script>
+{% endblock %}

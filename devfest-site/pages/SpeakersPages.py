@@ -26,8 +26,8 @@ class SpeakersEditPage(FrontendPage):
       speakers = Speaker.all().filter('event =', event).fetch(1024)
       for s in speakers:
         s.speaker = s.key()
-      # we need to store the event id 
-      self.values['event'] = str(event.key())
+      # we need to store the event
+      self.values['event'] = event
       form = SpeakersForm(speakers=speakers)        
     elif not user:
       return self.redirect(
@@ -78,6 +78,10 @@ class SpeakersUploadPage(UploadPage):
         # now delete all speakers not mentioned yet
         for s in old_speakers:
           s.delete()
+        # set info that modification was successful
+        self.values['modified_successful'] = true
+      # set event into form object
+      self.values['event'] = event
     elif not user:
       return self.redirect(
                    users.create_login_url("/event/speakers/edit/" + event_id))

@@ -60,11 +60,14 @@ class Event(db.Model):
 class Sponsor(db.Model):
   name        = db.StringProperty()
   gplus_id    = db.StringProperty()
-  img_url     = db.StringProperty()
+  logo        = db.StringProperty()
   description = db.StringProperty()
   level       = db.StringProperty()
   event       = db.ReferenceProperty()
   
+# Sessions for an event. Note that there is an m-to-n relation between
+# sessions and speakers, it is here reflected as a 'session has many speakers'
+# type of property.
 class Session(db.Model):
   title       = db.StringProperty()
   abstract    = db.StringProperty()
@@ -72,19 +75,16 @@ class Session(db.Model):
   start       = db.DateTimeProperty()
   end         = db.DateTimeProperty()
   room        = db.StringProperty()
+  level       = db.StringProperty()
   track       = db.StringProperty()
-  is_keynote  = db.BooleanProperty(default = False)
-  is_break    = db.BooleanProperty(default = False)
-  
+  live_url    = db.StringProperty()
+  youtube_url = db.StringProperty()
+  speakers    = db.ListProperty(db.Key)
+
 class Speaker(db.Model):
   first_name  = db.StringProperty()
   last_name   = db.StringProperty()
   gplus_id    = db.StringProperty()
   thumbnail   = db.StringProperty()
-  img_url     = db.StringProperty()
   short_bio   = db.StringProperty()
   event       = db.ReferenceProperty(Event)
-  
-class SpeakerSession(db.Model):
-  speaker = db.ReferenceProperty(Speaker)
-  session = db.ReferenceProperty(Session)

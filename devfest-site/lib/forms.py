@@ -79,7 +79,7 @@ class SponsorForm(Form):
 
 # subform: a speaker - used in event-speakers form
 class SingleSpeakerForm(Form):
-  speaker         = HiddenField();
+  speaker         = HiddenField()
   first_name      = TextField('Given name', [validators.Required()])
   last_name       = TextField('Surname', [validators.Required()])
   gplus_id        = IntegerField('Google+ ID (21 digits)',
@@ -91,3 +91,35 @@ class SingleSpeakerForm(Form):
 # allow modification of list of speakers for an event
 class SpeakersForm(Form):
   speakers        = FieldList(FormField(SingleSpeakerForm), min_entries=1)
+
+# subform: a sponsor - used in event-sponsors form
+class SingleSponsorForm(Form):
+  sponsor         = HiddenField()
+  name            = TextField('Name of Sponsor', [validators.Required()])
+  gplus_id        = IntegerField('Google+ ID (21 digits)',
+        [validators.number_range(10 ** 20, 10 ** 21 - 1, "21 digits required")])
+  description     = TextAreaField("Company Description",
+        [validators.length(20, 250)])
+  level           = TextField('Level of Sponsorship (e.g. "Gold", "Platinum")')
+  logo            = FileField('Sponsor\'s Logo')
+
+# allow modification of list of speakers for an event
+class SponsorsForm(Form):
+  sponsors        = FieldList(FormField(SingleSponsorForm), min_entries=1)
+
+# subform: a session - used in event-sessions form
+class SingleSessionForm(Form):
+  session         = HiddenField()
+  title           = TextField('Name of the session', [ validators.Required()])
+  abstract        = TextAreaField("Abstract")
+  start           = DateTimeField('Start', format="%Y-%m-%d %H:%M")
+  end             = DateTimeField('End', format="%Y-%m-%d %H:%M")
+  room            = TextField('Room')
+  level           = TextField('Level (e.g. "Intermediate")')
+  track           = TextField('Track')
+  live_url        = TextField('URL of Live Stream')
+  youtube_url     = TextField('URL on Youtube')
+
+# allow modification of list of sessions for an event
+class SessionsForm(Form):
+  sessions        = FieldList(FormField(SingleSessionForm), min_entries=1)
