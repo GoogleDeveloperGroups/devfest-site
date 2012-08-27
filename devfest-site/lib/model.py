@@ -79,9 +79,8 @@ class Session(db.Model):
 class Speaker(db.Model):
   first_name  = db.StringProperty()
   last_name   = db.StringProperty()
-  plusone_url = db.StringProperty()
+  gplus_id    = db.StringProperty()
   thumbnail   = db.StringProperty()
-  company     = db.StringProperty()
   img_url     = db.StringProperty()
   short_bio   = db.StringProperty()
   event       = db.ReferenceProperty(Event)
