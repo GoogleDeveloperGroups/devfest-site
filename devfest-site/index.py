@@ -8,6 +8,7 @@ from pages.EventPages import *
 from pages.OtherPages import *
 from pages.ContactPage import *
 from pages.SponsorPages import *
+from pages.SpeakersPages import *
 
 app = webapp2.WSGIApplication([
                               ('^/logout$', LogoutPage),
@@ -21,8 +22,12 @@ app = webapp2.WSGIApplication([
                               ('^/event/sponsor/create$', SponsorCreatePage),
                               ('^/event/sponsor/edit$', SponsorEditPage),
                               ('^/event/sponsor/upload$', SponsorUploadPage),
+                              # upload speakers list for an event
+                              ('^/event/speakers/upload$', SpeakersUploadPage),
+                              # show / change speakers list for an event id
+                              ('^/event/speakers/edit/(.*)$', SpeakersEditPage),
                               ('^/events$', EventListPage),
-                              ('^/events/schedule$', EventSchedulePage),                              
+                              ('^/events/schedule$', EventSchedulePage),
                               ('^/event/(.*)$', EventPage),
                               ('^/about$', AboutPage),
                               ('^/report$', ReportBugPage),

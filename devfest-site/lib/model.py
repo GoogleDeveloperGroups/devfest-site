@@ -77,11 +77,13 @@ class Session(db.Model):
   is_break    = db.BooleanProperty(default = False)
   
 class Speaker(db.Model):
-  name        = db.StringProperty()
-  company     = db.StringProperty()
+  first_name  = db.StringProperty()
+  last_name   = db.StringProperty()
+  gplus_id    = db.StringProperty()
+  thumbnail   = db.StringProperty()
   img_url     = db.StringProperty()
   short_bio   = db.StringProperty()
-  event       = db.ReferenceProperty()
+  event       = db.ReferenceProperty(Event)
   
 class SpeakerSession(db.Model):
   speaker = db.ReferenceProperty(Speaker)

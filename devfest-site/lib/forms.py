@@ -1,6 +1,6 @@
 from wtforms import (Form, TextField, TextAreaField, SelectField,
      SelectMultipleField, DateTimeField, FileField, widgets,
-     validators, IntegerField)
+     validators, IntegerField, FormField, FieldList, HiddenField)
 from wtforms.ext.appengine.db import model_form
 from lib.model import Event
 
@@ -11,7 +11,6 @@ from lib.model import Event
 class MultiCheckboxField(SelectMultipleField):
   widget = widgets.ListWidget(prefix_label=False)
   option_widget = widgets.CheckboxInput()
-
 
 class EventForm(Form):
   gplus_event_url = TextField('Google+ Event URL',
@@ -78,3 +77,17 @@ class SponsorForm(Form):
         [validators.length(20, 250)])
   logo            = FileField('Sponsor\'s Logo')
 
+# subform: a speaker - used in event-speakers form
+class SingleSpeakerForm(Form):
+  speaker         = HiddenField();
+  first_name      = TextField('Given name', [validators.Required()])
+  last_name       = TextField('Surname', [validators.Required()])
+  gplus_id        = IntegerField('Google+ ID (21 digits)',
+        [validators.Optional(),
+         validators.number_range(10 ** 20, 10 ** 21 - 1, "21 digits required")])
+  short_bio       = TextAreaField("Short biography", [validators.Required()])
+  thumbnail       = FileField('Speaker\'s Picture')
+
+# allow modification of list of speakers for an event
+class SpeakersForm(Form):
+  speakers        = FieldList(FormField(SingleSpeakerForm), min_entries=1)
