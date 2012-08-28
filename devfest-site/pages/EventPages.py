@@ -20,7 +20,7 @@ class EventSchedulePage(FrontendPage):
 
 class EventCreatePage(FrontendPage):
   def show(self):
-    self.template = 'event_create'
+    self.template = 'event_edit'
     self.values['current_navigation'] = 'events'
     user = users.get_current_user()
     form = EventForm()
@@ -56,13 +56,13 @@ class EventDeletePage(Page):
 
 class EventEditPage(FrontendPage):
   def show(self,event_id):
-    self.template = 'event_create'
+    self.template = 'event_edit'
     user = users.get_current_user()
     form = EventForm()
     event = Event.get(event_id)
     if user and event:
       if user in event.organizers:
-        self.values['edit'] = str(event.key())
+        self.values['event'] = event
         form = EventForm(obj=event)
         form.gdg_chapters.process_formdata([','.join(event.gdg_chapters)])
     self.values['current_navigation'] = 'events'
@@ -79,7 +79,7 @@ class EventUploadPage(UploadPage):
     self.values['current_navigation'] = 'events'
     form = EventForm(self.request.POST)
     self.values['form'] = form
-    self.template = 'event_create'
+    self.template = 'event_edit'
     self.values['form_url'] = blobstore.create_upload_url('/event/upload')
     user = users.get_current_user()
     if not user:
@@ -88,8 +88,8 @@ class EventUploadPage(UploadPage):
 
     if form.validate():
       event = Event()
-      if self.request.get('edit') != '':
-        ev = Event.get(self.request.get('edit'))
+      if self.request.get('event') != '':
+        ev = Event.get(self.request.get('event'))
         if user in ev.organizers:
           event = ev
 
@@ -115,7 +115,7 @@ class EventUploadPage(UploadPage):
       event.kind_of_support = self.request.get('kind_of_support')
       event.subdomain = self.request.get('subdomain')
       event.put()
-      self.values['edit'] = str(event.key())
+      self.values['event'] = event
       self.values['created_successful'] = True
 
 class EventPage(FrontendPage):

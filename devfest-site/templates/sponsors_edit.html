@@ -1,13 +1,13 @@
-{% set subtype = "speaker" %}
+{% set subtype = "sponsor" %}
 {% extends "event_base.html" %}
 
 {% block head2 %}
 <script type="text/javascript">
 $(document).ready(function() {
-  $('#add_speaker').click(function() {
-    clone_field_list('#speakers li:last');
+  $('#add_sponsor').click(function() {
+    clone_field_list('#sponsors li:last');
   });
-  handle_delete_buttons('#speakers');
+  handle_delete_buttons('#sponsors');
 });
 
 function handle_delete_buttons(selector) {
@@ -22,15 +22,15 @@ function handle_delete_buttons(selector) {
     $(selector).children('li').each(function() {
       var label = $(this).children('label')[0];
       var id = $(this).children('table').attr('id');
-      label.innerHTML = "<input type='button' onclick='del_speaker(\"" +
+      label.innerHTML = "<input type='button' onclick='del_sponsor(\"" +
             id + "\");' value='delete' />";
     });
   }
 }
 
-function del_speaker(id) {
+function del_sponsor(id) {
   $('#' + id).parent().remove();
-  handle_delete_buttons('#speakers');
+  handle_delete_buttons('#sponsors');
 }
 
 function clone_field_list(selector) {
@@ -47,12 +47,12 @@ function clone_field_list(selector) {
   });
   new_element.children('label')[0].innerHTML = "New Speaker";
   $(selector).after(new_element);
-  handle_delete_buttons('#speakers');
+  handle_delete_buttons('#sponsors');
 }
 </script>
 {% endblock %}
 
 {% block formfields %}
-{{ with_errors(form.speakers) }}
-<input type="button" id="add_speaker" value="add speaker">
+{{ with_errors(form.sponsors) }}
+<input type="button" id="add_sponsor" value="add sponsor">
 {% endblock %}

@@ -282,7 +282,7 @@ body>section {
 	margin:4px 0 10px 0;
 }
 
-#gdg-container,#gdg-create-event {
+#gdg-container,#gdg-edit-event {
 	float: left;
 	border: 1px solid #ddd;
 	padding: 30px 40px 20px 40px;
@@ -298,23 +298,23 @@ body>section {
 }
 
 
-#gdg-create-event label{
+#gdg-edit-event label{
 	display:block;
 	color:#666;
 	font-weight:bold;
 }
 
-#gdg-create-event .form_field{
+#gdg-edit-event .form_field{
 	margin-bottom:10px;
 }
 
-#gdg-create-event #agenda,#gdg-create-event #technologies{
+#gdg-edit-event #agenda,#gdg-edit-event #technologies{
 	list-style:none;
 	display:inline;
 	width:100%;
 }
 
-#gdg-create-event #agenda li,#gdg-create-event #technologies li{
+#gdg-edit-event #agenda li,#gdg-edit-event #technologies li{
 	margin:5px 0px 15px 2px;
 	background: #F7F7F7;
 	padding:10px;
@@ -324,14 +324,14 @@ body>section {
 	
 }
 
-#gdg-create-event #agenda li:hover, #gdg-create-event #technologies li:hover{
+#gdg-edit-event #agenda li:hover, #gdg-edit-event #technologies li:hover{
 	-webkit-box-shadow: 0px 0px 1px #aaa;
 	-moz-box-shadow: 0px 0px 1px #aaa;
 	box-shadow: 0px 0px 1px #aaa;
 	
 }
 
-#gdg-create-event #agenda input[type="checkbox"],input[type="radio"] {
+#gdg-edit-event #agenda input[type="checkbox"],input[type="radio"] {
 	float:right;
 	padding: 0px;
 	margin-top:20px;
@@ -339,7 +339,7 @@ body>section {
 	height: 13px;
 }
 
-#gdg-create-event #technologies input[type="checkbox"],input[type="radio"]{
+#gdg-edit-event #technologies input[type="checkbox"],input[type="radio"]{
 	float:right;
 	padding: 0px;
 	margin-top:10px;
@@ -347,7 +347,7 @@ body>section {
 	height: 13px;
 }
 
-#gdg-create-event select
+#gdg-edit-event select
 {
 	font-size: 14px;
 	color: #555;
@@ -359,7 +359,7 @@ body>section {
 	margin-bottom: 20px;
 }
 
-#gdg-create-event input[type="text"],textarea,input[type="file"] {
+#gdg-edit-event input[type="text"],textarea,input[type="file"] {
 	padding: 8px;
 	margin: 4px 0 20px 0;
 	background: #fff;
@@ -372,7 +372,7 @@ body>section {
 	box-shadow: 0px 0px 4px #aaa;
 }
 
-#gdg-create-event input[type="submit"] {
+#gdg-edit-event input[type="submit"] {
 	width: 150px;
 	color: #eee;
 	height:30px;
@@ -393,7 +393,7 @@ body>section {
 	float: left;
 }
 
-#gdg-create-event input[type="submit"]:hover {
+#gdg-edit-event input[type="submit"]:hover {
 	-webkit-box-shadow: 0px 0px 20px #555;
 	-moz-box-shadow: 0px 0px 20px #aaa;
 	box-shadow: 0px 0px 20px #555;
@@ -402,16 +402,16 @@ body>section {
 
 
 
-#gdg-create-event textarea {
+#gdg-edit-event textarea {
 	width: 270px;
 	height: 175px;
 }
 
-#gdg-create-event .error ul {
+#gdg-edit-event .error ul {
 	list-style:none;
 }
 
-#gdg-create-event .error .alert{
+#gdg-edit-event .error .alert{
 	width:50%;
 	background:none;
 	border:none;
@@ -528,3 +528,15 @@ body>section {
 #turn_wrapper .ui-resizable-handle { position: absolute;font-size: 0.1px;z-index: 99999; display: block; background-image: url(#none)}
 #turn_wrapper .ui-resizable-se { cursor: se-resize; width: 12px; height: 12px; right: 0; bottom: 0; }
 #turn_wrapper .ui-resizable-sw { cursor: sw-resize; width: 12px; height: 12px; left: 0; bottom: 0; }
+
+/* links on the event edit page */
+.event-link, .active-event-link {
+  margin-right: 30px;
+  margin-top: 5px;
+  padding: 5px;
+  font-size: 18px;
+  background-color: #999;
+}
+.active-event-link {
+  background-color: #3A87AD;
+}
