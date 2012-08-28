@@ -121,6 +121,8 @@ class SingleSessionForm(Form):
   track           = TextField('Track')
   live_url        = TextField('URL of Live Stream')
   youtube_url     = TextField('URL on Youtube')
+  # this field will get its choices specified dynamically
+  speakers        = MultiCheckboxField('Speakers')
 
 # subform: a track - used in event-tracks form
 class SingleTrackForm(Form):

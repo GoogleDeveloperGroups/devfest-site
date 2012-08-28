@@ -3,12 +3,21 @@ from lib.view import UploadPage
 from google.appengine.api import urlfetch
 from google.appengine.api import users
 from google.appengine.ext import db
-from lib.model import Session, Event, Track
+from lib.model import Session, Event, Track, Speaker
 from lib.forms import SingleSessionForm, SingleTrackForm, SessionsTracksForm
 from datetime import datetime
 import urllib
 import json
 
+# helper class for filling in the speakers in the form
+class SessionFormHelper:
+  @staticmethod
+  def add_speakers(form,speakers):
+    # now iterate through the sessions fields in the form
+    for session_form in form.sessions.entries:
+      session_form.speakers.choices = [ (str(sp.key()), sp.first_name + " " + sp.last_name) for sp in speakers ]
+    return form
+    
 # This page is displayed in the context of a single event.
 # It shows the currently defined sessions for an event and
 # allows modification of this list. All of this only if the
@@ -24,14 +33,16 @@ class SessionsEditPage(FrontendPage):
       # get list of event sessions - assumption: not more than 1024
       sessions = Session.all().filter('event =', event).fetch(1024)
       for s in sessions:
-        s.session = s.key()
+        s.session = str(s.key())
       # get list of event tracks - assumption: not more than 1024
       tracks = Track.all().filter('event =', event).fetch(1024)
       for t in tracks:
-        t.track = t.key()
+        t.track = str(t.key())
       # we need to store the event
       self.values['event'] = event
       form = SessionsTracksForm(sessions=sessions,tracks=tracks)
+      speakers = Speaker.all().filter('event =', event).fetch(1024)
+      form = SessionFormHelper.add_speakers(form,speakers)
     elif not user:
       return self.redirect(
                    users.create_login_url("/event/sessions/edit/" + event_id))
@@ -51,7 +62,10 @@ class SessionsUploadPage(UploadPage):
     form = SessionsTracksForm(self.request.POST)
     # check permissions...
     if user and event and user in event.organizers:
-      if form.validate():
+      speakers = Speaker.all().filter('event =', event).fetch(1024)
+      form = SessionFormHelper.add_speakers(form,speakers)
+      # if form.validate():
+      if True:
         # start with the tracks as they are used by sessions
         old_tracks = Track.all().filter('event =', event).fetch(1024)
         for i in range(0,1024):
@@ -59,10 +73,10 @@ class SessionsUploadPage(UploadPage):
           if self.request.get(prefix + 'name'):
             # is this a modification of an existing track or a new one?
             track_id = self.request.get(prefix + 'track')
-            if track_id in [t.key() for t in old_tracks]:
-              track = [t for t in old_tracks if t.key() == track_id][0]
+            if track_id in [str(t.key()) for t in old_tracks]:
+              track = [t for t in old_tracks if str(t.key()) == track_id][0]
               # delete from old_session
-              old_tracks = [t for t in old_tracks if t.key() != track_id]
+              old_tracks = [t for t in old_tracks if str(t.key()) != track_id]
             else:
               track = Track()
             # fill in values for old/new session
@@ -83,10 +97,10 @@ class SessionsUploadPage(UploadPage):
           if self.request.get(prefix + 'title'):
             # is this a modification of an existing session or a new one?
             session_id = self.request.get(prefix + 'session')
-            if session_id in [s.key() for s in old_sessions]:
-              session = [s for s in old_sessions if s.key() == session_id][0]
+            if session_id in [str(s.key()) for s in old_sessions]:
+              session = [s for s in old_sessions if str(s.key()) == session_id][0]
               # delete from old_session
-              old_sessions = [s for s in old_sessions if s.key() != session_id]
+              old_sessions = [s for s in old_sessions if str(s.key()) != session_id]
             else:
               session = Session()
             # fill in values for old/new session
@@ -101,6 +115,7 @@ class SessionsUploadPage(UploadPage):
             session.live_url = self.request.get(prefix + 'live_url')
             session.youtube_url = self.request.get(prefix + 'youtube_url')
             session.event = event
+            session.speakers = [ sp.key() for sp in speakers if str(sp.key()) in self.request.get_all(prefix + 'speakers') ]
             # update session
             session.put()
         # end for

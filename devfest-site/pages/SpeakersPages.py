@@ -56,10 +56,10 @@ class SpeakersUploadPage(UploadPage):
           if self.request.get(prefix + 'first_name'):
             # is this a modification of an existing speaker or a new one?
             speaker_id = self.request.get(prefix + 'speaker')
-            if speaker_id in [s.key() for s in old_speakers]:
-              speaker = [s for s in old_speakers if s.key() == speaker_id][0]
+            if speaker_id in [str(s.key()) for s in old_speakers]:
+              speaker = [s for s in old_speakers if str(s.key()) == speaker_id][0]
               # delete from old_speaker
-              old_speakers = [s for s in old_speakers if s.key() != speaker_id]
+              old_speakers = [s for s in old_speakers if str(s.key()) != speaker_id]
             else:
               speaker = Speaker()
             # fill in values for old/new speaker
@@ -79,7 +79,7 @@ class SpeakersUploadPage(UploadPage):
         for s in old_speakers:
           s.delete()
         # set info that modification was successful
-        self.values['modified_successful'] = true
+        self.values['modified_successful'] = True
       # set event into form object
       self.values['event'] = event
     elif not user:

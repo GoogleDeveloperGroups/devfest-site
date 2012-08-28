@@ -20,18 +20,23 @@ def format_datetime(value, format='full'):
   return value.strftime(format)
 
 class Page(webapp2.RequestHandler):
-  pass
+  redirected = False
+  def redirect(self,*args):
+    super(Page,self).redirect(*args)
+    self.redirected = True
 
 class JSONPage(Page):
   def get(self, *paths):
     self.pre_output()
     self.show(*paths)
-    self.post_output()
+    if not self.redirected:
+      self.post_output()
 
   def post(self, *paths):
     self.pre_output()
     self.show_post(*paths)
-    self.post_output()
+    if not self.redirected:
+      self.post_output()
 
   def pre_output(self):
     self.values = {}
@@ -46,12 +51,14 @@ class FrontendPage(Page):
   def get(self, *paths):
     self.pre_output()
     self.show(*paths)
-    self.post_output()
+    if not self.redirected:
+      self.post_output()
 
   def post(self, *paths):
     self.pre_output()
     self.show_post(*paths)
-    self.post_output()
+    if not self.redirected:
+      self.post_output()
 
   def pre_output(self):
     self.template = ''
@@ -73,10 +80,15 @@ class FrontendPage(Page):
     self.response.out.write(template.render(self.values))
  
 class UploadPage(blobstore_handlers.BlobstoreUploadHandler):
+  def redirect(self,*args):
+    super(UploadPage,self).redirect(*args)
+    self.redirected = True
+
   def post(self, *paths):
     self.pre_output()
     self.show_post(*paths)
-    self.post_output()
+    if not self.redirected:
+      self.post_output()
 
   def pre_output(self):
     self.template = ''

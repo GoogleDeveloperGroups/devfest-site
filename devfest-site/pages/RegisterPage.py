@@ -43,6 +43,9 @@ class RegisterPage(FrontendPage):
   def show(self,event_id):
     self.template = 'register_user'
     event = Event.get(event_id)
+    # first check: is the event using external registration?
+    if event.register_url:
+      return self.redirect(str(event.register_url))
     user = users.get_current_user()
     # check if user is already registered
     if user and event and (user not in event.participants):
