@@ -1,38 +1,31 @@
 {% extends "global.html" %}
-{% block head %}
-{% endblock %}
-
-{% block document_ready %}
-{% endblock %}
 
 {% block content %}
 <div class="container-fluid">
+  <div class="row">
+    <div id="title">
+      <h1 style="font-size: 25px; float: none; margin-bottom: 10px"> DevFest {{event.city}}!</h1>
+    </div>
+    <hr class="thin-line">
+  </div>
 
-	<div class="row">
-		<div id="title">
-			<h1 style="font-size: 25px; float: none; margin-bottom: 10px"> DevFest {{event.city}}!</h1>
-		</div>
-		<hr class="thin-line">
-	</div>
+  <div class="row-fluid">
+    <div class="span3">
+      <div class="row">
+        <span style="margin-left: 5px"> <img src="/images/gdgbig.png">
+        </span>
+      </div>
+    </div>
 
-	<div class="row-fluid">
-		<div class="span3">
-			<div class="row">
-				<span style="margin-left: 5px"> <img src="/images/gdgbig.png">
-
-				</span>
-			</div>
-		</div>
-
-		<div class="span9">
-			<div class="row">
-				<div id="gdg-container">
-						<h1>{% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</h1>
-						<hr>
-						<div class="eventtype">
-						<img src="/blob/{{event.logo}}">
-						{{event.location}}<br/>
-						{{event.start|datetime}}<br/>
+    <div class="span9">
+      <div class="row">
+        <div id="gdg-container">
+            <h1>{% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</h1>
+            <hr>
+            <div class="eventtype">
+            <img src="/blob/{{event.logo}}">
+            {{event.location}}<br/>
+            {{event.start|datetime}}<br/>
                       <!-- Type of Event- Use <i> tag and class icon-event-* -->
                       {% if '1' in event.agenda %}
                         <i class="icon-event icon-event-conf"></i>
@@ -47,12 +40,8 @@
                         <i class="icon-event icon-event-live"></i>
                       {% endif %}
 
-					
-					<br><br>
-						
-                     
-                      
-                      
+          
+          <br><br>
                       {% if event.external_url and event.external_width %}
                       <iframe src="{{ event.external_url }}" width="{{ external_width }}" height="{{ external_height }}" border="0">
                       </iframe>
@@ -60,9 +49,9 @@
                       {% endif %}
       
                       {% if event.external_url and not event.external_width %}
-					<a class="label label-info" href="{{ event.external_url }}">Register Now</a>
+          <a class="label label-info" href="{{ event.external_url }}">Register Now</a>
                       {% else %}
-					<a class="label label-info" href="#">Register Now</a>
+          <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
                       {% endif %}
                       
                       <br><br>
@@ -86,14 +75,10 @@
                         
                         <hr class="thin-line"> 
                       {% endfor %}
-                                            
-                      
-                     
-				</div>
-						
-				</div>
-		</div>
-	</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 {% endblock %}
