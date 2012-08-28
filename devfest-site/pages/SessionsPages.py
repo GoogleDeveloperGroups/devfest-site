@@ -64,7 +64,6 @@ class SessionsUploadPage(UploadPage):
     if user and event and user in event.organizers:
       speakers = Speaker.all().filter('event =', event).fetch(1024)
       form = SessionFormHelper.add_speakers(form,speakers)
-      # if True:
       if form.validate():
         # start with the tracks as they are used by sessions
         old_tracks = Track.all().filter('event =', event).fetch(1024)
