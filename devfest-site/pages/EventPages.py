@@ -98,6 +98,11 @@ class EventUploadPage(UploadPage):
       event.external_width = int(self.request.get('external_width'))
       event.external_height = int(self.request.get('external_height'))
       event.location = self.request.get('location')
+      # did the formkey change? if yes -> set html to empty
+      if event.register_formkey != self.request.get('register_formkey'):
+        event.register_formkey = self.request.get('register_formkey')
+        event.register_html = ""
+      event.register_url = self.request.get('register_url')
 
       event.organizers = [user]
 

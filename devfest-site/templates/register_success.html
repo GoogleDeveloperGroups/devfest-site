@@ -1,0 +1,23 @@
+{% extends "global.html" %} 
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div id="title">
+      <h1 style="font-size: 25px; float: none; margin-bottom: 10px">Register
+       for Devfest
+       {% if event.location %}{{event.location}}
+       {% else %}{{event.city}}{% endif %}
+      </h1>
+    </div>
+    <hr class="thin-line">
+  </div>
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="row">
+        You have been successfully registered!
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

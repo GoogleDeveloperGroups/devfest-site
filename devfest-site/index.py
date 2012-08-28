@@ -10,6 +10,7 @@ from pages.ContactPage import *
 from pages.SponsorsPages import *
 from pages.SpeakersPages import *
 from pages.SessionsPages import *
+from pages.RegisterPage import *
 
 app = webapp2.WSGIApplication([
                               ('^/logout$', LogoutPage),
@@ -32,6 +33,8 @@ app = webapp2.WSGIApplication([
                               ('^/event/sessions/upload$', SessionsUploadPage),
                               # show / change sessions list for an event id
                               ('^/event/sessions/edit/(.*)$', SessionsEditPage),
+                              # register for an event
+                              ('^/event/register/(.*)$', RegisterPage),
                               ('^/events$', EventListPage),
                               ('^/events/schedule$', EventSchedulePage),
                               ('^/event/(.*)$', EventPage),

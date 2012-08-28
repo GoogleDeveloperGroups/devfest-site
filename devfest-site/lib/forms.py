@@ -56,7 +56,9 @@ class EventForm(Form):
          'What kind of support you expect for this event?',
         [validators.Required()])
   subdomain       = TextField('Preferred subdomain for the event website')
-
+  register_url    = TextField('URL of external registration site',
+        [validators.Optional(),validators.URL()])
+  register_formkey = TextField('Formkey from Docs registration form')
 
 class ContactForm(Form):
   name            = TextField('Your Name', [validators.Required()])
@@ -111,7 +113,7 @@ class SponsorsForm(Form):
 class SingleSessionForm(Form):
   session         = HiddenField()
   title           = TextField('Name of the session', [ validators.Required()])
-  abstract        = TextAreaField("Abstract")
+  abstract        = TextAreaField('Abstract')
   start           = DateTimeField('Start', format="%Y-%m-%d %H:%M")
   end             = DateTimeField('End', format="%Y-%m-%d %H:%M")
   room            = TextField('Room')
@@ -120,6 +122,14 @@ class SingleSessionForm(Form):
   live_url        = TextField('URL of Live Stream')
   youtube_url     = TextField('URL on Youtube')
 
-# allow modification of list of sessions for an event
-class SessionsForm(Form):
+# subform: a track - used in event-tracks form
+class SingleTrackForm(Form):
+  track           = HiddenField()
+  name            = TextField('Name', [validators.Required()])
+  color           = TextField('Color', [validators.Regexp('#[0-9A-Z]{6}')])
+  abstract        = TextAreaField('Abstract')
+
+# allow modification of list of sessions and tracks for an event
+class SessionsTracksForm(Form):
   sessions        = FieldList(FormField(SingleSessionForm), min_entries=1)
+  tracks          = FieldList(FormField(SingleTrackForm), min_entries=1)

@@ -3,8 +3,8 @@ from lib.view import UploadPage
 from google.appengine.api import urlfetch
 from google.appengine.api import users
 from google.appengine.ext import db
-from lib.model import Session, Event
-from lib.forms import SingleSessionForm, SessionsForm
+from lib.model import Session, Event, Track
+from lib.forms import SingleSessionForm, SingleTrackForm, SessionsTracksForm
 from datetime import datetime
 import urllib
 import json
@@ -18,16 +18,20 @@ class SessionsEditPage(FrontendPage):
     self.template = 'sessions_edit'
     user = users.get_current_user()
     event = Event.get(event_id)
-    form = SessionsForm()
+    form = SessionsTracksForm()
     # check permissions...
     if user and event and user in event.organizers:
       # get list of event sessions - assumption: not more than 1024
       sessions = Session.all().filter('event =', event).fetch(1024)
       for s in sessions:
         s.session = s.key()
+      # get list of event tracks - assumption: not more than 1024
+      tracks = Track.all().filter('event =', event).fetch(1024)
+      for t in tracks:
+        t.track = t.key()
       # we need to store the event
       self.values['event'] = event
-      form = SessionsForm(sessions=sessions)        
+      form = SessionsTracksForm(sessions=sessions,tracks=tracks)
     elif not user:
       return self.redirect(
                    users.create_login_url("/event/sessions/edit/" + event_id))
@@ -44,10 +48,35 @@ class SessionsUploadPage(UploadPage):
     user = users.get_current_user()
     event_id = self.request.get('event')
     event = Event.get(event_id)
-    form = SessionsForm(self.request.POST)
+    form = SessionsTracksForm(self.request.POST)
     # check permissions...
     if user and event and user in event.organizers:
       if form.validate():
+        # start with the tracks as they are used by sessions
+        old_tracks = Track.all().filter('event =', event).fetch(1024)
+        for i in range(0,1024):
+          prefix = 'tracks-' + str(i) + '-'
+          if self.request.get(prefix + 'name'):
+            # is this a modification of an existing track or a new one?
+            track_id = self.request.get(prefix + 'track')
+            if track_id in [t.key() for t in old_tracks]:
+              track = [t for t in old_tracks if t.key() == track_id][0]
+              # delete from old_session
+              old_tracks = [t for t in old_tracks if t.key() != track_id]
+            else:
+              track = Track()
+            # fill in values for old/new session
+            track.name = self.request.get(prefix + 'name')
+            track.color = self.request.get(prefix + 'color')
+            track.abstract = self.request.get(prefix + 'abstract')
+            track.event = event
+            # update track
+            track.put()
+        # end for
+        # now delete all tracks not mentioned yet
+        for t in old_tracks:
+          t.delete()
+        # now the sessions...
         old_sessions = Session.all().filter('event =', event).fetch(1024)
         for i in range(0,1024):
           prefix = 'sessions-' + str(i) + '-'
