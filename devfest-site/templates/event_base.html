@@ -7,7 +7,6 @@
 {#   speaker (speakers of an event) #}
 {#   sponsor (sponsors of an event) #}
 {#   session (sessions of an event) #}
-{#   register (handling of registrations) #}
 
 {# use the variable 'event' to indicate the id of the event. #}
 {# if this variable is not set it is assumed that this is a new event, #}
@@ -19,7 +18,6 @@
   {% set class_speaker = "label event-link" %}
   {% set class_sponsor = "label event-link" %}
   {% set class_session = "label event-link" %}
-  {% set class_register = "label event-link" %}
   {% if subtype == "base" %}
     {% set subtitle = "Basic Information" %}
     {% set class_base = "label active-event-link" %}
@@ -29,11 +27,8 @@
   {% elif subtype == "sponsor" %}
     {% set subtitle = "Sponsor list" %}
     {% set class_sponsor = "label active-event-link" %}
-  {% elif subtype == "register" %}
-    {% set subtitle = "Registration handling" %}
-    {% set class_register = "label active-event-link" %}
   {% elif subtype == "session" %}
-    {% set subtitle = "Session list" %}
+    {% set subtitle = "Session and Track list" %}
     {% set class_session = "label active-event-link" %}
   {% else %} 
     {% set subtitle = "Other information" %}
@@ -102,11 +97,6 @@
       <a href="/event/sessions/edit/{{event.key()}}">
         <div class="row {{class_session}}">
           Session list
-        </div>
-      </a>
-      <a href="/event/register/edit/{{event.key()}}">
-        <div class="row {{class_register}}">
-          Registration handling
         </div>
       </a>
       {% endif %}
