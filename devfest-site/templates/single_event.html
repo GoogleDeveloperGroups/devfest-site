@@ -21,6 +21,9 @@
       <div class="row">
         <div id="gdg-container">
             <h1>{% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</h1>
+            {% if user in event.organizers %}
+            <a href="/event/edit/{{event.key()}}" class="label label-info">Edit the event</a>
+            {% endif %}
             <hr>
             <div class="eventtype">
             <img src="/blob/{{event.logo}}">
@@ -43,7 +46,7 @@
           
           <br><br>
                       {% if event.external_url and event.external_width %}
-                      <iframe src="{{ event.external_url }}" width="{{ external_width }}" height="{{ external_height }}" border="0">
+                      <iframe src="{{ event.external_url }}" width="{{ external_width }}" height="{{ external_height }}" style="border: 0;" border="0">
                       </iframe>
                       <br><br>
                       {% endif %}
@@ -56,14 +59,15 @@
                       
                       <br><br>
                      
+                      {% if (sponsors|length) > 0 %}
                       <h1>Sponsors</h1>
                       <!-- TODO group by sponsor level -->
-                      {% for sponsor in event.sponsor_set.fetch(None) %}
+                      {% for sponsor in sponsors %}
                       
                         {% if sponsor.level == "0" %}
-                        <img  class="sponsor-0" src="/blob/{{sponsor.logo}}>
+                        <img class="sponsor-0" src="/blob/{{sponsor.logo}}">
                         {% else %}
-                        <img style="width:50px;height:50px;" src="/blob/{{sponsor.logo}} >
+                        <img style="width:50px;height:50px;" src="/blob/{{sponsor.logo}}" >
                         {% endif %}
                         
                         {% if sponsor.gplus_id %}
@@ -75,6 +79,7 @@
                         
                         <hr class="thin-line"> 
                       {% endfor %}
+                      {% endif %}
         </div>
       </div>
     </div>

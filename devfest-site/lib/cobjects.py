@@ -9,29 +9,68 @@ from django.core.serializers import deserialize, serialize
 from google.appengine.api import memcache
 from google.appengine.ext import db, search
 from google.appengine.datastore import entity_pb
-from lib.model import Event
+from lib.model import Event, Sponsor, Speaker, Session, Track
 import datetime
 import math
 import pickle
+import sys
 
+# cached version of an object
 class CachedObject():
   entity_collection = []
   cache_key = ''
   max_time = 86400
 
-  def __init__(self):
-    data = memcache.get(self.cache_key)
+  # initialize object - first lookup in cache, if not there load from DB
+  # or - if object already exists - load it from there
+  def __init__(self, data=None):
+    sys.stderr.write(self.cache_key)
+    # data was not provided? load from cache
+    if data is None:
+      data = memcache.get(self.cache_key)
+    # data was provided or just now found in cache
     if data is not None:
       self.entity_collection = self.deserialize_entities(data)
     else:
       self.load_from_db()
+      self.expand_data()
       memcache.set(self.cache_key,
                    self.serialize_entities(self.entity_collection),
                    self.max_time
                   )
 
-  def remove_from_cache(self, *args, **kwds):
-    memcache.delete(self.cache_key)
+  # non-datastore: no data expanding possible
+  def expand_data(self):
+    pass
+
+  # invalidate cache for a specific key
+  @classmethod
+  def remove_from_cache(class_, cache_key):
+    memcache.delete(cache_key)
+
+  # helper function - return the cached object (the 'real' object)
+  def get(self):
+    return self.entity_collection
+
+# used for caching objects from datastore
+# can be used for either single objects or list of objects
+class DbCachedObject(CachedObject):
+  # initialize, using an id (for an object or a collection)
+  def __init__(self,id="",max_time=3600):
+    self.id = id
+    self.cache_key = self.__class__.__name__ + ("(%s)" % (id))
+    self.max_time = max_time
+    CachedObject.__init__(self)
+
+  # invalidate cache for a specific id
+  @classmethod
+  def remove_from_cache(class_, id=""):
+    memcache.delete(class_.__name__ + ("(%s)" % (id)))
+
+  # datastore: data expanding means fetch(None) if needed
+  def expand_data(self):
+    if isinstance(self.entity_collection, db.Query):
+      self.entity_collection = self.entity_collection.fetch(limit=None)
 
   def serialize_entities(self, models):
     if models is None:
@@ -52,6 +91,11 @@ class CachedObject():
       # A list of models
       return [db.model_from_protobuf(entity_pb.EntityProto(x)) for x in data]
 
+  # helper function - return the cached object (the 'real' object)
+  def get(self):
+    return self.entity_collection
+
+# other cached object - not directly from Datastore
 class OCachedObject(CachedObject):
   def serialize_entities(self, models):
     if models is None:
@@ -65,9 +109,10 @@ class OCachedObject(CachedObject):
     else:
       return pickle.loads(data)
 
+# list of all approved events grouped into countries
 class CEventList(OCachedObject):
   def __init__(self):
-    self.cache_key = "Eventlist"
+    self.cache_key = self.__class__.__name__
     self.entity_collection = {}
     self.max_time = 3600
     CachedObject.__init__(self)
@@ -85,9 +130,7 @@ class CEventList(OCachedObject):
 
     self.entity_collection = event_list
 
-  def get(self):
-    return self.entity_collection
-
+  # get first half of event countries, sorted by country name
   def get_first_half(self):
     length = len(self.entity_collection)
     half_length = int(math.ceil(length/2))
@@ -101,6 +144,7 @@ class CEventList(OCachedObject):
 
     return return_value
 
+  # get second half of event countries, sorted by country name
   def get_second_half(self):
     length = len(self.entity_collection)
     half_length = int(math.ceil(length/2))
@@ -113,38 +157,93 @@ class CEventList(OCachedObject):
 
     return return_value
 
-class CEvent(CachedObject):
-  def __init__(self, event_id):
-    self.event_id = event_id
-    self.max_time = 3600
-    self.cache_key = "Event(%s)" % (self.event_id)
-    CachedObject.__init__(self)
+  # remove the event list from cache
+  @classmethod
+  def remove_from_cache(class_):
+    CachedObject.remove_from_cache(class_.__name__)
 
+# list of sponsors per event
+class CSponsorList(DbCachedObject):
+  def __init__(self, event_id):
+    DbCachedObject.__init__(self, event_id)
+    sys.stderr.write("I got something: " + str(self.entity_collection) + "\n")
+
+  # load all sponsors from db
+  def load_from_db(self):
+    self.entity_collection = Sponsor.all().filter('event =', CEvent(self.id).get())
+
+# list of speakers per event
+class CSpeakerList(DbCachedObject):
+  def __init__(self, event_id):
+    DbCachedObject.__init__(self, event_id)
+
+  # load all speakers from db
+  def load_from_db(self):
+    self.entity_collection = Speaker.all().filter('event =', CEvent(self.id).get())
+
+# list of tracks per event
+class CTrackList(DbCachedObject):
+  def __init__(self, event_id):
+    DbCachedObject.__init__(self, event_id)
+
+  # load all tracks from db
+  def load_from_db(self):
+    self.entity_collection = Track.all().filter('event =', CEvent(self.id).get())
+
+# list of sessions per event
+class CSessionList(DbCachedObject):
+  def __init__(self, event_id):
+    DbCachedObject.__init__(self, event_id)
+
+  # load all sessions from db
+  def load_from_db(self):
+    self.entity_collection = Session.all().filter('event =', CEvent(self.id).get())
+
+# list of all events which are not yet started
+class CEventScheduleList(DbCachedObject):
+  def __init__(self):
+    DbCachedObject.__init__(self,max_time=10)
+
+  def load_from_db(self):
+    self.entity_collection = Event.all().filter('approved =', True).filter('start >=', datetime.datetime.now()).order('start')
+
+# list of all events relevant for a single organizer
+class COrganizersEventList(DbCachedObject):
+  def __init__(self, user):
+    self.user = user
+    DbCachedObject.__init__(self, user.user_id())
+    sys.stderr.write("List..."+str(self.entity_collection)+"...\n")
+
+  def load_from_db(self):
+    sys.stderr.write("Loading organizer's event list ...\n")
+    sys.stderr.write("cache_key=" + self.cache_key + "\n")
+    self.entity_collection = Event.all().filter('organizers =', self.user)
+    sys.stderr.write("I got something: " + str(self.entity_collection) + "\n")
+
+# a single event
+class CEvent(DbCachedObject):
+  def __init__(self, event_id):
+    DbCachedObject.__init__(self, event_id)
+
+  # load single event from DB
   def load_from_db(self):
     self.entity_collection = None
 
     try:
-      data = Event.get(self.event_id)
+      data = Event.get(self.id)
 
       if isinstance(data, Event):
         self.entity_collection = data
     except:
       pass
 
-  def get(self):
-    return self.entity_collection
-
-
-class CEventScheduleList(CachedObject):
-  def __init__(self):
-    self.cache_key = "EventScheduleList"
-    self.entity_collection = []
-    self.max_time = 10
-    CachedObject.__init__(self)
-
-  def load_from_db(self):
-    self.entity_collection = Event.all().filter('approved =', True).filter('start >=', datetime.datetime.now()).order('start')
-
-  def get(self):
-    return self.entity_collection
-
+  # remove from cache - one event and all event lists
+  @staticmethod
+  def remove_all_from_cache(id):
+    CEvent.remove_from_cache(id)
+    CEventList.remove_from_cache()
+    CEventScheduleList.remove_from_cache()
+    CTrackList.remove_from_cache(id)
+    CSpeakerList.remove_from_cache(id)
+    CSessionList.remove_from_cache(id)
+    CSponsorList.remove_from_cache(id)
