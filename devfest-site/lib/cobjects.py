@@ -91,10 +91,6 @@ class DbCachedObject(CachedObject):
       # A list of models
       return [db.model_from_protobuf(entity_pb.EntityProto(x)) for x in data]
 
-  # helper function - return the cached object (the 'real' object)
-  def get(self):
-    return self.entity_collection
-
 # other cached object - not directly from Datastore
 class OCachedObject(CachedObject):
   def serialize_entities(self, models):
@@ -155,6 +151,13 @@ class CEventList(OCachedObject):
         return_value.append({'name': key, 'data': self.entity_collection[key]})
       i = i+1
 
+    return return_value
+
+  # get all events
+  def get(self):
+    return_value = []
+    for key in sorted(self.entity_collection.iterkeys()):
+      return_value.append({'name': key, 'data': self.entity_collection[key]})
     return return_value
 
   # remove the event list from cache
