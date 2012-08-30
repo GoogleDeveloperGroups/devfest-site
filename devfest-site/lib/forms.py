@@ -1,5 +1,5 @@
 from wtforms import (Form, TextField, TextAreaField, SelectField,
-     SelectMultipleField, DateTimeField, FileField, widgets,
+     SelectMultipleField, DateField, DateTimeField, FileField, widgets,
      validators, IntegerField, FormField, FieldList, HiddenField)
 from wtforms.ext.appengine.db import model_form
 from lib.model import Event
@@ -135,3 +135,24 @@ class SingleTrackForm(Form):
 class SessionsTracksForm(Form):
   sessions        = FieldList(FormField(SingleSessionForm), min_entries=1)
   tracks          = FieldList(FormField(SingleTrackForm), min_entries=1)
+
+# single day subform
+class SingleDayForm(Form):
+  day             = HiddenField()
+  date            = DateField('Date', [validators.Required()])
+  description     = TextAreaField('Description of the day')
+
+# single slot subform
+class SingleSlotForm(Form):
+  slot            = HiddenField()
+  name            = TextField('Name', [validators.Required()])
+  start           = TextField('Start time',
+           [validators.Regexp('[0-2]?[0-9]:[0-5][0-9]')])
+  end             = TextField('End time',
+           [validators.Regexp('[0-2]?[0-9]:[0-5][0-9]')])
+  date            = DateField('Date', [validators.Required()])
+
+# form for all days and slots of an event
+class DaysSlotsForm(Form):
+  days            = FieldList(FormField(SingleDayForm), min_entries=1)
+  slots           = FieldList(FormField(SingleSlotForm), min_entries=1)

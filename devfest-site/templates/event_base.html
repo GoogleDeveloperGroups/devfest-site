@@ -4,6 +4,7 @@
 
 {# use the variable 'subtype' to specify any of: #}
 {#   base (the basic event data) #}
+(#   slot (days and slots of an event) #}
 {#   speaker (speakers of an event) #}
 {#   sponsor (sponsors of an event) #}
 {#   session (sessions of an event) #}
@@ -15,12 +16,16 @@
 {% set subtitle = "Basic Information" %}
 {% if event %}
   {% set class_base = "label event-link" %}
+  {% set class_slot = "label event-link" %}
   {% set class_speaker = "label event-link" %}
   {% set class_sponsor = "label event-link" %}
   {% set class_session = "label event-link" %}
   {% if subtype == "base" %}
     {% set subtitle = "Basic Information" %}
     {% set class_base = "label active-event-link" %}
+  {% elif subtype == "slot" %}
+    {% set subtitle = "Day and Slot list" %}
+    {% set class_slot = "label active-event-link" %}
   {% elif subtype == "speaker" %}
     {% set subtitle = "Speaker list" %}
     {% set class_speaker = "label active-event-link" %}
@@ -82,6 +87,11 @@
       <a href="/event/edit/{{event.key()}}">
         <div class="row {{class_base}}">
           Basic Information
+        </div>
+      </a>
+      <a href="/event/slots/edit/{{event.key()}}">
+        <div class="row {{class_slot}}">
+          Day and Slot list
         </div>
       </a>
       <a href="/event/speakers/edit/{{event.key()}}">

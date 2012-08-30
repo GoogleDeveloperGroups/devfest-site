@@ -75,6 +75,21 @@ class Event(db.Model):
     self.set_geolocation_final(rpc_geo)
     return super(Event, self).put(**kwargs)
     
+# Event days
+class Day(db.Model):
+  date        = db.DateProperty()
+  description = db.TextProperty()
+  event       = db.ReferenceProperty(Event)
+
+# Event slots
+class Slot(db.Model):
+  name        = db.StringProperty()
+  start       = db.TimeProperty()
+  end         = db.TimeProperty()
+  day         = db.ReferenceProperty(Day)
+  event       = db.ReferenceProperty(Event)
+
+# Sponsors for an event.
 class Sponsor(db.Model):
   name        = db.StringProperty()
   gplus_id    = db.StringProperty()
