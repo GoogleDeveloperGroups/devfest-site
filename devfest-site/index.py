@@ -11,6 +11,7 @@ from pages.SponsorsPages import *
 from pages.SpeakersPages import *
 from pages.SessionsPages import *
 from pages.RegisterPage import *
+from pages.JsonPages import *
 
 app = webapp2.WSGIApplication([
                               ('^/logout$', LogoutPage),
@@ -35,6 +36,13 @@ app = webapp2.WSGIApplication([
                               ('^/event/sessions/edit/(.*)$', SessionsEditPage),
                               # register for an event
                               ('^/event/register/(.*)$', RegisterPage),
+                              # json export of events
+                              ('^/json/events$', JsonEventListPage),
+                              ('^/json/event/(.*)/speakers$', JsonSpeakerListPage),
+                              ('^/json/event/(.*)/sponsors$', JsonSponsorListPage),
+                              ('^/json/event/(.*)/tracks$', JsonTrackListPage),
+                              ('^/json/event/(.*)/sessions$', JsonSessionListPage),
+                              ('^/json/event/(.*)$', JsonEventPage),
                               ('^/events$', EventListPage),
                               ('^/events/schedule$', EventSchedulePage),
                               ('^/event/(.*)$', EventPage),
