@@ -7,17 +7,20 @@ from google.appengine.ext import blobstore
 from google.appengine.ext import db
 from lib.model import Event
 from lib.forms import EventForm
-from lib.cobjects import CEventList, CEvent, CEventScheduleList
+from lib.cobjects import (CEventList, CEvent, CEventScheduleList,
+      COrganizersEventList, CSponsorList)
 from datetime import datetime
 import urllib
 import json
 
+# show all events which are not yet started
 class EventSchedulePage(FrontendPage):
   def show(self):
     self.template = 'event_schedule'
     self.values['current_navigation'] = 'events'
     self.values['events'] = CEventScheduleList().get()
 
+# create a new event
 class EventCreatePage(FrontendPage):
   def show(self):
     self.template = 'event_edit'
@@ -29,13 +32,15 @@ class EventCreatePage(FrontendPage):
     if not user:
       return self.redirect(users.create_login_url("/event/create"))
 
+# for an organizer, show all "her" events. If only one
+# redirect to the one event, if multiple allow to select
 class EventSelectPage(FrontendPage):
   def show(self):
     self.template = 'event_select'
     user = users.get_current_user()
     if not user:
       return self.redirect(users.create_login_url("/event/edit"))
-    eventlist = Event.all().filter('organizers =', user).fetch(100)
+    eventlist = COrganizersEventList(user).get()
     eventnumber = len(eventlist)
     if eventnumber == 1:
       event = eventlist[0]
@@ -47,7 +52,7 @@ class EventSelectPage(FrontendPage):
     
 class EventDeletePage(Page):
   def get(self,event_id):
-    event = Event.get(event_id)
+    event = CEvent(event_id).get()
     user = users.get_current_user()
     if user and event:
       if user in event.organizers:
@@ -59,7 +64,7 @@ class EventEditPage(FrontendPage):
     self.template = 'event_edit'
     user = users.get_current_user()
     form = EventForm()
-    event = Event.get(event_id)
+    event = CEvent(event_id).get()
     if user and event:
       if user in event.organizers:
         self.values['event'] = event
@@ -71,40 +76,41 @@ class EventEditPage(FrontendPage):
     if not user:
       return self.redirect(users.create_login_url("/event/edit"))
     if not event:
-      return self.redirect("/event/edit")
+      return self.redirect("/events")
     
-
+# target of modification of event
 class EventUploadPage(UploadPage):
   def show_post(self):
     self.values['current_navigation'] = 'events'
     form = EventForm(self.request.POST)
+    inEdit = False
     self.values['form'] = form
     self.template = 'event_edit'
     self.values['form_url'] = blobstore.create_upload_url('/event/upload')
     user = users.get_current_user()
     if not user:
       return self.redirect(users.create_login_url("/event/edit"))
-
-
     if form.validate():
+      # create a new event (will be overwritten if in edit mode)
       event = Event()
       if self.request.get('event') != '':
-        ev = Event.get(self.request.get('event'))
+        ev = CEvent(self.request.get('event')).get()
         if user in ev.organizers:
           event = ev
-
+          inEdit = True
       event.gplus_event_url = self.request.get('gplus_event_url')
       event.external_url = self.request.get('external_url')
       event.external_width = int(self.request.get('external_width'))
       event.external_height = int(self.request.get('external_height'))
       event.location = self.request.get('location')
-      # did the formkey change? if yes -> set html to empty
-      if event.register_formkey != self.request.get('register_formkey'):
-        event.register_formkey = self.request.get('register_formkey')
-        event.register_html = ""
       event.register_url = self.request.get('register_url')
+      if self.request.get('register_max'):
+        event.register_max = int(self.request.get('register_max'))
+      else:
+        event.register_max = 0
 
-      event.organizers = [user]
+      if event.organizers == []:
+        event.organizers = [user]
 
       upload_files = self.get_uploads('logo')
       if len(upload_files) > 0:
@@ -120,26 +126,27 @@ class EventUploadPage(UploadPage):
       event.kind_of_support = self.request.get('kind_of_support')
       event.subdomain = self.request.get('subdomain')
       event.put()
+      # time to invalidate the cache
+      CEvent.remove_all_from_cache(event.key())
       self.values['event'] = event
-      self.values['created_successful'] = True
+      if inEdit:
+        self.values['modified_successful'] = True
+      else:
+        self.values['created_successful'] = True
 
+# show a single event on the front page
 class EventPage(FrontendPage):
-  def show(self, *paths):
+  def show(self, event_id):
     self.values['current_navigation'] = 'events'
     user = users.get_current_user()
     self.template = 'single_event'
-    
-    event_id = paths[0]
     self.values['event'] = CEvent(event_id).get()
+    self.values['sponsors'] = CSponsorList(event_id).get()
 
+# list of approved events 
 class EventListPage(FrontendPage):
   def show(self):
     self.values['current_navigation'] = 'events'
     user = users.get_current_user()
     self.template = 'event_list'
-
     self.values['events'] = CEventList()
-
-    interested_events = Event.all().filter('status =', 'interested')
-    planned_events = Event.all().filter('status =', 'planned')
-    confirmed_events = Event.all().filter('status =', 'confirmed')

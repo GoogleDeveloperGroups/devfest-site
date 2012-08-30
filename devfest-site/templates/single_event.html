@@ -21,64 +21,61 @@
       <div class="row">
         <div id="gdg-container">
             <h1>{% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</h1>
+            {% if user in event.organizers %}
+            <a href="/event/edit/{{event.key()}}" class="label label-info">Edit the event</a>
+            {% endif %}
             <hr>
             <div class="eventtype">
             <img src="/blob/{{event.logo}}">
             {{event.location}}<br/>
             {{event.start|datetime}}<br/>
-                      <!-- Type of Event- Use <i> tag and class icon-event-* -->
-                      {% if '1' in event.agenda %}
-                        <i class="icon-event icon-event-conf"></i>
-                      {% endif %}
-                      {% if '2' in event.agenda %}
-                        <i class="icon-event icon-event-hack"></i>
-                      {% endif %}
-                      {% if '3' in event.agenda %}
-                        <i class="icon-event icon-event-barcamp"></i>
-                      {% endif %}
-                      {% if '4' in event.agenda %}
-                        <i class="icon-event icon-event-live"></i>
-                      {% endif %}
-
-          
+            <!-- Type of Event- Use <i> tag and class icon-event-* -->
+            {% if '1' in event.agenda %}
+              <i class="icon-event icon-event-conf"></i>
+            {% endif %}
+            {% if '2' in event.agenda %}
+              <i class="icon-event icon-event-hack"></i>
+            {% endif %}
+            {% if '3' in event.agenda %}
+              <i class="icon-event icon-event-barcamp"></i>
+            {% endif %}
+            {% if '4' in event.agenda %}
+              <i class="icon-event icon-event-live"></i>
+            {% endif %}
           <br><br>
-                      {% if event.external_url and event.external_width %}
-                      <iframe src="{{ event.external_url }}" width="{{ external_width }}" height="{{ external_height }}" border="0">
-                      </iframe>
-                      <br><br>
-                      {% endif %}
-      
-                      {% if event.external_url and not event.external_width %}
-          <a class="label label-info" href="{{ event.external_url }}">Register Now</a>
-                      {% else %}
-          <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
-                      {% endif %}
-                      
-                      <br><br>
-                     
-                      <h1>Sponsors</h1>
-                      <!-- TODO group by sponsor level -->
-                      {% for sponsor in event.sponsor_set.fetch(None) %}
-                      
-                        {% if sponsor.level == "0" %}
-                        <img  class="sponsor-0" src="/blob/{{sponsor.logo}}>
-                        {% else %}
-                        <img style="width:50px;height:50px;" src="/blob/{{sponsor.logo}} >
-                        {% endif %}
-                        
-                        {% if sponsor.gplus_id %}
-                          <a style="color:black;" href="http://plus.google.com/{{sponsor.gplus_id}}">{{sponsor.name}}</a>
-                        {% else %}
-                          {{sponsor.name}} 
-                        {% endif %}
-                        <br>{{sponsor.description}} 
-                        
-                        <hr class="thin-line"> 
-                      {% endfor %}
+          {% if event.external_url and event.external_width %}
+            <iframe src="{{ event.external_url }}" width="{{ event.external_width }}" height="{{ event.external_height }}" style="border: 0;" border="0">
+             </iframe>
+             <br><br>
+           {% endif %}
+           {% if user in event.participants %}
+             <span class="label">You are registered!</span>
+           {% else %}
+             <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
+           {% endif %}
+           <br><br>
+           {% if (sponsors|length) > 0 %}
+             <h1>Sponsors</h1>
+             <!-- TODO group by sponsor level -->
+             {% for sponsor in sponsors %}
+               {% if sponsor.level == "0" %}
+                 <img class="sponsor-0" src="/blob/{{sponsor.logo}}">
+               {% else %}
+                 <img style="width:50px;height:50px;" src="/blob/{{sponsor.logo}}" >
+               {% endif %}
+               {% if sponsor.gplus_id %}
+                 <a style="color:black;" href="https://plus.google.com/{{sponsor.gplus_id}}">{{sponsor.name}}</a>
+               {% else %}
+                 {{sponsor.name}} 
+               {% endif %}
+               <br>{{sponsor.description}} 
+               <hr class="thin-line"> 
+             {% endfor %}
+           {% endif %}
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 {% endblock %}

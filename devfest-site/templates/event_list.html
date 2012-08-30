@@ -47,7 +47,11 @@
                     {% if event.start %}
                       <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
                     {% endif %}
-                    <a class="label label-info" href="#">Register Now</a>
+                    {% if user not in event.participants %}
+                    <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
+                    {% else %}
+                    <span class="label" href="#">You are registered!</span>
+                    {% endif %}
                   </li>
                   {% endfor %}
                 </ul>
@@ -84,7 +88,11 @@
                     {% if event.start %}
                       <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
                     {% endif %}
-                    <a href="/event/register/{{ event.key() }}" class="label label-info" href="#">Register Now</a>
+                    {% if user not in event.participants %}
+                    <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
+                    {% else %}
+                    <span class="label">You are registered!</a>
+                    {% endif %}
                   </li>
                   {% endfor %}
                 </ul>

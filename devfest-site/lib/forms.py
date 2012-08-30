@@ -58,7 +58,7 @@ class EventForm(Form):
   subdomain       = TextField('Preferred subdomain for the event website')
   register_url    = TextField('URL of external registration site',
         [validators.Optional(),validators.URL()])
-  register_formkey = TextField('Formkey from Docs registration form')
+  register_max    = TextField('Maximum number of registrations')
 
 class ContactForm(Form):
   name            = TextField('Your Name', [validators.Required()])

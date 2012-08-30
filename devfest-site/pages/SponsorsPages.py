@@ -6,6 +6,7 @@ from google.appengine.ext import blobstore
 from google.appengine.ext import db
 from lib.model import Sponsor, Event
 from lib.forms import SingleSponsorForm, SponsorsForm
+from lib.cobjects import CEvent, CSponsorList
 from datetime import datetime
 import urllib
 import json
@@ -18,12 +19,12 @@ class SponsorsEditPage(FrontendPage):
   def show(self,event_id):
     self.template = 'sponsors_edit'
     user = users.get_current_user()
-    event = Event.get(event_id)
+    event = CEvent(event_id).get()
     form = SponsorsForm()
     # check permissions...
     if user and event and user in event.organizers:
-      # get list of event sponsors - assumption: not more than 1024
-      sponsors = Sponsor.all().filter('event =', event).fetch(1024)
+      # get list of event sponsors
+      sponsors = CSponsorList(event_id).get()
       for s in sponsors:
         s.sponsor = s.key()
       # we need to store the event
@@ -45,12 +46,12 @@ class SponsorsUploadPage(UploadPage):
     self.template = 'sponsors_edit'
     user = users.get_current_user()
     event_id = self.request.get('event')
-    event = Event.get(event_id)
+    event = CEvent(event_id).get()
     form = SponsorsForm(self.request.POST)
     # check permissions...
     if user and event and user in event.organizers:
       if form.validate():
-        old_sponsors = Sponsor.all().filter('event =', event).fetch(1024)
+        old_sponsors = CSponsorList(event_id).get()
         for i in range(0,1024):
           prefix = 'sponsors-' + str(i) + '-'
           if self.request.get(prefix + 'name'):
@@ -80,6 +81,8 @@ class SponsorsUploadPage(UploadPage):
           s.delete()
         # set info that modification was successful
         self.values['modified_successful'] = True
+        # clear sponsor cache
+        CSponsorList.remove_from_cache(event_id)
       # set event into form object
       self.values['event'] = event
     elif not user:

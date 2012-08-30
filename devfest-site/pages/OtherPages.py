@@ -36,7 +36,8 @@ class RegisterFormPage(FrontendPage):
 class BlobPage(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, resource):
         if not blobstore.get(resource):
-            self.error(404)
+            # self.error(404)
+            self.redirect("/images/gdgbig.png")
         else:
             self.send_blob(resource)
 

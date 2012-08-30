@@ -40,11 +40,10 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
 <hr>
 <p>
 You can either provide an URL of an external registration site,
-or you provide a Form-Key from a Google Spreadsheet which will be used
-to receive the registrations for your event.
+or you provide the maximum number of allowed registrations.
 </p>
 {{ with_errors(form.register_url) }}
-{{ with_errors(form.register_formkey) }}
+{{ with_errors(form.register_max) }}
 <br><br>
 <h3>Event Details</h3>
 <hr>

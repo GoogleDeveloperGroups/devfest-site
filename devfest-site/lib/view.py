@@ -80,6 +80,7 @@ class FrontendPage(Page):
     self.response.out.write(template.render(self.values))
  
 class UploadPage(blobstore_handlers.BlobstoreUploadHandler):
+  redirected = False
   def redirect(self,*args):
     super(UploadPage,self).redirect(*args)
     self.redirected = True

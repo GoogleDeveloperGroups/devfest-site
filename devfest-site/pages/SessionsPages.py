@@ -5,6 +5,7 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from lib.model import Session, Event, Track, Speaker
 from lib.forms import SingleSessionForm, SingleTrackForm, SessionsTracksForm
+from lib.cobjects import CEvent, CSessionList, CTrackList, CSpeakerList
 from datetime import datetime
 import urllib
 import json
@@ -16,7 +17,6 @@ class SessionFormHelper:
     # now iterate through the sessions fields in the form
     for session_form in form.sessions.entries:
       session_form.speakers.choices = [ (str(sp.key()), sp.first_name + " " + sp.last_name) for sp in speakers ]
-    return form
     
 # This page is displayed in the context of a single event.
 # It shows the currently defined sessions for an event and
@@ -26,23 +26,23 @@ class SessionsEditPage(FrontendPage):
   def show(self,event_id):
     self.template = 'sessions_edit'
     user = users.get_current_user()
-    event = Event.get(event_id)
+    event = CEvent(event_id).get()
     form = SessionsTracksForm()
     # check permissions...
     if user and event and user in event.organizers:
-      # get list of event sessions - assumption: not more than 1024
-      sessions = Session.all().filter('event =', event).fetch(1024)
+      # get list of event sessions
+      sessions = CSessionList(event_id).get()
       for s in sessions:
         s.session = str(s.key())
-      # get list of event tracks - assumption: not more than 1024
-      tracks = Track.all().filter('event =', event).fetch(1024)
+      # get list of event tracks
+      tracks = CTrackList(event_id).get()
       for t in tracks:
         t.track = str(t.key())
       # we need to store the event
       self.values['event'] = event
       form = SessionsTracksForm(sessions=sessions,tracks=tracks)
-      speakers = Speaker.all().filter('event =', event).fetch(1024)
-      form = SessionFormHelper.add_speakers(form,speakers)
+      speakers = CSpeakerList(event_id).get()
+      SessionFormHelper.add_speakers(form,speakers)
     elif not user:
       return self.redirect(
                    users.create_login_url("/event/sessions/edit/" + event_id))
@@ -58,16 +58,16 @@ class SessionsUploadPage(UploadPage):
     self.template = 'sessions_edit'
     user = users.get_current_user()
     event_id = self.request.get('event')
-    event = Event.get(event_id)
+    event = CEvent(event_id).get()
     form = SessionsTracksForm(self.request.POST)
     # check permissions...
     if user and event and user in event.organizers:
-      speakers = Speaker.all().filter('event =', event).fetch(1024)
-      form = SessionFormHelper.add_speakers(form,speakers)
-      # if form.validate():
-      if True:
+      # add the speakers for validation
+      speakers = CSpeakerList(event_id).get()
+      SessionFormHelper.add_speakers(form,speakers)
+      if form.validate():
         # start with the tracks as they are used by sessions
-        old_tracks = Track.all().filter('event =', event).fetch(1024)
+        old_tracks = CTrackList(event_id).get()
         for i in range(0,1024):
           prefix = 'tracks-' + str(i) + '-'
           if self.request.get(prefix + 'name'):
@@ -91,7 +91,7 @@ class SessionsUploadPage(UploadPage):
         for t in old_tracks:
           t.delete()
         # now the sessions...
-        old_sessions = Session.all().filter('event =', event).fetch(1024)
+        old_sessions = CSessionList(event_id).get()
         for i in range(0,1024):
           prefix = 'sessions-' + str(i) + '-'
           if self.request.get(prefix + 'title'):
@@ -124,6 +124,9 @@ class SessionsUploadPage(UploadPage):
           s.delete()
         # set info that modification was successful
         self.values['modified_successful'] = True
+        # clear the cache for the event
+        CSessionList.remove_from_cache(event_id)
+        CTrackList.remove_from_cache(event_id)
       # set event into form object
       self.values['event'] = event
     elif not user:
