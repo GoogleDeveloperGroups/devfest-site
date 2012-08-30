@@ -9,7 +9,7 @@ from django.core.serializers import deserialize, serialize
 from google.appengine.api import memcache
 from google.appengine.ext import db, search
 from google.appengine.datastore import entity_pb
-from lib.model import Event, Sponsor, Speaker, Session, Track
+from lib.model import Event, Sponsor, Speaker, Session, Track, Day, Slot
 import datetime
 import math
 import pickle
@@ -223,6 +223,24 @@ class COrganizersEventList(DbCachedObject):
     self.entity_collection = Event.all().filter('organizers =', self.user)
     sys.stderr.write("I got something: " + str(self.entity_collection) + "\n")
 
+# list of days of an event
+class CDayList(DbCachedObject):
+  def __init__(self, event_id):
+    DbCachedObject.__init__(self, event_id)
+
+  # load all days for an event
+  def load_from_db(self):
+    self.entity_collection = Day.all().filter('event =', CEvent(self.id).get())
+
+# list of slots of an event
+class CSlotList(DbCachedObject):
+  def __init__(self, event_id):
+    DbCachedObject.__init__(self, event_id)
+
+  # load all slots for an event
+  def load_from_db(self):
+    self.entity_collection = Slot.all().filter('event =', CEvent(self.id).get())
+
 # a single event
 class CEvent(DbCachedObject):
   def __init__(self, event_id):
@@ -250,3 +268,6 @@ class CEvent(DbCachedObject):
     CSpeakerList.remove_from_cache(id)
     CSessionList.remove_from_cache(id)
     CSponsorList.remove_from_cache(id)
+    CDayList.remove_from_cache(id)
+    CSlotList.remove_from_cache(id)
+

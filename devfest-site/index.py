@@ -12,6 +12,7 @@ from pages.SpeakersPages import *
 from pages.SessionsPages import *
 from pages.RegisterPage import *
 from pages.JsonPages import *
+from pages.SlotsPages import *
 
 app = webapp2.WSGIApplication([
                               ('^/logout$', LogoutPage),
@@ -32,6 +33,10 @@ app = webapp2.WSGIApplication([
                               ('^/event/speakers/edit/(.*)$', SpeakersEditPage),
                               # upload sessions list for an event
                               ('^/event/sessions/upload$', SessionsUploadPage),
+                              # show / change days/slots list for an event id
+                              ('^/event/slots/edit/(.*)$', SlotsEditPage),
+                              # upload days/slots list for an event id
+                              ('^/event/slots/upload$', SlotsUploadPage),
                               # show / change sessions list for an event id
                               ('^/event/sessions/edit/(.*)$', SessionsEditPage),
                               # register for an event
