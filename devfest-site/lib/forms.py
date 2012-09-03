@@ -65,6 +65,7 @@ class EventForm(Form):
   register_url    = TextField('URL of external registration site',
         [validators.Optional(),validators.URL()])
   register_max    = TextField('Maximum number of registrations')
+  vhackandroid    = BooleanField('VHackAndroid event')
   approved        = BooleanField('Approved')
   organizers      = TextField('Organizers',
         [validators.Required()], description='Comma separated list')

@@ -27,10 +27,12 @@ class Event(db.Model):
   agenda                = db.StringListProperty()
   agenda_description    = db.StringProperty()
   technologies          = db.StringListProperty()
+  is_vhackandroid       = db.BooleanProperty(default = False)
   kind_of_support       = db.TextProperty()
   expected_participants = db.StringProperty()
-  subdomain             = db.StringProperty()
+  subdomain             = db.StringProperty()  
   approved              = db.BooleanProperty(default = False)
+  
 
   # get the location of the event from Google Maps
   # done in two phases to allow for asynchronous request
