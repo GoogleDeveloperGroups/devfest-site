@@ -40,22 +40,102 @@
   {% endif %}
 {% endif %}
 
+{% macro subform_handling(fields) %}
+<script type="text/javascript">
+$(document).ready(function() {
+  {% for field in fields %}
+  $('#add_{{field}}').click(function() {
+    clone_field_list('#{{field}}s');
+  });
+  handle_delete_buttons('#{{field}}s');
+  {% endfor %}
+});
+
+function handle_delete_buttons(selector) {
+  if ($(selector).children('li').length < 2) {
+    // remove delete button
+    $(selector).children('li').each(function() {
+      $(this).children('label')[0].innerHTML = "";
+    });
+  }
+  else {
+    // add delete buttons
+    $(selector).children('li').each(function() {
+      var label = $(this).children('label')[0];
+      var id = $(this).children('table').attr('id');
+      label.innerHTML = "<span class='label button' onclick='del_field(\"" +
+            id + "\",\"" + selector + "\");'>delete</span>";
+    });
+  }
+}
+
+function del_field(id,selector) {
+  $('#' + id).parent().remove();
+  handle_delete_buttons(selector);
+}
+
+function clone_field_list(selector) {
+  var new_element = $(selector + " > li:last").clone(true);
+  var elem_id = new_element.find(':input')[0].id;
+  var elem_num = parseInt(elem_id.replace(/.*-(\d{1,4})-.*/m, '$1')) + 1;
+  new_element.find(':input').each(function() {
+    var id = $(this).attr('id').replace('-' + (elem_num - 1) + '-', '-' + elem_num + '-');
+    $(this).attr({'name': id, 'id': id}).val('').removeAttr('checked');
+  });
+  new_element.find('label').each(function() {
+    var new_for = $(this).attr('for').replace('-' + (elem_num - 1) + '-', '-' + elem_num + '-');
+    $(this).attr('for', new_for);
+  });
+  new_element.children('label')[0].innerHTML = "New";
+  $(selector + " > li:last").after(new_element);
+  handle_delete_buttons(selector);
+}
+</script>
+{% endmacro %}
+
 {% macro with_errors(field) %}
-<div class="form_field">
+  <div class="form_field">
   {{ field.label }}
+  {{ field_only(field) }}
+  </div>
+{% endmacro %}
+{% macro field_only(field) %}
   {% if field.description %}
   <div><small>{{ field.description }}</small></div>
   {% endif %}
-   {% if field.errors %}
-    {% set css_class = 'has_error ' + kwargs.pop('class', '') %}
+   {% if field.type == "FormField" %}
+    <table class="form_FormField" id="{{field.id}}">
+    {% for entry in field %}
+     <tr>
+     <th>{{entry.label}}</th>
+     <td>{{field_only(entry)}}</td>
+     </tr>
+    {% endfor %}
+    </table>
+   {% elif field.type == "FieldList" and field.entries|length > 0 %}
+     <ul class="form_{{ field.entries[0].type }} form_FieldList" id="{{field.id}}">
+     {% for entry in field.entries %}
+      <li>{{entry.label}}{{field_only(entry)}}</li>
+     {% endfor %}
+     </ul>
+   {% else %}
+    {% if field.errors %}
+     {% set css_class = 'has_error ' + kwargs.pop('class', 'form_' + field.type) %}
+    {% else %}
+     {% set css_class = kwargs.pop('class', 'form_' + field.type) %}
+    {% endif %}
     {{ field(class=css_class, **kwargs) }}
+   {% endif %}
+   {% if field.type == "FileField" %}
+    {% if field.data %}
+    <img src="/blob/{{field.data}}" width="100">
+    {% endif %}
+   {% endif %}
+   {% if field.errors %}
     <div class="error">
     <ul class="alert alert-error">{% for error in field.errors %}<li>{{ error|e }}</li>{% endfor %}</ul>
         </div>
-  {% else %}
-    {{ field(**kwargs) }}
   {% endif %}
-  </div>
 {% endmacro %}
 
 {% block content %}

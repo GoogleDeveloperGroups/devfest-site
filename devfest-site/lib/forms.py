@@ -7,6 +7,11 @@ from lib.model import Event
 # This file contains all the forms used at the backend (besides the
 # admin-related forms)
 
+# a TimeField - nothing but a TextField which will be styled with CSS
+# in the template
+class TimeField(TextField):
+  pass
+
 # a multi-select list composed out of many checkboxes
 class MultiCheckboxField(SelectMultipleField):
   widget = widgets.ListWidget(prefix_label=False)
@@ -146,9 +151,9 @@ class SingleDayForm(Form):
 class SingleSlotForm(Form):
   slot            = HiddenField()
   name            = TextField('Name', [validators.Required()])
-  start           = TextField('Start time',
+  start           = TimeField('Start time',
            [validators.Regexp('[0-2]?[0-9]:[0-5][0-9]')])
-  end             = TextField('End time',
+  end             = TimeField('End time',
            [validators.Regexp('[0-2]?[0-9]:[0-5][0-9]')])
   date            = DateField('Date', [validators.Required()])
 

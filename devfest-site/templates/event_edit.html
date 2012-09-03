@@ -56,7 +56,8 @@ or you provide the maximum number of allowed registrations.
 {{ with_errors(form.kind_of_support) }}
 {{ with_errors(form.subdomain) }}
 <script type="text/javascript">
-  $('#start').datetimepicker({dateFormat:'yy-mm-dd'});
-  $('#end').datetimepicker({dateFormat:'yy-mm-dd'});
+  $('.form_DateTimeField').datetimepicker({dateFormat:'yy-mm-dd', timeFormat:'h:mm:ss'});
+  $('.form_DateField').datepicker({dateFormat:'yy-mm-dd'});
+  $('.form_TimeField').timepicker({timeFormat:'h:mm:ss'});
 </script>
 {% endblock %}
