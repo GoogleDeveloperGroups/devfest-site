@@ -66,6 +66,8 @@ class EventForm(Form):
         [validators.Optional(),validators.URL()])
   register_max    = TextField('Maximum number of registrations')
   approved        = BooleanField('Approved')
+  organizers      = TextField('Organizers',
+        [validators.Required()], description='Comma separated list')
 
 class ContactForm(Form):
   name            = TextField('Your Name', [validators.Required()])

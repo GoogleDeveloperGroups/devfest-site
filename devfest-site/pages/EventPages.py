@@ -72,6 +72,7 @@ class EventEditPage(FrontendPage):
         self.values['event'] = event
         form = EventForm(obj=event)
         form.gdg_chapters.process_formdata([','.join(event.gdg_chapters)])
+        form.organizers.process_formdata([','.join([u.email() for u in event.organizers])])
         # special handling: if not admin of application then remove the field
         # 'approved'
         if not users.is_current_user_admin():
@@ -133,6 +134,7 @@ class EventUploadPage(UploadPage):
       event.end = datetime.strptime(self.request.get('end'), '%Y-%m-%d %H:%M')
       event.technologies = self.request.get_all('technologies')
       event.gdg_chapters = self.request.get('gdg_chapters').split(',')
+      event.organizers = [ users.User(e.strip()) for e in self.request.get('organizers').split(',') ]
       event.kind_of_support = self.request.get('kind_of_support')
       event.subdomain = self.request.get('subdomain')
       event.put()
