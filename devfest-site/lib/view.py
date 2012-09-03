@@ -69,6 +69,7 @@ class FrontendPage(Page):
     user = users.get_current_user()
     if user:
       self.values['user'] = user
+      self.values['is_admin'] = users.is_current_user_admin()
 
   def post_output(self):
     self.response.headers['Content-Type'] = 'text/html; charset=UTF-8'
@@ -100,6 +101,7 @@ class UploadPage(blobstore_handlers.BlobstoreUploadHandler):
     user = users.get_current_user()
     if user:
       self.values['user'] = user
+      self.values['is_admin'] = users.is_current_user_admin()
 
   def post_output(self):
     self.response.headers['Content-Type'] = 'text/html; charset=UTF-8'

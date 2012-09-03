@@ -22,7 +22,7 @@ class SponsorsEditPage(FrontendPage):
     event = CEvent(event_id).get()
     form = SponsorsForm()
     # check permissions...
-    if user and event and user in event.organizers:
+    if user and event and (user in event.organizers or users.is_current_user_admin()):
       # get list of event sponsors
       sponsors = CSponsorList(event_id).get()
       for s in sponsors:
@@ -49,7 +49,7 @@ class SponsorsUploadPage(UploadPage):
     event = CEvent(event_id).get()
     form = SponsorsForm(self.request.POST)
     # check permissions...
-    if user and event and user in event.organizers:
+    if user and event and (user in event.organizers or users.is_current_user_admin()):
       if form.validate():
         old_sponsors = CSponsorList(event_id).get()
         for i in range(0,1024):

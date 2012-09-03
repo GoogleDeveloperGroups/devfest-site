@@ -22,7 +22,7 @@ class SpeakersEditPage(FrontendPage):
     event = CEvent(event_id).get()
     form = SpeakersForm()
     # check permissions...
-    if user and event and user in event.organizers:
+    if user and event and (user in event.organizers or users.is_current_user_admin()):
       # get list of event speakers
       speakers = CSpeakerList(event_id).get()
       for s in speakers:
@@ -49,7 +49,7 @@ class SpeakersUploadPage(UploadPage):
     event = CEvent(event_id).get()
     form = SpeakersForm(self.request.POST)
     # check permissions...
-    if user and event and user in event.organizers:
+    if user and event and (user in event.organizers or users.is_current_user_admin()):
       if form.validate():
         old_speakers = CSpeakerList(event_id).get()
         for i in range(0,1024):

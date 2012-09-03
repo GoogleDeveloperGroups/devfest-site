@@ -27,6 +27,8 @@ class EventCreatePage(FrontendPage):
     self.values['current_navigation'] = 'events'
     user = users.get_current_user()
     form = EventForm()
+    if not users.is_current_user_admin():
+      del form.approved
     self.values['form'] = form
     self.values['form_url'] = blobstore.create_upload_url('/event/upload')
     if not user:
@@ -55,7 +57,7 @@ class EventDeletePage(Page):
     event = CEvent(event_id).get()
     user = users.get_current_user()
     if user and event:
-      if user in event.organizers:
+      if user in event.organizers or users.is_current_user_admin():
         event.delete()
     return self.redirect("/event/edit")
 
@@ -66,10 +68,14 @@ class EventEditPage(FrontendPage):
     form = EventForm()
     event = CEvent(event_id).get()
     if user and event:
-      if user in event.organizers:
+      if user in event.organizers or users.is_current_user_admin():
         self.values['event'] = event
         form = EventForm(obj=event)
         form.gdg_chapters.process_formdata([','.join(event.gdg_chapters)])
+        # special handling: if not admin of application then remove the field
+        # 'approved'
+        if not users.is_current_user_admin():
+          del form.approved
     self.values['current_navigation'] = 'events'
     self.values['form_url'] = blobstore.create_upload_url('/event/upload')
     self.values['form'] = form
@@ -90,12 +96,16 @@ class EventUploadPage(UploadPage):
     user = users.get_current_user()
     if not user:
       return self.redirect(users.create_login_url("/event/edit"))
+    # special handling: if not admin of application then remove the field
+    # 'approved'
+    if not users.is_current_user_admin():
+      del form.approved
     if form.validate():
       # create a new event (will be overwritten if in edit mode)
       event = Event()
       if self.request.get('event') != '':
         ev = CEvent(self.request.get('event')).get()
-        if user in ev.organizers:
+        if user in ev.organizers or users.is_current_user_admin():
           event = ev
           inEdit = True
       event.gplus_event_url = self.request.get('gplus_event_url')
@@ -108,10 +118,10 @@ class EventUploadPage(UploadPage):
         event.register_max = int(self.request.get('register_max'))
       else:
         event.register_max = 0
-
       if event.organizers == []:
         event.organizers = [user]
-
+      if users.is_current_user_admin:
+        event.approved = bool(self.request.get('approved'))
       upload_files = self.get_uploads('logo')
       if len(upload_files) > 0:
         blob_info = upload_files[0]

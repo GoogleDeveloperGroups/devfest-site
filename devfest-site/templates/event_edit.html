@@ -34,6 +34,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
 {{ with_errors(form.external_height) }}
 {{ with_errors(form.location) }}
 {{ with_errors(form.status) }}
+{% if is_admin %}
+{{ with_errors(form.approved) }}
+{% endif %}
 {{ with_errors(form.logo) }}
 <br><br>
 <h3>Event Registration</h3>

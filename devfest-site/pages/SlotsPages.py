@@ -21,7 +21,7 @@ class SlotsEditPage(FrontendPage):
     event = CEvent(event_id).get()
     form = DaysSlotsForm()
     # check permissions...
-    if user and event and user in event.organizers:
+    if user and event and (user in event.organizers or users.is_current_user_admin()):
       # get list of event days
       days = CDayList(event_id).get()
       for d in days:
@@ -52,7 +52,7 @@ class SlotsUploadPage(UploadPage):
     event = CEvent(event_id).get()
     form = DaysSlotsForm(self.request.POST)
     # check permissions...
-    if user and event and user in event.organizers:
+    if user and event and (user in event.organizers or users.is_current_user_admin()):
       # add the days for validation
       if form.validate():
         # start with the days as they are used by slots

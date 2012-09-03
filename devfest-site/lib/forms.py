@@ -1,6 +1,7 @@
 from wtforms import (Form, TextField, TextAreaField, SelectField,
      SelectMultipleField, DateField, DateTimeField, FileField, widgets,
-     validators, IntegerField, FormField, FieldList, HiddenField)
+     validators, IntegerField, FormField, FieldList, HiddenField,
+     BooleanField)
 from wtforms.ext.appengine.db import model_form
 from lib.model import Event
 
@@ -64,6 +65,7 @@ class EventForm(Form):
   register_url    = TextField('URL of external registration site',
         [validators.Optional(),validators.URL()])
   register_max    = TextField('Maximum number of registrations')
+  approved        = BooleanField('Approved')
 
 class ContactForm(Form):
   name            = TextField('Your Name', [validators.Required()])
