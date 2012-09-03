@@ -29,7 +29,7 @@ class SessionsEditPage(FrontendPage):
     event = CEvent(event_id).get()
     form = SessionsTracksForm()
     # check permissions...
-    if user and event and user in event.organizers:
+    if user and event and (user in event.organizers or users.is_current_user_admin()):
       # get list of event sessions
       sessions = CSessionList(event_id).get()
       for s in sessions:
@@ -61,7 +61,7 @@ class SessionsUploadPage(UploadPage):
     event = CEvent(event_id).get()
     form = SessionsTracksForm(self.request.POST)
     # check permissions...
-    if user and event and user in event.organizers:
+    if user and event and (user in event.organizers or users.is_current_user_admin()):
       # add the speakers for validation
       speakers = CSpeakerList(event_id).get()
       SessionFormHelper.add_speakers(form,speakers)
