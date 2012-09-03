@@ -38,6 +38,6 @@ class RegisterPage(FrontendPage):
         self.template = 'register_full'
       else:
         # add user to participants
-        event.participants = event.particpants + [user]
+        event.participants.append(user)
         # invalidate event
         CEvent.remove_from_cache(event.key())
