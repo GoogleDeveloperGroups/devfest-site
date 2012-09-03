@@ -26,6 +26,12 @@ class FaqPage(FrontendPage):
         self.values['current_navigation'] = 'faq'
         self.template="eventfaq"
 
+class VHackAndroidPage(FrontendPage):
+    def show(self):
+        self.values['current_navigation'] = 'vhackandroid'
+        user = users.get_current_user()
+        self.template="vhackandroid"
+
 class RegisterFormPage(FrontendPage):
     def show(self):
         user = users.get_current_user()

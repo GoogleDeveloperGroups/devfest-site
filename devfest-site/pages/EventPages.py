@@ -137,6 +137,7 @@ class EventUploadPage(UploadPage):
       event.organizers = [ users.User(e.strip()) for e in self.request.get('organizers').split(',') ]
       event.kind_of_support = self.request.get('kind_of_support')
       event.subdomain = self.request.get('subdomain')
+      event.is_vhackandroid = self.request.get('vhackandroid')
       event.put()
       # time to invalidate the cache
       CEvent.remove_all_from_cache(event.key())
