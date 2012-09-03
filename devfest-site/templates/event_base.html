@@ -45,13 +45,14 @@
 $(document).ready(function() {
   {% for field in fields %}
   $('#add_{{field}}').click(function() {
-    clone_field_list('#{{field}}s');
+    clone_field_list('{{field}}s');
   });
-  handle_delete_buttons('#{{field}}s');
+  handle_delete_buttons('{{field}}s');
   {% endfor %}
 });
 
-function handle_delete_buttons(selector) {
+function handle_delete_buttons(name) {
+  var selector = '#' + name;
   if ($(selector).children('li').length < 2) {
     // remove delete button
     $(selector).children('li').each(function() {
@@ -64,31 +65,42 @@ function handle_delete_buttons(selector) {
       var label = $(this).children('label')[0];
       var id = $(this).children('table').attr('id');
       label.innerHTML = "<span class='label button' onclick='del_field(\"" +
-            id + "\",\"" + selector + "\");'>delete</span>";
+            id + "\",\"" + name + "\");'>delete</span>";
     });
   }
 }
 
-function del_field(id,selector) {
+function del_field(id,name) {
   $('#' + id).parent().remove();
-  handle_delete_buttons(selector);
+  handle_delete_buttons(name);
 }
 
-function clone_field_list(selector) {
-  var new_element = $(selector + " > li:last").clone(true);
+function clone_field_list(name) {
+  var selector = '#' + name;
+  var new_element = $(selector + " > li:last").clone(false);
   var elem_id = new_element.find(':input')[0].id;
   var elem_num = parseInt(elem_id.replace(/.*-(\d{1,4})-.*/m, '$1')) + 1;
-  new_element.find(':input').each(function() {
-    var id = $(this).attr('id').replace('-' + (elem_num - 1) + '-', '-' + elem_num + '-');
-    $(this).attr({'name': id, 'id': id}).val('').removeAttr('checked');
+  // new_element.find(':input').each(function() {
+  // new_element.find('*[id^="' + name + (elem_num - 1) + '"]').each(function() {
+  new_element.find('*').each(function() {
+    if ($(this).attr('id')) {
+      var id = $(this).attr('id').replace(name + '-' + (elem_num - 1), name + '-' + elem_num);
+      $(this).attr({'name': id, 'id': id}).val('').removeAttr('checked');
+    }
   });
   new_element.find('label').each(function() {
-    var new_for = $(this).attr('for').replace('-' + (elem_num - 1) + '-', '-' + elem_num + '-');
+    var new_for = $(this).attr('for').replace(name + '-' + (elem_num - 1), name + '-' + elem_num);
     $(this).attr('for', new_for);
   });
+  if (new_element.find('.hasDatepicker').length) {
+    new_element.find('.hasDatepicker').removeClass('hasDatepicker');
+    new_element.find('.form_DateTimeField').datetimepicker({dateFormat:'yy-mm-dd', timeFormat:'h:mm:ss'});
+    new_element.find('.form_DateField').datepicker({dateFormat:'yy-mm-dd'});
+    new_element.find('.form_TimeField').timepicker({timeFormat:'h:mm:ss'});
+  }
   new_element.children('label')[0].innerHTML = "New";
   $(selector + " > li:last").after(new_element);
-  handle_delete_buttons(selector);
+  handle_delete_buttons(name);
 }
 </script>
 {% endmacro %}
