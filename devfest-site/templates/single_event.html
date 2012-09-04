@@ -14,6 +14,24 @@
       <div class="row">
         <span style="margin-left: 5px"> <img src="/images/gdgbig.png">
         </span>
+        {% if (sponsors|length) > 0 %}
+             <h1>Sponsors</h1>
+             <!-- TODO group by sponsor level -->
+             {% for sponsor in sponsors %}
+               {% if sponsor.level == "0" %}
+                 <img class="sponsor-0" src="/blob/{{sponsor.logo}}">
+               {% else %}
+                 <img style="width:50px;height:50px;" src="/blob/{{sponsor.logo}}" >
+               {% endif %}
+               {% if sponsor.gplus_id %}
+                 <a style="color:black;" href="https://plus.google.com/{{sponsor.gplus_id}}">{{sponsor.name}}</a>
+               {% else %}
+                 {{sponsor.name}} 
+               {% endif %}
+               <br>{{sponsor.description}} 
+               <hr class="thin-line"> 
+             {% endfor %}
+           {% endif %}
       </div>
     </div>
 
@@ -55,26 +73,7 @@
            {% elif has_registration %}
              <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
            {% endif %}             
-           <br><br>
-           <a class="label label-info" href="/event/agenda/{{ event.key() }}">Agenda</a>
-           {% if (sponsors|length) > 0 %}
-             <h1>Sponsors</h1>
-             <!-- TODO group by sponsor level -->
-             {% for sponsor in sponsors %}
-               {% if sponsor.level == "0" %}
-                 <img class="sponsor-0" src="/blob/{{sponsor.logo}}">
-               {% else %}
-                 <img style="width:50px;height:50px;" src="/blob/{{sponsor.logo}}" >
-               {% endif %}
-               {% if sponsor.gplus_id %}
-                 <a style="color:black;" href="https://plus.google.com/{{sponsor.gplus_id}}">{{sponsor.name}}</a>
-               {% else %}
-                 {{sponsor.name}} 
-               {% endif %}
-               <br>{{sponsor.description}} 
-               <hr class="thin-line"> 
-             {% endfor %}
-           {% endif %}
+                      
           </div>
         </div>
       </div>
