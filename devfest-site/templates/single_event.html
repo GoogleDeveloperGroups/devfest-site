@@ -24,6 +24,8 @@
             {% if user in event.organizers or is_admin %}
             <a href="/event/edit/{{event.key()}}" class="label label-info">Edit the event</a>
             {% endif %}
+            <a href="#" class="label">Home</a>
+            <a href="/event/agenda/{{event.key()}}" class="label label-info">Agenda</a>
             <hr>
             <div class="eventtype">
             <img src="/blob/{{event.logo}}">

@@ -9,7 +9,7 @@ from lib.model import Event
 from lib.forms import EventForm
 from lib.cobjects import (CEventList, CEvent, CEventScheduleList,
       COrganizersEventList, CSponsorList, CVHAEventList, CSessionList, CSessionAgendaList,
-    CSessionAgendaList)
+    CSessionAgendaList, CSlotList, CDayList, CTrackList)
 from datetime import datetime
 import urllib
 import json
@@ -181,7 +181,10 @@ class EventAgendaPage(FrontendPage):
     user = users.get_current_user()
     self.template = 'single_event_agenda'
     self.values['event'] = CEvent(event_id).get()
-    self.values['sessions'] = CSessionAgendaList(event_id).get() 
+    self.values['sessions'] = CSessionAgendaList(event_id).get()
+    self.values['slots'] = CSlotList(event_id).get()
+    self.values['days'] = CDayList(event_id).get()
+    self.values['tracks'] = CTrackList(event_id).get()
 
 # list of approved events 
 class EventListPage(FrontendPage):

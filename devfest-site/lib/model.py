@@ -166,9 +166,9 @@ class Sponsor(db.Model):
 class Session(db.Model):
   title       = db.StringProperty()
   abstract    = db.TextProperty()
-  event       = db.ReferenceProperty(Event)
+  slot        = db.ReferenceProperty(Slot)
   start       = db.DateTimeProperty()
-  end         = db.DateTimeProperty()
+  end         = db.DateTimeProperty()  
   room        = db.StringProperty()
   level       = db.StringProperty()
   track       = db.StringProperty()

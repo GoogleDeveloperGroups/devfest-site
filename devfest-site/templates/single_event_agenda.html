@@ -26,29 +26,30 @@
     <div class="span9">
       <div class="row">
         <div id="gdg-container">
-            <h1>Agenda {% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</h1>
+            <h1>{% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</h1>
             {% if user in event.organizers or is_admin %}
-            <a href="/event/edit/{{event.key()}}" class="label label-info">Edit the event</a></br>
+            <a href="/event/edit/{{event.key()}}" class="label label-info">Edit the event</a> 
             {% endif %}
-            <a href="/event/{{event.key()}}" class="label label-info">Overview</a>
+            <a href="/event/{{event.key()}}" class="label label-info">Home</a>
+            <a href="#" class="label">Agenda</a>
             <hr>
 
 
 <table>  
-  {% for slot in sessions %}
+  {% for slot in slots|sort(attribute='start') %}
        <tr>
        <td>
-         {{ slot.key}}
+         {{ slot.start}} - {{ slot.end}}
        </td>
          
-       {% for session in slot.data   %}                                    
+       {% for session in sessions %}                                    
        <td>
-      {{ session.title }}, {{ session.room }}
+         {{ session }}, {{ session.room }}
       </td>
            
   		{% endfor %}
-  		{% endfor %}
-  		</tr>
+  	{% endfor %}
+  	</tr>
  </table>
          
         </div>

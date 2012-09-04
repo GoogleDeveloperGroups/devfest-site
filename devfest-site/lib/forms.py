@@ -130,6 +130,8 @@ class SingleSessionForm(Form):
   session         = HiddenField()
   title           = TextField('Name of the session', [ validators.Required()])
   abstract        = TextAreaField('Abstract')
+   # this field will get its choices specified dynamically
+  slot            = SelectField('Slot')
   start           = DateTimeField('Start', format="%Y-%m-%d %H:%M")
   end             = DateTimeField('End', format="%Y-%m-%d %H:%M")
   room            = TextField('Room')
@@ -137,7 +139,7 @@ class SingleSessionForm(Form):
   track           = TextField('Track')
   live_url        = TextField('URL of Live Stream')
   youtube_url     = TextField('URL on Youtube')
-  # this field will get its choices specified dynamically
+    # this field will get its choices specified dynamically
   speakers        = MultiCheckboxField('Speakers')
 
 # subform: a track - used in event-tracks form

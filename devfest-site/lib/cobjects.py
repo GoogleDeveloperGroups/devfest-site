@@ -214,23 +214,41 @@ class CSessionList(DbCachedObject):
 # list of sessions per event grouped by slots and rooms
 class CSessionAgendaList(OCachedObject):
   def __init__(self, event_id):
-    self.cache_key = self.__class__.__name__ + event_id
+    self.cache_key = "SessionAgendaList_"  + ("(%s)" % (event_id))
     self.event_id = event_id
     self.entity_collection = {}
+    self.slot_list = {}
     self.max_time = 3600
     CachedObject.__init__(self)    
 
   # load all sessions from db
   def load_from_db(self):
     self.entity_collection = {} 
-    sessions = Session.all().filter('event =', CEvent(self.event_id).get()).order('start')    
-    room_list = {}
-    for session in sessions:
-      if room_list.has_key(session.start) is False:
-        room_list[session.start] = []
-      room_list[session.start].append({'name':session.room, 'data':session})  
-    self.entity_collection = room_list
+    sessions = Session.all().filter('event =', CEvent(self.event_id).get())    
+            
+    room_list = {}    
+    slot_list = {}
+    
+    for session in sessions:    
+      session_key = session.start.strftime('%H_%M') + "_" + session.end.strftime('%H_%M')      
+      
+      if room_list.has_key(session_key) is False:
+        room_list[session_key] = []
+      room_list[session_key].append({'time':session_key, 'room':session.room, 'data':session})
+           
+      slot_id = session.slot.key()
+      if slot_list.has_key(slot_id) is False:
+        slot_list[slot_id] = []
+      slot_list[slot_id].append({'start':CSlot(slot_id).get().start, 'data':session})
           
+    self.entity_collection = room_list
+    self.slot_list = slot_list
+    
+  # return only sessions for one slot
+  def get_for_slot(self, slot_id):
+    return self.slot_list[slot_id]  
+    
+              
 # list of all events which are not yet started
 class CEventScheduleList(DbCachedObject):
   def __init__(self):
@@ -283,6 +301,7 @@ class CEvent(DbCachedObject):
     except:
       pass
 
+        
   # remove from cache - one event and all event lists
   @staticmethod
   def remove_all_from_cache(id):
@@ -294,7 +313,46 @@ class CEvent(DbCachedObject):
     CTrackList.remove_from_cache(id)
     CSpeakerList.remove_from_cache(id)
     CSessionList.remove_from_cache(id)
+    CSessionAgendaList.remove_from_cache(id)
     CSponsorList.remove_from_cache(id)
     CDayList.remove_from_cache(id)
     CSlotList.remove_from_cache(id)
+    # TODO CSession.remove_from_cache_for_event(id)
+    CSession.remove_from_cache()
 
+
+class CSession (DbCachedObject):
+  def __init__(self, session_id):
+    DbCachedObject.__init__(self, session_id)
+        
+  # load single session from DB
+  def load_from_db(self):
+   self.entity_collection = None
+
+   try:
+     data = Session.get(self.id)
+
+     if isinstance(data, Session):
+       self.entity_collection = data
+                        
+   except:
+     pass
+
+
+class CSlot (DbCachedObject):
+  def __init__(self, slot_id):
+    DbCachedObject.__init__(self, slot_id)
+        
+  # load single session from DB
+  def load_from_db(self):
+   self.entity_collection = None
+
+   try:
+     data = Slot.get(self.id)
+
+     if isinstance(data, Slot):
+       self.entity_collection = data
+                        
+   except:
+     pass
+    
