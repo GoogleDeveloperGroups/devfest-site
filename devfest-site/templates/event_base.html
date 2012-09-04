@@ -94,9 +94,9 @@ function clone_field_list(name) {
   });
   if (new_element.find('.hasDatepicker').length) {
     new_element.find('.hasDatepicker').removeClass('hasDatepicker');
-    new_element.find('.form_DateTimeField').datetimepicker({dateFormat:'yy-mm-dd', timeFormat:'h:mm:ss'});
+    new_element.find('.form_DateTimeField').datetimepicker({dateFormat:'yy-mm-dd', timeFormat:'h:mm'});
     new_element.find('.form_DateField').datepicker({dateFormat:'yy-mm-dd'});
-    new_element.find('.form_TimeField').timepicker({timeFormat:'h:mm:ss'});
+    new_element.find('.form_TimeField').timepicker({timeFormat:'h:mm'});
   }
   new_element.children('label')[0].innerHTML = "New";
   $(selector + " > li:last").after(new_element);

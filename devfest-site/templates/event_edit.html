@@ -34,6 +34,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
 {{ with_errors(form.external_height) }}
 {{ with_errors(form.location) }}
 {{ with_errors(form.status) }}
+{{ with_errors(form.is_vhackandroid) }}
 {% if is_admin %}
 {{ with_errors(form.approved) }}
 {% endif %}
@@ -60,8 +61,8 @@ or you provide the maximum number of allowed registrations.
 {{ with_errors(form.kind_of_support) }}
 {{ with_errors(form.subdomain) }}
 <script type="text/javascript">
-  $('.form_DateTimeField').datetimepicker({dateFormat:'yy-mm-dd', timeFormat:'h:mm:ss'});
+  $('.form_DateTimeField').datetimepicker({dateFormat:'yy-mm-dd', timeFormat:'h:mm'});
   $('.form_DateField').datepicker({dateFormat:'yy-mm-dd'});
-  $('.form_TimeField').timepicker({timeFormat:'h:mm:ss'});
+  $('.form_TimeField').timepicker({timeFormat:'h:mm'});
 </script>
 {% endblock %}

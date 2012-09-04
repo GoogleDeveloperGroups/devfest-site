@@ -92,7 +92,7 @@ class SlotsUploadPage(UploadPage):
             if slot_id in [str(s.key()) for s in old_slots]:
               slot = [s for s in old_slots if str(s.key()) == slot_id][0]
               # delete from old_slots
-              old_slots = [s for s in old_slots if str(s.key()) != slots_id]
+              old_slots = [s for s in old_slots if str(s.key()) != slot_id]
             else:
               slot = Slot()
             # fill in values for old/new slot
