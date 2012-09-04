@@ -192,5 +192,6 @@ class EventListPage(FrontendPage):
     # only vha events?
     if self.request.get('vha'):
       self.values['events'] = CVHAEventList()
+      self.values['current_navigation'] = 'vhackandroid'
     else:
       self.values['events'] = CEventList()

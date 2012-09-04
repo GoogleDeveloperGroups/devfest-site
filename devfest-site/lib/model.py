@@ -1,3 +1,7 @@
+try:
+  import settings_local as settings
+except:
+  import settings
 from google.appengine.ext import db
 from google.appengine.api import users
 from google.appengine.api import urlfetch
@@ -5,6 +9,7 @@ import urllib
 import json
 import re
 import string
+import datetime
 
 class Event(db.Model):
   organizers            = db.ListProperty(users.User)
@@ -76,8 +81,61 @@ class Event(db.Model):
     # do other stuff which can be done ...
     # (ok, currently async fetch does not make much sense here)
     self.set_geolocation_final(rpc_geo)
-    return super(Event, self).put(**kwargs)
-    
+    retval = super(Event, self).put(**kwargs)
+    self.save_to_gdrive()
+    return retval
+
+  def save_to_gdrive(self):
+    import gdata.gauth
+    import gdata.docs.client
+    import gdata.spreadsheets.client
+
+    client = gdata.spreadsheets.client.SpreadsheetsClient(source='Devfest-Website-v1')
+    access_token = gdata.gauth.AeLoad('spreadsheed_token')
+    feed = client.get_list_feed(settings.DOCSAPI_SPREADSHEET_ID, settings.DOCSAPI_SPREADSHEET_EXPORT_WORKSHEET_ID, auth_token=access_token)
+
+    organizers = []
+    for organizer in self.organizers:
+      organizers.append(organizer.email())
+
+    agenda = []
+    for agenda_entry in self.agenda:
+      if agenda_entry == '1':
+        agenda.append('Conference')
+      elif agenda_entry == '2':
+        agenda.append('Hackathon')
+      elif agenda_entry == '3':
+        agenda.append('Barcamp')
+      elif agenda_entry == '4':
+        agenda.append('GDL Sessions')
+      elif agenda_entry == '5':
+        agenda.append('Others')
+
+    eventdate = ''
+    if self.start is not None:
+      eventdate = "%s" % self.start.strftime('%m/%d/%Y %H:%M:%S')
+    if self.end is not None:
+      eventdate = "%s - %s" % (eventdate, self.end.strftime('%m/%d/%Y %H:%M:%S'))
+
+    data = {
+        'timestamp': datetime.datetime.utcnow().strftime('%m/%d/%Y %H:%M:%S'),
+        'gdgchaptername': ', '.join(self.gdg_chapters),
+        'country': self.country,
+        'eventdate': eventdate,
+        'organizerse-mailid': ', '.join(organizers),
+        'whatareyouplanningtodo': ', '.join(agenda),
+        'whatproductstechnologiesyouproposetocoverintheevent': ', '.join(self.technologies),
+        'whatkindofsupportyouexpectforthisevent': self.kind_of_support,
+        'expectednumberofparticipants': '%s' % self.register_max,
+        'city': self.city,
+        'preferredsubdomainfortheeventwebsite': self.subdomain,
+        'eventwebsiteforyourgdgdevfest': self.gplus_event_url,
+        'registrationpagefortheevent': self.register_url
+        }
+    entry = gdata.spreadsheets.data.ListEntry()
+    entry.from_dict(data)
+    client.add_list_entry(entry, settings.DOCSAPI_SPREADSHEET_ID, settings.DOCSAPI_SPREADSHEET_EXPORT_WORKSHEET_ID, auth_token=access_token)
+
 # Event days
 class Day(db.Model):
   date        = db.DateProperty()
