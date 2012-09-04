@@ -96,6 +96,7 @@ class Slot(db.Model):
 class Sponsor(db.Model):
   name        = db.StringProperty()
   gplus_id    = db.StringProperty()
+  url         = db.StringProperty()
   logo        = db.StringProperty()
   description = db.TextProperty()
   level       = db.StringProperty()
