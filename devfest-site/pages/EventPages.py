@@ -169,7 +169,9 @@ class EventPage(FrontendPage):
     self.values['current_navigation'] = 'events'
     user = users.get_current_user()
     self.template = 'single_event'
-    self.values['event'] = CEvent(event_id).get()
+    event = CEvent(event_id).get()
+    self.values['event'] = event
+    self.values['has_registration'] = event.register_url or event.register_max
     self.values['sponsors'] = CSponsorList(event_id).get()
 
 # show agenda of a single event on the front page
