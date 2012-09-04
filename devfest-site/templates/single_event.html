@@ -50,7 +50,7 @@
            {% endif %}
            {% if user in event.participants %}
              <span class="label">You are registered!</span>
-           {% else %}
+           {% elif has_registration %}
              <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
            {% endif %}
            <br><br>
