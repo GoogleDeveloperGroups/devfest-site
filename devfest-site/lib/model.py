@@ -24,6 +24,7 @@ class Event(db.Model):
   geo_location          = db.GeoPtProperty()
   start                 = db.DateTimeProperty()
   end                   = db.DateTimeProperty()
+  timezone              = db.IntegerProperty()
   agenda                = db.StringListProperty()
   agenda_description    = db.StringProperty()
   technologies          = db.StringListProperty()

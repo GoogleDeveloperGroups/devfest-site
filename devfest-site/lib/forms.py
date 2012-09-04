@@ -48,6 +48,7 @@ class EventForm(Form):
            ('5', '<img src="/images/icons/others-icon.png"> Others')])
   start           = DateTimeField('Start', format="%Y-%m-%d %H:%M")
   end             = DateTimeField('End', format="%Y-%m-%d %H:%M")
+  timezone        = IntegerField('Timezone Offset of UTC')
   gdg_chapters    = TextField('GDG Chapters',
         [validators.Required()], description='Comma separated list')
   technologies    = MultiCheckboxField(
