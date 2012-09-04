@@ -5,6 +5,7 @@ from lib.view import FrontendPage
 from lib.model import Event
 from google.appengine.api import users
 from datetime import datetime
+import re
 
 class AdminImportPage(FrontendPage):
   def show(self):
@@ -27,9 +28,13 @@ class AdminImportPage(FrontendPage):
         event.location = "%s, %s" % (ev['city'], ev['country'])
         event.gdg_chapters = [ev['gdgchaptername']]
         event.subdomain = ev['preferredsubdomainfortheeventwebsite']
-        event.expected_participants = ev['expectednumberofparticipants']
+        try:
+          num_participants = re.sub(r'[^0-9]', '', ev['expectednumberofparticipants'])
+          event.register_max = int(num_participants)
+        except:
+          pass
         event.kind_of_support = ev['whatkindofsupportyouexpectforthisevent']
-        event.approved = True
+        event.approved = False
         try:
           event.start = datetime.strptime(ev['eventdate'], '%m/%d/%Y')
         except:
