@@ -34,7 +34,7 @@ class RegisterPage(FrontendPage):
       return self.redirect(users.create_login_url("/events"))
     # is user not yet registered?
     if user not in event.participants:
-      if len(event.particpiants) >= event.register_max:
+      if len(event.participants) >= event.register_max:
         self.template = 'register_full'
       else:
         # add user to participants
