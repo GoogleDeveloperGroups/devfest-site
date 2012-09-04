@@ -24,7 +24,6 @@ class CachedObject():
   # initialize object - first lookup in cache, if not there load from DB
   # or - if object already exists - load it from there
   def __init__(self, data=None):
-    sys.stderr.write(self.cache_key)
     # data was not provided? load from cache
     if data is None:
       data = memcache.get(self.cache_key)
@@ -150,7 +149,6 @@ class CEventList(OCachedObject):
       if i >= half_length:
         return_value.append({'name': key, 'data': self.entity_collection[key]})
       i = i+1
-
     return return_value
 
   # get all events
@@ -165,11 +163,22 @@ class CEventList(OCachedObject):
   def remove_from_cache(class_):
     CachedObject.remove_from_cache(class_.__name__)
 
+# list of VHackAndroid events
+class CVHAEventList(CEventList):
+  def load_from_db(self):
+    self.entity_collection = {}
+    events = Event.all().filter('approved =', True).filter('is_vhackandroid =', True)
+    event_list = {}
+    for event in events:
+      if event_list.has_key(event.country) is False:
+        event_list[event.country] = []
+      event_list[event.country].append(event)
+    self.entity_collection = event_list
+
 # list of sponsors per event
 class CSponsorList(DbCachedObject):
   def __init__(self, event_id):
     DbCachedObject.__init__(self, event_id)
-    sys.stderr.write("I got something: " + str(self.entity_collection) + "\n")
 
   # load all sponsors from db
   def load_from_db(self):
@@ -215,13 +224,9 @@ class COrganizersEventList(DbCachedObject):
   def __init__(self, user):
     self.user = user
     DbCachedObject.__init__(self, user.user_id())
-    sys.stderr.write("List..."+str(self.entity_collection)+"...\n")
 
   def load_from_db(self):
-    sys.stderr.write("Loading organizer's event list ...\n")
-    sys.stderr.write("cache_key=" + self.cache_key + "\n")
     self.entity_collection = Event.all().filter('organizers =', self.user)
-    sys.stderr.write("I got something: " + str(self.entity_collection) + "\n")
 
 # list of days of an event
 class CDayList(DbCachedObject):
@@ -263,7 +268,9 @@ class CEvent(DbCachedObject):
   def remove_all_from_cache(id):
     CEvent.remove_from_cache(id)
     CEventList.remove_from_cache()
+    CVHAEventList.remove_from_cache()
     CEventScheduleList.remove_from_cache()
+    COrganizersEventList.remove_from_cache()
     CTrackList.remove_from_cache(id)
     CSpeakerList.remove_from_cache(id)
     CSessionList.remove_from_cache(id)

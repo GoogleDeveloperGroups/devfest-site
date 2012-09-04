@@ -4,14 +4,19 @@ from wtforms import (Form, TextField, TextAreaField, SelectField,
      BooleanField)
 from wtforms.ext.appengine.db import model_form
 from lib.model import Event
+import re
 
 # This file contains all the forms used at the backend (besides the
 # admin-related forms)
 
-# a TimeField - nothing but a TextField which will be styled with CSS
-# in the template
+# a TimeField - will be styled by CSS
 class TimeField(TextField):
-  pass
+  # format time as hh:mm, no seconds
+  def _value(self):
+    if self.raw_data:
+      return u' '.join(self.raw_data)
+    else:
+      return self.data and self.data.strftime("%H:%M") or u''
 
 # a multi-select list composed out of many checkboxes
 class MultiCheckboxField(SelectMultipleField):
@@ -65,7 +70,7 @@ class EventForm(Form):
   register_url    = TextField('URL of external registration site',
         [validators.Optional(),validators.URL()])
   register_max    = TextField('Maximum number of registrations')
-  vhackandroid    = BooleanField('VHackAndroid event')
+  is_vhackandroid = BooleanField('VHackAndroid event')
   approved        = BooleanField('Approved')
   organizers      = TextField('Organizers',
         [validators.Required()], description='Comma separated list')
@@ -149,7 +154,7 @@ class SessionsTracksForm(Form):
 # single day subform
 class SingleDayForm(Form):
   day             = HiddenField()
-  date            = DateField('Date', [validators.Required()])
+  date            = DateField('Date', [validators.Required()], format="%Y-%m-%d")
   description     = TextAreaField('Description of the day')
 
 # single slot subform
@@ -160,7 +165,7 @@ class SingleSlotForm(Form):
            [validators.Regexp('[0-2]?[0-9]:[0-5][0-9]')])
   end             = TimeField('End time',
            [validators.Regexp('[0-2]?[0-9]:[0-5][0-9]')])
-  date            = DateField('Date', [validators.Required()])
+  date            = DateField('Date', [validators.Required()], format="%Y-%m-%d")
 
 # form for all days and slots of an event
 class DaysSlotsForm(Form):

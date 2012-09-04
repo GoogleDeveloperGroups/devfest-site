@@ -8,10 +8,24 @@ from google.appengine.ext import db
 from lib.model import Event
 from lib.forms import EventForm
 from lib.cobjects import (CEventList, CEvent, CEventScheduleList,
-      COrganizersEventList, CSponsorList)
+      COrganizersEventList, CSponsorList, CVHAEventList)
 from datetime import datetime
 import urllib
 import json
+
+# convert to int if possible / value exists, to null otherwise
+def saveint(str):
+  try:
+    return int(str)
+  except ValueError:
+    return None
+
+# convert to bool if possible / value exists, to False otherwise
+def savebool(str):
+  try:
+    return bool(str)
+  except ValueError:
+    return False
 
 # show all events which are not yet started
 class EventSchedulePage(FrontendPage):
@@ -111,18 +125,18 @@ class EventUploadPage(UploadPage):
           inEdit = True
       event.gplus_event_url = self.request.get('gplus_event_url')
       event.external_url = self.request.get('external_url')
-      event.external_width = int(self.request.get('external_width'))
-      event.external_height = int(self.request.get('external_height'))
+      event.external_width = saveint(self.request.get('external_width'))
+      event.external_height = saveint(self.request.get('external_height'))
       event.location = self.request.get('location')
       event.register_url = self.request.get('register_url')
       if self.request.get('register_max'):
-        event.register_max = int(self.request.get('register_max'))
+        event.register_max = saveint(self.request.get('register_max'))
       else:
         event.register_max = 0
       if event.organizers == []:
         event.organizers = [user]
       if users.is_current_user_admin:
-        event.approved = bool(self.request.get('approved'))
+        event.approved = savebool(self.request.get('approved'))
       upload_files = self.get_uploads('logo')
       if len(upload_files) > 0:
         blob_info = upload_files[0]
@@ -137,7 +151,7 @@ class EventUploadPage(UploadPage):
       event.organizers = [ users.User(e.strip()) for e in self.request.get('organizers').split(',') ]
       event.kind_of_support = self.request.get('kind_of_support')
       event.subdomain = self.request.get('subdomain')
-      event.is_vhackandroid = self.request.get('vhackandroid')
+      event.is_vhackandroid = savebool(self.request.get('is_vhackandroid'))
       event.put()
       # time to invalidate the cache
       CEvent.remove_all_from_cache(event.key())
@@ -162,4 +176,8 @@ class EventListPage(FrontendPage):
     self.values['current_navigation'] = 'events'
     user = users.get_current_user()
     self.template = 'event_list'
-    self.values['events'] = CEventList()
+    # only vha events?
+    if self.request.get('vha'):
+      self.values['events'] = CVHAEventList()
+    else:
+      self.values['events'] = CEventList()
