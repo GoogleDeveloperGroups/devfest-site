@@ -212,14 +212,18 @@ class CSessionList(DbCachedObject):
     self.entity_collection = Session.all().filter('event =', CEvent(self.id).get()).order('start')     
 
 # list of sessions per event grouped by slots and rooms
-class CSessionAgendaList(DbCachedObject):
+class CSessionAgendaList(OCachedObject):
   def __init__(self, event_id):
-    DbCachedObject.__init__(self, event_id)
+    self.cache_key = self.__class__.__name__ + event_id
+    self.event_id = event_id
+    self.entity_collection = {}
+    self.max_time = 3600
+    CachedObject.__init__(self)    
 
   # load all sessions from db
   def load_from_db(self):
     self.entity_collection = {} 
-    sessions = Session.all().filter('event =', CEvent(self.id).get()).order('start')    
+    sessions = Session.all().filter('event =', CEvent(self.event_id).get()).order('start')    
     room_list = {}
     for session in sessions:
       if room_list.has_key(session.start) is False:
