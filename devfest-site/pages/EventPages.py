@@ -8,7 +8,8 @@ from google.appengine.ext import db
 from lib.model import Event
 from lib.forms import EventForm
 from lib.cobjects import (CEventList, CEvent, CEventScheduleList,
-      COrganizersEventList, CSponsorList, CVHAEventList)
+      COrganizersEventList, CSponsorList, CVHAEventList, CSessionList, CSessionAgendaList,
+    CSessionAgendaList)
 from datetime import datetime
 import urllib
 import json
@@ -170,6 +171,15 @@ class EventPage(FrontendPage):
     self.template = 'single_event'
     self.values['event'] = CEvent(event_id).get()
     self.values['sponsors'] = CSponsorList(event_id).get()
+
+# show agenda of a single event on the front page
+class EventAgendaPage(FrontendPage):
+  def show(self, event_id):
+    self.values['current_navigation'] = 'events'
+    user = users.get_current_user()
+    self.template = 'single_event_agenda'
+    self.values['event'] = CEvent(event_id).get()
+    self.values['sessions'] = CSessionAgendaList(event_id).get() 
 
 # list of approved events 
 class EventListPage(FrontendPage):

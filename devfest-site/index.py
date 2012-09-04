@@ -41,6 +41,8 @@ app = webapp2.WSGIApplication([
                               ('^/event/sessions/edit/(.*)$', SessionsEditPage),
                               # register for an event
                               ('^/event/register/(.*)$', RegisterPage),
+                              # agenda of an event
+                              ('^/event/agenda/(.*)$', EventAgendaPage),
                               # json export of events
                               ('^/json/events$', JsonEventListPage),
                               ('^/json/event/(.*)/speakers$', JsonSpeakerListPage),
