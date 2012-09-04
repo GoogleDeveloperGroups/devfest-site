@@ -8,7 +8,8 @@ from google.appengine.ext import db
 from lib.model import Event
 from lib.forms import EventForm
 from lib.cobjects import (CEventList, CEvent, CEventScheduleList,
-      COrganizersEventList, CSponsorList, CVHAEventList)
+      COrganizersEventList, CSponsorList, CVHAEventList, CSessionList, CSessionAgendaList,
+    CSessionAgendaList)
 from datetime import datetime
 import urllib
 import json
@@ -146,6 +147,7 @@ class EventUploadPage(UploadPage):
       event.agenda = self.request.get_all('agenda')
       event.start = datetime.strptime(self.request.get('start'), '%Y-%m-%d %H:%M')
       event.end = datetime.strptime(self.request.get('end'), '%Y-%m-%d %H:%M')
+      event.timezone = self.request.get('timezone')
       event.technologies = self.request.get_all('technologies')
       event.gdg_chapters = self.request.get('gdg_chapters').split(',')
       event.organizers = [ users.User(e.strip()) for e in self.request.get('organizers').split(',') ]
@@ -167,8 +169,19 @@ class EventPage(FrontendPage):
     self.values['current_navigation'] = 'events'
     user = users.get_current_user()
     self.template = 'single_event'
-    self.values['event'] = CEvent(event_id).get()
+    event = CEvent(event_id).get()
+    self.values['event'] = event
+    self.values['has_registration'] = event.register_url or event.register_max
     self.values['sponsors'] = CSponsorList(event_id).get()
+
+# show agenda of a single event on the front page
+class EventAgendaPage(FrontendPage):
+  def show(self, event_id):
+    self.values['current_navigation'] = 'events'
+    user = users.get_current_user()
+    self.template = 'single_event_agenda'
+    self.values['event'] = CEvent(event_id).get()
+    self.values['sessions'] = CSessionAgendaList(event_id).get() 
 
 # list of approved events 
 class EventListPage(FrontendPage):

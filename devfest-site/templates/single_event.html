@@ -50,10 +50,11 @@
            {% endif %}
            {% if user in event.participants %}
              <span class="label">You are registered!</span>
-           {% else %}
+           {% elif has_registration %}
              <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
-           {% endif %}
+           {% endif %}             
            <br><br>
+           <a class="label label-info" href="/event/agenda/{{ event.key() }}">Agenda</a>
            {% if (sponsors|length) > 0 %}
              <h1>Sponsors</h1>
              <!-- TODO group by sponsor level -->

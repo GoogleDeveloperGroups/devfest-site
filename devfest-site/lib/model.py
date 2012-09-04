@@ -29,6 +29,7 @@ class Event(db.Model):
   geo_location          = db.GeoPtProperty()
   start                 = db.DateTimeProperty()
   end                   = db.DateTimeProperty()
+  timezone              = db.IntegerProperty()
   agenda                = db.StringListProperty()
   agenda_description    = db.StringProperty()
   technologies          = db.StringListProperty()
@@ -153,6 +154,7 @@ class Slot(db.Model):
 class Sponsor(db.Model):
   name        = db.StringProperty()
   gplus_id    = db.StringProperty()
+  url         = db.StringProperty()
   logo        = db.StringProperty()
   description = db.TextProperty()
   level       = db.StringProperty()
