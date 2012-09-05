@@ -49,7 +49,7 @@
                     {% endif %}
                     {% set has_registration = event.register_max > 0 %}
                     {% if not has_registration %}
-                    {% set has_registration = event.register_url != "" %}
+                    {% set has_registration = event.register_url and event.register_url != "" %}
                     {% endif %}
                     {% if user in event.participants %}
                     <span class="label">You are registered!</span>
@@ -94,7 +94,7 @@
                     {% endif %}
                     {% set has_registration = event.register_max > 0 %}
                     {% if not has_registration %}
-                    {% set has_registration = event.register_url != "" %}
+                    {% set has_registration = event.register_url and event.register_url != "" %}
                     {% endif %}
                     {% if user in event.participants %}
                     <span class="label">You are registered!</span>
