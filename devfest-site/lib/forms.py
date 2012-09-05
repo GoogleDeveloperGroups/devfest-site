@@ -1,7 +1,7 @@
 from wtforms import (Form, TextField, TextAreaField, SelectField,
      SelectMultipleField, DateField, DateTimeField, FileField, widgets,
      validators, IntegerField, FormField, FieldList, HiddenField,
-     BooleanField)
+     BooleanField, DecimalField)
 from wtforms.ext.appengine.db import model_form
 from lib.model import Event
 import re
@@ -48,7 +48,7 @@ class EventForm(Form):
            ('5', '<img src="/images/icons/others-icon.png"> Others')])
   start           = DateTimeField('Start', format="%Y-%m-%d %H:%M")
   end             = DateTimeField('End', format="%Y-%m-%d %H:%M")
-  timezone        = IntegerField('Timezone Offset of UTC')
+  timezone        = DecimalField('Timezone Offset of UTC')
   gdg_chapters    = TextField('GDG Chapters',
         [validators.Required()], description='Comma separated list')
   technologies    = MultiCheckboxField(
