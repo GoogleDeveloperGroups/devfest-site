@@ -304,6 +304,10 @@ body>section {
 	font-weight:bold;
 }
 
+#gdg-edit-event label.label_required:before {
+	content:"* ";
+}
+
 #gdg-edit-event .form_field{
 	margin-bottom:10px;
 }
