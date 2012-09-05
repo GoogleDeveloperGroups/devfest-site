@@ -222,34 +222,61 @@ class CSessionAgendaList(OCachedObject):
     self.max_time = 3600
     CachedObject.__init__(self)    
 
+  # helper function - key for slot
+  def key_for_slot(self, slot):
+    return slot.start.strftime("%H:%M") + "-" + slot.end.strftime("%H:%M") + "_" + slot.name
+
   # load all sessions from db
   def load_from_db(self):
     self.entity_collection = {} 
     sessions = Session.all().filter('event =', CEvent(self.event_id).get())    
             
-    room_list = {}    
-    slot_list = {}
+    # list of all rooms
+    room_list = []
+    # list of all sessions, organized by slot
+    by_slot = {}
+    # list of all sessions, organized by room
+    by_room = {}
+    # list of all sessions, first by slot then by room
+    by_slot_room = {}
     
     for session in sessions:    
-      session_key = session.slot.start.strftime('%H_%M') + "_" + session.slot.end.strftime('%H_%M')      
+      # empty room? make a " " out of it
+      if not session.room:
+        session.room = " "
+      # is the slot already known?
+      session.slot_key = self.key_for_slot(session.slot)
+      if session.slot_key not in by_slot:
+        by_slot[session.slot_key] = []
+        by_slot_room[session.slot_key] = {}
+      # is the room already known?
+      if session.room and (session.room not in room_list):
+        room_list.append(session.room)
+        by_room[session.room] = []
+      # append the session to the three lists
+      by_slot[session.slot_key].append(session)
+      by_room[session.room].append(session)
+      # we want only one session at one time in one room
+      by_slot_room[session.slot_key][session.room] = session
       
-      if room_list.has_key(session_key) is False:
-        room_list[session_key] = []
-      room_list[session_key].append({'time':session_key, 'room':session.room, 'data':session})
-           
-      slot_id = session.slot.key()
-      if slot_list.has_key(slot_id) is False:
-        slot_list[slot_id] = []
-      slot_list[slot_id].append({'start':CSlot(slot_id).get().start, 'data':session})
-          
+    # list of all slots - even empty ones. we add an element count
+    # for the number of sessions
+    slot_list = []
+    for s in CSlotList(self.event_id).get():
+      s.slot_key = self.key_for_slot(s)
+      if s.slot_key in by_slot:
+        s.sessioncount = len(by_slot[s.slot_key])
+      else:
+        s.sessioncount = 0
+      slot_list.append(s)
+
+    # store the data!
     self.entity_collection['room_list'] = room_list
     self.entity_collection['slot_list'] = slot_list
-    
-  # return only sessions for one slot
-  def get_for_slot(self, slot_id):
-    return self.entity_collection['slot_list'][slot_id]
-    
-              
+    self.entity_collection['by_slot'] = by_slot
+    self.entity_collection['by_room'] = by_room
+    self.entity_collection['by_slot_room'] = by_slot_room
+
 # list of all events which are not yet started
 class CEventScheduleList(DbCachedObject):
   def __init__(self):

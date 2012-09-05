@@ -36,20 +36,35 @@
 
 
 <table>  
-  {% for slot in slots|sort(attribute='start') %}
-       <tr>
+  {% for slot in agenda.slot_list|sort(attribute='slot_key') %}
+    {% if slot.sessioncount > 0 %}
+       <tr class="slot slot_sessions">
+    {% else %}
+       <tr class="slot slot_nosessions">
+    {% endif %}
        <td>
-         {{ slot.start}} - {{ slot.end}}
+         {{ slot.start.strftime('%H:%M')}} - {{ slot.end.strftime('%H:%M')}}
        </td>
          
-       {% for session in sessions.room_list %}                                    
+    {% if slot.sessioncount > 0 %}
+     {% set sessions_room = agenda.by_slot_room[slot.slot_key] %}
+     {% for room in agenda.room_list|sort %}
+      {% if room in sessions_room %}
+       {% set session = sessions_room[room] %}
        <td>
-         {{ session }}, {{ session.room }}
+         {{ session.title }}{% if room != " " %}, {{ room }} {% endif %}
       </td>
-           
-  		{% endfor %}
-  	{% endfor %}
+      {% else %}
+      <td>&nbsp;</td>
+      {% endif %}
+     {% endfor %}
+    {% else %}
+      <td colspan="{{ agenda.room_list|length }}">
+        {{ slot.name }}
+      </td>
+    {% endif %}
   	</tr>
+  {% endfor %}
  </table>
          
         </div>

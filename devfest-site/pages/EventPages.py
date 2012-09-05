@@ -181,7 +181,7 @@ class EventAgendaPage(FrontendPage):
     user = users.get_current_user()
     self.template = 'single_event_agenda'
     self.values['event'] = CEvent(event_id).get()
-    self.values['sessions'] = CSessionAgendaList(event_id).get()
+    self.values['agenda'] = CSessionAgendaList(event_id).get()
     self.values['slots'] = CSlotList(event_id).get()
     self.values['days'] = CDayList(event_id).get()
     self.values['tracks'] = CTrackList(event_id).get()
