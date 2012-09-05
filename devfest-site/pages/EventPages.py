@@ -117,14 +117,17 @@ class EventUploadPage(UploadPage):
     # 'approved'
     if not users.is_current_user_admin():
       del form.approved
+    if self.request.get('event') != '':
+      ev = CEvent(self.request.get('event')).get()
+      if user in ev.organizers or users.is_current_user_admin():
+        inEdit = True
+        self.values['event'] = ev
     if form.validate():
       # create a new event (will be overwritten if in edit mode)
-      event = Event()
-      if self.request.get('event') != '':
-        ev = CEvent(self.request.get('event')).get()
-        if user in ev.organizers or users.is_current_user_admin():
-          event = ev
-          inEdit = True
+      if inEdit:
+        event = ev
+      else:
+        event = Event()
       event.gplus_event_url = self.request.get('gplus_event_url')
       event.external_url = self.request.get('external_url')
       event.external_width = saveint(self.request.get('external_width'))
