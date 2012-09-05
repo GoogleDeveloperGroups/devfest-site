@@ -48,7 +48,9 @@
             <div class="eventtype">
             <img src="/blob/{{event.logo}}">
             {{event.location}}<br/>
+            {% if event.start %}
             {{event.start|datetime}}<br/>
+            {% endif %}
             <!-- Type of Event- Use <i> tag and class icon-event-* -->
             {% if '1' in event.agenda %}
               <i class="icon-event icon-event-conf"></i>
