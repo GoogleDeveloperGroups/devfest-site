@@ -35,8 +35,10 @@
             <hr>
 
 
+{% for date in agenda.date_list|sort %}
+<h3>{{ date }}</h3>
 <table>  
-  {% for slot in agenda.slot_list|sort(attribute='slot_key') %}
+  {% for slot in agenda.slot_list[date]|sort(attribute='slot_key') %}
     {% if slot.sessioncount > 0 %}
        <tr class="slot slot_sessions">
     {% else %}
@@ -66,7 +68,7 @@
   	</tr>
   {% endfor %}
  </table>
-         
+{% endfor %}
         </div>
       </div>
     </div>
