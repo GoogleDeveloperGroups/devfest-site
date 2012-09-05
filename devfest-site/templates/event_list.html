@@ -47,10 +47,14 @@
                     {% if event.start %}
                       <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
                     {% endif %}
-                    {% if user not in event.participants %}
+                    {% set has_registration = event.register_max > 0 %}
+                    {% if not has_registration %}
+                    {% set has_registration = event.register_url != "" %}
+                    {% endif %}
+                    {% if user in event.participants %}
+                    <span class="label">You are registered!</span>
+                    {% elif has_registration %}
                     <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
-                    {% else %}
-                    <span class="label" href="#">You are registered!</span>
                     {% endif %}
                   </li>
                   {% endfor %}
@@ -88,10 +92,14 @@
                     {% if event.start %}
                       <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
                     {% endif %}
-                    {% if user not in event.participants %}
+                    {% set has_registration = event.register_max > 0 %}
+                    {% if not has_registration %}
+                    {% set has_registration = event.register_url != "" %}
+                    {% endif %}
+                    {% if user in event.participants %}
+                    <span class="label">You are registered!</span>
+                    {% elif has_registration %}
                     <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
-                    {% else %}
-                    <span class="label">You are registered!</a>
                     {% endif %}
                   </li>
                   {% endfor %}
