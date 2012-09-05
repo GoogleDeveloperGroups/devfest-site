@@ -100,8 +100,8 @@ class JsonSessionListPage(JSONPage):
     for session in CSessionList(event_id).get():
       se = { 'title': session.title,
              'abstract': session.abstract,
-             'start': session.start.isoformat(),
-             'end': session.end.isoformat(),
+             'start': session.slot.start.isoformat(),
+             'end': session.slot.end.isoformat(),
              'room': session.room,
              'level': session.level,
              'track': session.track,
