@@ -23,7 +23,7 @@ class SessionFormHelper:
   def add_slots(form,slots):
     # now iterate through the sessions fields in the form
     for session_form in form.sessions.entries:
-      session_form.slot.choices = [ (str(slot.key()), slot.name + " (" + slot.start.strftime('%H:%M') + "-" + slot.end.strftime('%H:%M') + ")") for slot in slots ]      
+      session_form.slot_key.choices = [ ("", "Please select slot")] + [ (str(slot.key()), slot.name + " (" + slot.start.strftime('%H:%M') + "-" + slot.end.strftime('%H:%M') + ")") for slot in slots ]      
     
 # This page is displayed in the context of a single event.
 # It shows the currently defined sessions for an event and
@@ -41,6 +41,7 @@ class SessionsEditPage(FrontendPage):
       sessions = CSessionList(event_id).get()
       for s in sessions:
         s.session = str(s.key())
+        s.slot_key = str(s.slot.key())
       # get list of event tracks
       tracks = CTrackList(event_id).get()
       for t in tracks:
@@ -118,7 +119,7 @@ class SessionsUploadPage(UploadPage):
             # fill in values for old/new session
             session.title = self.request.get(prefix + 'title')
             session.abstract = self.request.get(prefix + 'abstract')
-            session.slot = [slot.key() for slot in slots if str(slot.key()) in self.request.get(prefix + 'slot')][0]
+            session.slot = [slot.key() for slot in slots if str(slot.key()) in self.request.get(prefix + 'slot_key')][0]
             session.level = self.request.get(prefix + 'level')            
             session.room = self.request.get(prefix + 'room')
             session.track = self.request.get(prefix + 'track')
