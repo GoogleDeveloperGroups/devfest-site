@@ -105,9 +105,12 @@ function clone_field_list(name) {
 </script>
 {% endmacro %}
 
+{% macro field_label(field) %}
+ {% if field.flags.required %}{{ field.label(class="label_required")}}{% else %}{{field.label}}{% endif %}
+{% endmacro %}
 {% macro with_errors(field) %}
   <div class="form_field">
-  {{ field.label }}
+  {{ field_label(field) }}
   {{ field_only(field) }}
   </div>
 {% endmacro %}
@@ -119,7 +122,7 @@ function clone_field_list(name) {
     <table class="form_FormField" id="{{field.id}}">
     {% for entry in field %}
      <tr>
-     <th>{{entry.label}}</th>
+     <th>{{field_label(entry)}}</th>
      <td>{{field_only(entry)}}</td>
      </tr>
     {% endfor %}
@@ -127,14 +130,16 @@ function clone_field_list(name) {
    {% elif field.type == "FieldList" and field.entries|length > 0 %}
      <ul class="form_{{ field.entries[0].type }} form_FieldList" id="{{field.id}}">
      {% for entry in field.entries %}
-      <li>{{entry.label}}{{field_only(entry)}}</li>
+      <li>{{field_label(entry)}}{{field_only(entry)}}</li>
      {% endfor %}
      </ul>
    {% else %}
+    {% set css_class = kwargs.pop('class', 'form_' + field.type) %}
     {% if field.errors %}
-     {% set css_class = 'has_error ' + kwargs.pop('class', 'form_' + field.type) %}
-    {% else %}
-     {% set css_class = kwargs.pop('class', 'form_' + field.type) %}
+     {% set css_class = 'has_error ' + css_class %}
+    {% endif %}
+    {% if field.flags.required %}
+     {% set css_class = 'required ' + css_class %}
     {% endif %}
     {{ field(class=css_class, **kwargs) }}
    {% endif %}
@@ -159,7 +164,7 @@ function clone_field_list(name) {
         Edit GDG DevFest
         {% if event.city %}{{event.city}}{% else %}{{event.location}}{% endif %}
       </h1>
-      <a class="label label-important" href="/event/delete/{{event}}" onclick="return confirm('Are you sure you want to delete the event?')">Delete event</a>
+      <a class="label label-important" href="/event/delete/{{event.key()}}" onclick="return confirm('Are you sure you want to delete the event?')">Delete event</a>
       {% else %}
       <h1 style="font-size: 25px; float: none; margin-bottom: 10px">
         Create your GDG DevFest!
