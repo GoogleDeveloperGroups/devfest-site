@@ -9,7 +9,8 @@ from lib.model import Event
 from lib.forms import EventForm
 from lib.cobjects import (CEventList, CEvent, CEventScheduleList,
       COrganizersEventList, CSponsorList, CVHAEventList, CSessionList,
-      CSessionAgendaList, CSlotList, CDayList, CTrackList)
+      CSessionAgendaList, CSlotList, CDayList, CTrackList,
+      CAdminEventList)
 from datetime import datetime
 import urllib
 import json
@@ -197,4 +198,7 @@ class EventListPage(FrontendPage):
       self.values['events'] = CVHAEventList()
       self.values['current_navigation'] = 'vhackandroid'
     else:
-      self.values['events'] = CEventList()
+      if users.is_current_user_admin():
+        self.values['events'] = CAdminEventList()
+      else:
+        self.values['events'] = CEventList()
