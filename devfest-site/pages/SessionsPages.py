@@ -11,7 +11,7 @@ from datetime import datetime
 import urllib
 import json
 
-# helper class for filling in the speakers in the form
+# helper class for filling in the speakers and the slots in the form
 class SessionFormHelper:
   @staticmethod
   def add_speakers(form,speakers):
@@ -23,7 +23,7 @@ class SessionFormHelper:
   def add_slots(form,slots):
     # now iterate through the sessions fields in the form
     for session_form in form.sessions.entries:
-      session_form.slot.choices = [ (str(slot.key()), slot.start.strftime('%H:%M') + " " + slot.end.strftime('%H:%M')) for slot in slots ]      
+      session_form.slot.choices = [ (str(slot.key()), slot.name + " (" + slot.start.strftime('%H:%M') + "-" + slot.end.strftime('%H:%M') + ")") for slot in slots ]      
     
 # This page is displayed in the context of a single event.
 # It shows the currently defined sessions for an event and
@@ -118,10 +118,6 @@ class SessionsUploadPage(UploadPage):
             # fill in values for old/new session
             session.title = self.request.get(prefix + 'title')
             session.abstract = self.request.get(prefix + 'abstract')
-            session.start = datetime.strptime(
-                   self.request.get(prefix + 'start'), '%Y-%m-%d %H:%M')
-            session.end   = datetime.strptime(
-                   self.request.get(prefix + 'end'), '%Y-%m-%d %H:%M')
             session.slot = [slot.key() for slot in slots if str(slot.key()) in self.request.get(prefix + 'slot')][0]
             session.level = self.request.get(prefix + 'level')            
             session.track = self.request.get(prefix + 'track')

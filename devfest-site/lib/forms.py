@@ -132,8 +132,6 @@ class SingleSessionForm(Form):
   abstract        = TextAreaField('Abstract')
    # this field will get its choices specified dynamically
   slot            = SelectField('Slot')
-  start           = DateTimeField('Start', format="%Y-%m-%d %H:%M")
-  end             = DateTimeField('End', format="%Y-%m-%d %H:%M")
   room            = TextField('Room')
   level           = TextField('Level (e.g. "Intermediate")')
   track           = TextField('Track')
