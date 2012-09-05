@@ -243,6 +243,12 @@ class CSessionAgendaList(OCachedObject):
     self.max_time = 3600
     CachedObject.__init__(self)    
 
+  # invalidate cache for a specific event
+  @classmethod
+  def remove_from_cache(class_, event_id):
+    cache_key = "SessionAgendaList_"  + ("(%s)" % (event_id))
+    memcache.delete(cache_key)
+
   # helper function - key for slot
   def key_for_slot(self, slot):
     return slot.start.strftime("%H:%M") + "-" + slot.end.strftime("%H:%M") + "_" + slot.name
