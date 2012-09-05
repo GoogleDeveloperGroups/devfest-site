@@ -163,6 +163,27 @@ class CEventList(OCachedObject):
   def remove_from_cache(class_):
     CachedObject.remove_from_cache(class_.__name__)
 
+# list of all events grouped into countries
+class CAdminEventList(CEventList):
+  def __init__(self):
+    self.cache_key = self.__class__.__name__
+    self.entity_collection = {}
+    self.max_time = 3600
+    CachedObject.__init__(self)
+
+  def load_from_db(self):
+    self.entity_collection = {}
+
+    events = Event.all()
+    event_list = {}
+    for event in events:
+      if event_list.has_key(event.country) is False:
+        event_list[event.country] = []
+
+      event_list[event.country].append(event)
+
+    self.entity_collection = event_list
+
 # list of VHackAndroid events
 class CVHAEventList(CEventList):
   def load_from_db(self):
