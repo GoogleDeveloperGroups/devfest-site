@@ -131,7 +131,7 @@ class SingleSessionForm(Form):
   title           = TextField('Name of the session', [ validators.Required()])
   abstract        = TextAreaField('Abstract')
    # this field will get its choices specified dynamically
-  slot            = SelectField('Slot')
+  slot_key        = SelectField('Slot', [validators.Required()])
   room            = TextField('Room')
   level           = TextField('Level (e.g. "Intermediate")')
   track           = TextField('Track')
