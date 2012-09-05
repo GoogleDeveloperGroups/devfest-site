@@ -29,7 +29,7 @@ class Event(db.Model):
   geo_location          = db.GeoPtProperty()
   start                 = db.DateTimeProperty()
   end                   = db.DateTimeProperty()
-  timezone              = db.IntegerProperty()
+  timezone              = db.FloatProperty()
   agenda                = db.StringListProperty()
   agenda_description    = db.StringProperty()
   technologies          = db.StringListProperty()
@@ -82,7 +82,8 @@ class Event(db.Model):
     # (ok, currently async fetch does not make much sense here)
     self.set_geolocation_final(rpc_geo)
     retval = super(Event, self).put(**kwargs)
-    self.save_to_gdrive()
+    if settings.DOCSAPI_CONSUMER_SECRET:
+      self.save_to_gdrive()
     return retval
 
   def save_to_gdrive(self):
