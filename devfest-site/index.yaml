@@ -14,3 +14,7 @@ indexes:
   properties:
   - name: approved
   - name: start
+
+- kind: Session
+  properties:
+  - name: event

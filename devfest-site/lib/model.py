@@ -167,14 +167,16 @@ class Session(db.Model):
   title       = db.StringProperty()
   abstract    = db.TextProperty()
   slot        = db.ReferenceProperty(Slot)
-  start       = db.DateTimeProperty()
-  end         = db.DateTimeProperty()  
   room        = db.StringProperty()
   level       = db.StringProperty()
   track       = db.StringProperty()
   live_url    = db.StringProperty()
   youtube_url = db.StringProperty()
   speakers    = db.ListProperty(db.Key)
+  # OK, I know this violates "normalized" DB best practice.
+  # a slot belongs to an event so I know already the event.
+  # but for fast access I duplicate the information here as well.
+  event       = db.ReferenceProperty(Event)
 
 class Speaker(db.Model):
   first_name  = db.StringProperty()

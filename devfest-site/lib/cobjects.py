@@ -209,7 +209,9 @@ class CSessionList(DbCachedObject):
 
   # load all sessions from db
   def load_from_db(self):
-    self.entity_collection = Session.all().filter('event =', CEvent(self.id).get()).order('start')     
+    sessions = Session.all().filter('event =', CEvent(self.id).get())
+    # I have to manually sort them, sorry...
+    self.entity_collection = sorted(sessions, key=lambda x: x.slot.start)
 
 # list of sessions per event grouped by slots and rooms
 class CSessionAgendaList(OCachedObject):
@@ -230,7 +232,7 @@ class CSessionAgendaList(OCachedObject):
     slot_list = {}
     
     for session in sessions:    
-      session_key = session.start.strftime('%H_%M') + "_" + session.end.strftime('%H_%M')      
+      session_key = session.slot.start.strftime('%H_%M') + "_" + session.slot.end.strftime('%H_%M')      
       
       if room_list.has_key(session_key) is False:
         room_list[session_key] = []
@@ -239,7 +241,7 @@ class CSessionAgendaList(OCachedObject):
       slot_id = session.slot.key()
       if slot_list.has_key(slot_id) is False:
         slot_list[slot_id] = []
-      slot_list[slot_id].append({'start':CSlot(slot_id).get().start, 'data':session})
+      slot_list[slot_id].append({'start':CSlot(slot_id).get().slot.start, 'data':session})
           
     self.entity_collection = room_list
     self.slot_list = slot_list
