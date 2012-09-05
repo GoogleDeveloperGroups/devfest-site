@@ -120,6 +120,7 @@ class SessionsUploadPage(UploadPage):
             session.abstract = self.request.get(prefix + 'abstract')
             session.slot = [slot.key() for slot in slots if str(slot.key()) in self.request.get(prefix + 'slot')][0]
             session.level = self.request.get(prefix + 'level')            
+            session.room = self.request.get(prefix + 'room')
             session.track = self.request.get(prefix + 'track')
             session.live_url = self.request.get(prefix + 'live_url')
             session.youtube_url = self.request.get(prefix + 'youtube_url')
