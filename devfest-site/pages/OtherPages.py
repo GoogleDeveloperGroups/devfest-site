@@ -2,6 +2,7 @@ from lib.view import FrontendPage
 from google.appengine.api import users
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
+import settings
 
 class AboutPage(FrontendPage):
     def show(self):
@@ -12,8 +13,8 @@ class AboutPage(FrontendPage):
 class ReportBugPage(FrontendPage):
     def show(self):
         user = users.get_current_user()
-        self.template="report"   
-        
+        self.redirect(settings.REPORT_URL)
+
 class BrandingPage(FrontendPage):
     def show(self):
         user = users.get_current_user()
