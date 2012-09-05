@@ -126,7 +126,7 @@ class Event(db.Model):
         'whatareyouplanningtodo': ', '.join(agenda),
         'whatproductstechnologiesyouproposetocoverintheevent': ', '.join(self.technologies),
         'whatkindofsupportyouexpectforthisevent': self.kind_of_support,
-        'expectednumberofparticipants': '%s' % self.register_max,
+        'expectednumberofparticipants': '%s' % self.expected_participants,
         'city': self.city,
         'preferredsubdomainfortheeventwebsite': self.subdomain,
         'eventwebsiteforyourgdgdevfest': self.gplus_event_url,
