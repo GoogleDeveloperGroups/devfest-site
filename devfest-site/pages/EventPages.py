@@ -8,8 +8,8 @@ from google.appengine.ext import db
 from lib.model import Event
 from lib.forms import EventForm
 from lib.cobjects import (CEventList, CEvent, CEventScheduleList,
-      COrganizersEventList, CSponsorList, CVHAEventList, CSessionList, CSessionAgendaList,
-    CSessionAgendaList, CSlotList, CDayList, CTrackList)
+      COrganizersEventList, CSponsorList, CVHAEventList, CSessionList,
+      CSessionAgendaList, CSlotList, CDayList, CTrackList)
 from datetime import datetime
 import urllib
 import json

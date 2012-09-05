@@ -219,7 +219,6 @@ class CSessionAgendaList(OCachedObject):
     self.cache_key = "SessionAgendaList_"  + ("(%s)" % (event_id))
     self.event_id = event_id
     self.entity_collection = {}
-    self.slot_list = {}
     self.max_time = 3600
     CachedObject.__init__(self)    
 
@@ -241,14 +240,14 @@ class CSessionAgendaList(OCachedObject):
       slot_id = session.slot.key()
       if slot_list.has_key(slot_id) is False:
         slot_list[slot_id] = []
-      slot_list[slot_id].append({'start':CSlot(slot_id).get().slot.start, 'data':session})
+      slot_list[slot_id].append({'start':CSlot(slot_id).get().start, 'data':session})
           
-    self.entity_collection = room_list
-    self.slot_list = slot_list
+    self.entity_collection['room_list'] = room_list
+    self.entity_collection['slot_list'] = slot_list
     
   # return only sessions for one slot
   def get_for_slot(self, slot_id):
-    return self.slot_list[slot_id]  
+    return self.entity_collection['slot_list'][slot_id]
     
               
 # list of all events which are not yet started

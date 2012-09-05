@@ -42,7 +42,7 @@
          {{ slot.start}} - {{ slot.end}}
        </td>
          
-       {% for session in sessions %}                                    
+       {% for session in sessions.room_list %}                                    
        <td>
          {{ session }}, {{ session.room }}
       </td>
