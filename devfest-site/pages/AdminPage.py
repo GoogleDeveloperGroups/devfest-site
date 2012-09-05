@@ -18,22 +18,15 @@ class AdminImportPage(FrontendPage):
     if feed.entry:
       for entry in feed.entry:
         ev = entry.to_dict()
-        original_users = ev['organizerse-mailid'].split(',')
-        event_users = []
-        for user in original_users:
-          event_users.append(users.User(user.strip()))
-
+        
         event = Event()
-        event.organizers = event_users
+        event.organizers = [ users.User(e.strip()) for e in ev['organizerse-mailid'].split(',') ]
         event.location = "%s, %s" % (ev['city'], ev['country'])
         event.gdg_chapters = [ev['gdgchaptername']]
         event.subdomain = ev['preferredsubdomainfortheeventwebsite']
-        try:
-          num_participants = re.sub(r'[^0-9]', '', ev['expectednumberofparticipants'])
-          event.register_max = int(num_participants)
-        except:
-          pass
+        event.expected_participants = ev['expectednumberofparticipants']
         event.kind_of_support = ev['whatkindofsupportyouexpectforthisevent']
+        #event.approved = True
         event.approved = False
         try:
           event.start = datetime.strptime(ev['eventdate'], '%m/%d/%Y')
