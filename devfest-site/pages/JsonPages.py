@@ -104,7 +104,7 @@ class JsonSessionListPage(JSONPage):
              'end': session.slot.end.isoformat(),
              'room': session.room,
              'level': session.level,
-             'track': session.track,
+             'track': session.track.name,
              'live_url': session.live_url,
              'youtube_url': session.youtube_url,
              'speakers': [ str(key) for key in session.speakers ]
