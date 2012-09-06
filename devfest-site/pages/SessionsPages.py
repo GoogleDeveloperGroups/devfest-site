@@ -1,6 +1,6 @@
 from lib.view import FrontendPage
 from lib.view import UploadPage
-from google.appengine.api import urlfetch
+from google.appengine.api import urlfetch, blobstore
 from google.appengine.api import users
 from google.appengine.ext import db
 from lib.model import Session, Event, Track, Speaker
@@ -24,6 +24,12 @@ class SessionFormHelper:
     # now iterate through the sessions fields in the form
     for session_form in form.sessions.entries:
       session_form.slot_key.choices = [ ("", "Please select slot")] + [ (str(slot.key()), slot.name + " (" + slot.start.strftime('%H:%M') + "-" + slot.end.strftime('%H:%M') + ")") for slot in slots ]      
+
+  @staticmethod
+  def add_tracks(form,tracks):    
+    # now iterate through the sessions fields in the form
+    for session_form in form.sessions.entries:
+      session_form.track_key.choices = [ ("", "Please select track")] + [ (str(track.key()), track.name) for track in tracks ]      
     
 # This page is displayed in the context of a single event.
 # It shows the currently defined sessions for an event and
@@ -53,13 +59,15 @@ class SessionsEditPage(FrontendPage):
       SessionFormHelper.add_speakers(form,speakers)
       slots = CSlotList(event_id).get()
       SessionFormHelper.add_slots(form, slots)
+      tracks = CTrackList(event_id).get()
+      SessionFormHelper.add_tracks(form, tracks)
     elif not user:
       return self.redirect(
                    users.create_login_url("/event/sessions/edit/" + event_id))
     else:
       return self.redirect("/event/create");
     self.values['current_navigation'] = 'sessions'
-    self.values['form_url'] = '/event/sessions/upload'
+    self.values['form_url'] = blobstore.create_upload_url('/event/sessiontrack/upload')
     self.values['form'] = form
 
 # process the results uploaded by the user - and then display the edit form
@@ -76,7 +84,9 @@ class SessionsUploadPage(UploadPage):
       speakers = CSpeakerList(event_id).get()
       SessionFormHelper.add_speakers(form,speakers)
       slots = CSlotList(event_id).get()
-      SessionFormHelper.add_slots(form, slots)
+      SessionFormHelper.add_slots(form, slots)    
+      tracks = CTrackList(event_id).get()
+      SessionFormHelper.add_tracks(form, tracks)      
       
       if form.validate():
         # start with the tracks as they are used by sessions
@@ -96,6 +106,12 @@ class SessionsUploadPage(UploadPage):
             track.name = self.request.get(prefix + 'name')
             track.color = self.request.get(prefix + 'color')
             track.abstract = self.request.get(prefix + 'abstract')
+            
+            upload_files = self.get_uploads(prefix + 'icon')
+            if len(upload_files) > 0:
+              blob_info = upload_files[0]
+              track.icon = '%s' % blob_info.key()
+        
             track.event = event
             # update track
             track.put()
@@ -103,6 +119,9 @@ class SessionsUploadPage(UploadPage):
         # now delete all tracks not mentioned yet
         for t in old_tracks:
           t.delete()
+                  
+        CTrackList.remove_from_cache(event_id)
+        
         # now the sessions...
         old_sessions = CSessionList(event_id).get()
         for i in range(0,1024):
@@ -122,7 +141,11 @@ class SessionsUploadPage(UploadPage):
             session.slot = [slot.key() for slot in slots if str(slot.key()) in self.request.get(prefix + 'slot_key')][0]
             session.level = self.request.get(prefix + 'level')            
             session.room = self.request.get(prefix + 'room')
-            session.track = self.request.get(prefix + 'track')
+            track_keys = [track.key() for track in tracks if str(track.key()) in self.request.get(prefix + 'track_key')]
+            if len(track_keys) > 0:
+              session.track = track_keys[0]
+            else :
+              session.track = None
             session.live_url = self.request.get(prefix + 'live_url')
             session.youtube_url = self.request.get(prefix + 'youtube_url')
             session.event = event
@@ -136,8 +159,7 @@ class SessionsUploadPage(UploadPage):
         # set info that modification was successful
         self.values['modified_successful'] = True
         # clear the cache for the event
-        CSessionList.remove_from_cache(event_id)
-        CTrackList.remove_from_cache(event_id)
+        CSessionList.remove_from_cache(event_id)        
       # set event into form object
       self.values['event'] = event
     elif not user:
@@ -146,5 +168,5 @@ class SessionsUploadPage(UploadPage):
     else:
       return self.redirect("/event/create");
     self.values['current_navigation'] = 'sessions'
-    self.values['form_url'] = '/event/sessions/upload'
+    self.values['form_url'] = blobstore.create_upload_url('/event/sessiontrack/upload')
     self.values['form'] = form
