@@ -164,6 +164,7 @@ function clone_field_list(name) {
         Edit GDG DevFest
         {% if event.city %}{{event.city}}{% else %}{{event.location}}{% endif %}
       </h1>
+      <a class="label label-info" href="/event/{{event.key()}}" >View event</a>
       <a class="label label-important" href="/event/delete/{{event.key()}}" onclick="return confirm('Are you sure you want to delete the event?')">Delete event</a>
       {% else %}
       <h1 style="font-size: 25px; float: none; margin-bottom: 10px">
@@ -177,7 +178,11 @@ function clone_field_list(name) {
     <div class="span3">
       <div class="row">
         <span style="margin-left: 5px">
-          <img src="/images/gdgbig.png">
+          {% if event.logo %}
+        <img src="/blob/{{event.logo}}">
+        {% else %}
+        <img src="/images/gdgbig.png">
+        {% endif %}
         </span>
       </div>
       {% if event %}

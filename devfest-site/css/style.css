@@ -572,3 +572,23 @@ ul.form_FormField.form_FieldList > li {
 #gdg-edit-event td {
   padding-left: 10px;
 }
+
+tr.slot {
+  line-height: 32px;
+}
+tr.slot:hover {
+  background-color: #eee;
+}
+tr.slot_nosessions {
+  background-color: #c0c0c0;
+}
+tr.slot_sessions {
+  border-top: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+tr.slot td {
+  padding: 8px;
+  line-height: 18px;
+  text-align: left;
+  vertical-align: top;
+}

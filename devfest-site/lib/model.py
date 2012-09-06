@@ -151,6 +151,14 @@ class Slot(db.Model):
   day         = db.ReferenceProperty(Day)
   event       = db.ReferenceProperty(Event)
 
+# session tracks - defined on a per-event base
+class Track(db.Model):
+  name        = db.StringProperty()
+  color       = db.StringProperty()
+  icon        = db.StringProperty()
+  abstract    = db.TextProperty()
+  event       = db.ReferenceProperty(Event)
+
 # Sponsors for an event.
 class Sponsor(db.Model):
   name        = db.StringProperty()
@@ -170,7 +178,7 @@ class Session(db.Model):
   slot        = db.ReferenceProperty(Slot)
   room        = db.StringProperty()
   level       = db.StringProperty()
-  track       = db.StringProperty()
+  track       = db.ReferenceProperty(Track)
   live_url    = db.StringProperty()
   youtube_url = db.StringProperty()
   speakers    = db.ListProperty(db.Key)
@@ -187,10 +195,4 @@ class Speaker(db.Model):
   short_bio   = db.TextProperty()
   event       = db.ReferenceProperty(Event)
 
-# session tracks - defined on a per-event base
-class Track(db.Model):
-  name        = db.StringProperty()
-  color       = db.StringProperty()
-  abstract    = db.TextProperty()
-  event       = db.ReferenceProperty(Event)
 

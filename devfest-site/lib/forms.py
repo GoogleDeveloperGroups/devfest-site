@@ -134,7 +134,7 @@ class SingleSessionForm(Form):
   slot_key        = SelectField('Slot', [validators.Required()])
   room            = TextField('Room')
   level           = TextField('Level (e.g. "Intermediate")')
-  track           = TextField('Track')
+  track_key       = SelectField('Track')
   live_url        = TextField('URL of Live Stream')
   youtube_url     = TextField('URL on Youtube')
     # this field will get its choices specified dynamically
@@ -144,7 +144,8 @@ class SingleSessionForm(Form):
 class SingleTrackForm(Form):
   track           = HiddenField()
   name            = TextField('Name', [validators.Required()])
-  color           = TextField('Color', [validators.Regexp('#[0-9A-Z]{6}')])
+  color           = TextField('Color, e.g. #12FF34', [validators.Regexp('#[0-9A-Z]{6}')])
+  icon            = FileField('Icon')
   abstract        = TextAreaField('Abstract')
 
 # allow modification of list of sessions and tracks for an event

@@ -47,10 +47,10 @@
        <td>
          {{ slot.start.strftime('%H:%M')}} - {{ slot.end.strftime('%H:%M')}}
        </td>
-         
+               
     {% if slot.sessioncount > 0 %}
-     {% set sessions_room = agenda.by_slot_room[slot.slot_key] %}
-     {% for room in agenda.room_list|sort %}
+     {% set sessions_room = agenda.by_slot_room[date][slot.slot_key] %}
+     {% for room in agenda.room_list[date]|sort %}     
       {% if room in sessions_room %}
        {% set session = sessions_room[room] %}
        <td>
@@ -61,6 +61,7 @@
       {% endif %}
      {% endfor %}
     {% else %}
+    
       <td colspan="{{ agenda.room_list|length }}">
         {{ slot.name }}
       </td>

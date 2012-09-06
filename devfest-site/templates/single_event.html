@@ -12,7 +12,12 @@
   <div class="row-fluid">
     <div class="span3">
       <div class="row">
-        <span style="margin-left: 5px"> <img src="/images/gdgbig.png">
+        <span style="margin-left: 5px"> 
+        {% if event.logo %}
+        <img src="/blob/{{event.logo}}">
+        {% else %}
+        <img src="/images/gdgbig.png">
+        {% endif %}
         </span>
         {% if (sponsors|length) > 0 %}
              <h1>Sponsors</h1>
@@ -46,7 +51,6 @@
             <a href="/event/agenda/{{event.key()}}" class="label label-info">Agenda</a>
             <hr>
             <div class="eventtype">
-            <img src="/blob/{{event.logo}}">
             {{event.location}}<br/>
             {% if event.start %}
             {{event.start|datetime}}<br/>
