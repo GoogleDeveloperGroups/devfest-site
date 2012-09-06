@@ -9,6 +9,8 @@ from lib.cobjects import CEvent, CDayList, CSlotList
 from datetime import datetime, time
 import urllib
 import json
+from logging import log
+import logging
 
 # This page is displayed in the context of a single event.
 # It shows the currently defined slots and days for an event and
@@ -103,8 +105,24 @@ class SlotsUploadPage(UploadPage):
             (hour,min) = self.request.get(prefix + 'end').split(':')
             if hour and min:
               slot.end = time(int(hour), int(min))
-            date = datetime.strptime(self.request.get(prefix + 'date'), '%Y-%m-%d').date()
-            slot.day = [ day for day in days if day.date == date ][0]
+            # find date
+            date = datetime.strptime(self.request.get(prefix + 'date'), '%Y-%m-%d').date()            
+            day_list = [ day for day in days if day.date == date ]            
+            
+            if len(day_list) < 1:
+              day = Day()
+              day.date = date
+              day.event = event
+              day.put()              
+              # clear day list
+              CDayList.remove_from_cache(event_id)
+              # and load uploaded day list
+              days = CDayList(event_id).get()
+              slot_day = day
+            else:
+              slot_day = day_list[0]
+                
+            slot.day = slot_day
             slot.event = event
             # update slot
             slot.put()
