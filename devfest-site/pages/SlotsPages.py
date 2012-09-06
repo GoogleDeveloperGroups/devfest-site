@@ -5,7 +5,7 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from lib.model import Session, Event, Day, Slot
 from lib.forms import SingleDayForm, SingleSlotForm, DaysSlotsForm
-from lib.cobjects import CEvent, CDayList, CSlotList
+from lib.cobjects import CEvent, CDayList, CSlotList, CSessionAgendaList
 from datetime import datetime, time
 import urllib
 import json
@@ -134,6 +134,7 @@ class SlotsUploadPage(UploadPage):
         self.values['modified_successful'] = True
         # clear the cache for the event
         CSlotList.remove_from_cache(event_id)
+        CSessionAgendaList.remove_from_cache(event_id)
       # set event into form object
       self.values['event'] = event
     elif not user:
