@@ -49,9 +49,8 @@
        </td>
                
     {% if slot.sessioncount > 0 %}
-     {% set sessions_room = agenda.by_slot_room[slot.slot_key] %}
-     {% for room in agenda.room_list|sort %}
-     {{room}}
+     {% set sessions_room = agenda.by_slot_room[date][slot.slot_key] %}
+     {% for room in agenda.room_list[date]|sort %}     
       {% if room in sessions_room %}
        {% set session = sessions_room[room] %}
        <td>
