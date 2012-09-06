@@ -23,6 +23,7 @@ app = webapp2.WSGIApplication([
                               ('^/event/edit/(.*)$', EventEditPage),
                               ('^/event/delete/(.*)$', EventDeletePage),
                               ('^/event/upload$', EventUploadPage),
+                              ('^/event/sessiontrack/upload', SessionsUploadPage),
                               # upload sponsors list for an event
                               ('^/event/sponsors/upload$', SponsorsUploadPage),
                               # show / change sponsors list for an event id
@@ -30,9 +31,7 @@ app = webapp2.WSGIApplication([
                               # upload speakers list for an event
                               ('^/event/speakers/upload$', SpeakersUploadPage),
                               # show / change speakers list for an event id
-                              ('^/event/speakers/edit/(.*)$', SpeakersEditPage),
-                              # upload sessions list for an event
-                              ('^/event/sessions/upload$', SessionsUploadPage),
+                              ('^/event/speakers/edit/(.*)$', SpeakersEditPage),                              
                               # show / change days/slots list for an event id
                               ('^/event/slots/edit/(.*)$', SlotsEditPage),
                               # upload days/slots list for an event id

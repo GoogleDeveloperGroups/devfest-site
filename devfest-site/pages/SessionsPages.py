@@ -1,6 +1,6 @@
 from lib.view import FrontendPage
 from lib.view import UploadPage
-from google.appengine.api import urlfetch
+from google.appengine.api import urlfetch, blobstore
 from google.appengine.api import users
 from google.appengine.ext import db
 from lib.model import Session, Event, Track, Speaker
@@ -67,7 +67,7 @@ class SessionsEditPage(FrontendPage):
     else:
       return self.redirect("/event/create");
     self.values['current_navigation'] = 'sessions'
-    self.values['form_url'] = '/event/sessions/upload'
+    self.values['form_url'] = blobstore.create_upload_url('/event/sessiontrack/upload')
     self.values['form'] = form
 
 # process the results uploaded by the user - and then display the edit form
@@ -106,6 +106,12 @@ class SessionsUploadPage(UploadPage):
             track.name = self.request.get(prefix + 'name')
             track.color = self.request.get(prefix + 'color')
             track.abstract = self.request.get(prefix + 'abstract')
+            
+            upload_files = self.get_uploads(prefix + 'icon')
+            if len(upload_files) > 0:
+              blob_info = upload_files[0]
+              track.icon = '%s' % blob_info.key()
+        
             track.event = event
             # update track
             track.put()
@@ -162,5 +168,5 @@ class SessionsUploadPage(UploadPage):
     else:
       return self.redirect("/event/create");
     self.values['current_navigation'] = 'sessions'
-    self.values['form_url'] = '/event/sessions/upload'
+    self.values['form_url'] = blobstore.create_upload_url('/event/sessiontrack/upload')
     self.values['form'] = form
