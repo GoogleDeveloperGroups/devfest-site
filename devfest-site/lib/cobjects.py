@@ -302,8 +302,8 @@ class CSessionAgendaList(OCachedObject):
     for s in CSlotList(self.event_id).get():
       s.date = s.day.date
       s.slot_key = self.key_for_slot(s)
-      if s.slot_key in by_slot:
-        s.sessioncount = len(by_slot[s.slot_key])
+      if s.slot_key in by_slot[s.date]:
+        s.sessioncount = len(by_slot[s.date][s.slot_key])
       else:
         s.sessioncount = 0
       if s.date not in date_list:
