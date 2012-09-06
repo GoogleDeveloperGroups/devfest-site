@@ -10,7 +10,6 @@ from lib.cobjects import CEvent, CSessionList, CTrackList, CSpeakerList,\
 from datetime import datetime
 import urllib
 import json
-import logging
 
 # helper class for filling in the speakers and the slots in the form
 class SessionFormHelper:
@@ -27,8 +26,7 @@ class SessionFormHelper:
       session_form.slot_key.choices = [ ("", "Please select slot")] + [ (str(slot.key()), slot.name + " (" + slot.start.strftime('%H:%M') + "-" + slot.end.strftime('%H:%M') + ")") for slot in slots ]      
 
   @staticmethod
-  def add_tracks(form,tracks):
-    logging.info(tracks)
+  def add_tracks(form,tracks):    
     # now iterate through the sessions fields in the form
     for session_form in form.sessions.entries:
       session_form.track_key.choices = [ ("", "Please select track")] + [ (str(track.key()), track.name) for track in tracks ]      
@@ -87,9 +85,7 @@ class SessionsUploadPage(UploadPage):
       SessionFormHelper.add_speakers(form,speakers)
       slots = CSlotList(event_id).get()
       SessionFormHelper.add_slots(form, slots)    
-      logging.info(slots)  
       tracks = CTrackList(event_id).get()
-      logging.info(tracks)
       SessionFormHelper.add_tracks(form, tracks)      
       
       if form.validate():
