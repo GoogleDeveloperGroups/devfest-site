@@ -19,7 +19,12 @@
   <div class="row-fluid">
     <div class="span3">
       <div class="row">
-        <span style="margin-left: 5px"> <img src="/images/gdgbig.png">
+        <span style="margin-left: 5px"> 
+         {% if event.logo %}
+        <img src="/blob/{{event.logo}}">
+        {% else %}
+        <img src="/images/gdgbig.png">
+        {% endif %}
         </span>
       </div>
     </div>
