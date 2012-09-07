@@ -6,6 +6,7 @@
 {% endblock %} 
 
 {% block content %}
+{% set show_agenda = false %}
 
 <div class="container-fluid">
   <div class="row">
@@ -53,16 +54,50 @@
      {% for room in agenda.room_list[date]|sort %}     
       {% if room in sessions_room %}
        {% set session = sessions_room[room] %}
-       <td>
-         {{ session.title }}{% if room != " " %}, {{ room }} {% endif %}
+       <td>         
+                      
+          {{ session.title }}{% if room != " " %}, {{ room }} {% endif %}</br>                  
+          {% for speaker_key in session.speakers %}            
+             {% set speaker = speaker_list.get_for_key(speaker_key) %}
+             {% if speaker.gplus_id %}
+             <a href="http://plus.google.com/{{speaker.plus_id}}">
+               {{speaker.first_name}} {{speaker.last_name}} 
+               {%if speaker.company is not none %}
+                 , {{speaker.company}}
+               {% endif %}               
+             </a>
+             {% else %}
+               {{speaker.first_name}} {{speaker.last_name}} 
+               {% if speaker.company is not none %}
+                 , {{speaker.company}}
+               {% endif %}               
+             {% endif %}                                
+         {% endfor %}
+         
+         </td>
+         <td>
+                        
+         {% set track = track_list.get_for_key(session.track.key()) %}
+         {% if track is not none %}
+           {% set icon_url = track_list.get_icon_url(track) %}                          
+           {% if icon_url is not none %}           
+             <img class="icon trackicon" src = "{{icon_url}}"/>
+             {% set show_agenda = true %}            
+           {% else %}
+             {{track.name}}
+           {% endif %}
+         {% endif %}         
+         
       </td>
       {% else %}
       <td>&nbsp;</td>
+      <td>&nbsp;</td>
       {% endif %}
      {% endfor %}
+     
     {% else %}
     
-      <td colspan="{{ agenda.room_list|length }}">
+      <td colspan="{{ agenda.room_list|length * 2}}">
         {{ slot.name }}
       </td>
     {% endif %}
@@ -70,6 +105,21 @@
   {% endfor %}
  </table>
 {% endfor %}
+
+
+     <hr>
+     <h3>Tracks</h3>
+     
+     {%for track in track_list.get() %}
+     <div class="track">
+     {{track.name}}</br> 
+     {% set icon_url = track_list.get_icon_url(track) %}                          
+     {% if icon_url is not none %}           
+       <img class="icon trackicon" src = "{{icon_url}}"/>
+     {% endif %}
+     </div>
+     {%endfor%}
+     
         </div>
       </div>
     </div>

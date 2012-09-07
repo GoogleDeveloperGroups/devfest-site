@@ -1,4 +1,5 @@
 import logging
+from string import lowercase, lower
 try:
   import settings_local as settings
 except:
@@ -205,7 +206,7 @@ class CSponsorList(DbCachedObject):
   # load all sponsors from db
   def load_from_db(self):
     self.entity_collection = Sponsor.all().filter('event =', CEvent(self.id).get())
-
+    
 # list of speakers per event
 class CSpeakerList(DbCachedObject):
   def __init__(self, event_id):
@@ -215,6 +216,14 @@ class CSpeakerList(DbCachedObject):
   def load_from_db(self):
     self.entity_collection = Speaker.all().filter('event =', CEvent(self.id).get())
 
+  def get_for_key(self, speaker_id):
+      speaker_list = [s for s in self.entity_collection if s.key() == speaker_id]
+      if len(speaker_list) > 0:
+        return speaker_list[0]
+      else:
+        return None
+    
+
 # list of tracks per event
 class CTrackList(DbCachedObject):
   def __init__(self, event_id):
@@ -223,6 +232,29 @@ class CTrackList(DbCachedObject):
   # load all tracks from db
   def load_from_db(self):
     self.entity_collection = Track.all().filter('event =', CEvent(self.id).get())
+
+  def get_for_key(self, track_id):
+      track_list = [t for t in self.entity_collection if t.key() == track_id]
+      if len(track_list) > 0:
+        return track_list[0]
+      else:
+        return None
+    
+  def get_icon_url(self, track):
+      if track.icon is not None:
+        return "/blob/" + track.icon
+      elif lower(track.name) == 'android':
+        return "/images/product_icons/android.png"
+      elif  lower(track.name) == 'google tv':
+        return "/images/product_icons/tv.png"
+      elif  lower(track.name) == 'google plus':
+        return "/images/product_icons/plus.png"
+      elif  lower(track.name) == 'chrome':
+        return "/images/product_icons/chrome.png"
+      elif  lower(track.name) == 'google drive':
+        return "/images/product_icons/drive.png"
+      else:
+        return None 
 
 # list of sessions per event
 class CSessionList(DbCachedObject):
@@ -303,7 +335,6 @@ class CSessionAgendaList(OCachedObject):
     for s in CSlotList(self.event_id).get():
       s.date = s.day.date
       s.slot_key = self.key_for_slot(s)
-      logging.info(by_slot)
       if by_slot.has_key(s.date):
         if s.slot_key in by_slot[s.date]:
           s.sessioncount = len(by_slot[s.date][s.slot_key])

@@ -10,10 +10,11 @@ from lib.forms import EventForm
 from lib.cobjects import (CEventList, CEvent, CEventScheduleList,
       COrganizersEventList, CSponsorList, CVHAEventList, CSessionList,
       CSessionAgendaList, CSlotList, CDayList, CTrackList,
-      CAdminEventList)
+      CAdminEventList, CSpeakerList)
 from datetime import datetime
 import urllib
 import json
+import logging
 
 # convert to int if possible / value exists, to null otherwise
 def saveint(str):
@@ -188,7 +189,8 @@ class EventAgendaPage(FrontendPage):
     self.values['agenda'] = CSessionAgendaList(event_id).get()
     self.values['slots'] = CSlotList(event_id).get()
     self.values['days'] = CDayList(event_id).get()
-    self.values['tracks'] = CTrackList(event_id).get()
+    self.values['track_list'] = CTrackList(event_id)
+    self.values['speaker_list'] = CSpeakerList(event_id)
 
 # list of approved events 
 class EventListPage(FrontendPage):
