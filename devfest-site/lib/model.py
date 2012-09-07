@@ -191,6 +191,7 @@ class Speaker(db.Model):
   first_name  = db.StringProperty()
   last_name   = db.StringProperty()
   gplus_id    = db.StringProperty()
+  company     = db.StringProperty()
   thumbnail   = db.StringProperty()
   short_bio   = db.TextProperty()
   event       = db.ReferenceProperty(Event)
