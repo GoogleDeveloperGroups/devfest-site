@@ -153,6 +153,7 @@ class EventUploadPage(UploadPage):
       event.start = datetime.strptime(self.request.get('start'), '%Y-%m-%d %H:%M')
       event.end = datetime.strptime(self.request.get('end'), '%Y-%m-%d %H:%M')
       event.timezone = float(self.request.get('timezone'))
+      event.agenda_description = self.request.get('agenda_description')
       event.technologies = self.request.get_all('technologies')
       event.gdg_chapters = self.request.get('gdg_chapters').split(',')
       event.organizers = [ users.User(e.strip()) for e in self.request.get('organizers').split(',') ]

@@ -53,8 +53,14 @@
             <div class="eventtype">
             {{event.location}}<br/>
             {% if event.start %}
-            {{event.start|datetime}}<br/>
+            Start: {{event.start|datetime}}<br/>
             {% endif %}
+            {% if event.end %}
+            End: {{event.end|datetime}}<br/>
+            {% endif %}
+            <span class="description">
+            {{event.agenda_description}}
+            </span>
             <!-- Type of Event- Use <i> tag and class icon-event-* -->
             {% if '1' in event.agenda %}
               <i class="icon-event icon-event-conf"></i>
