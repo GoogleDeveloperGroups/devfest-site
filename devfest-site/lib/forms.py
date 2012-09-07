@@ -49,7 +49,7 @@ class EventForm(Form):
   start           = DateTimeField('Start', format="%Y-%m-%d %H:%M")
   end             = DateTimeField('End', format="%Y-%m-%d %H:%M")
   timezone        = DecimalField('Timezone Offset of UTC')
-  agenda_description = TextField('Description for the event')
+  agenda_description = TextAreaField('Description for the event')
   gdg_chapters    = TextField('GDG Chapters',
         [validators.Required()], description='Comma separated list')
   technologies    = MultiCheckboxField(
