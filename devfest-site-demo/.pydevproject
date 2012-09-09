@@ -2,7 +2,7 @@
 <?eclipse-pydev version="1.0"?><pydev_project>
 <pydev_variables_property name="org.python.pydev.PROJECT_VARIABLE_SUBSTITUTION">
 <key>GOOGLE_APP_ENGINE</key>
-<value>C:\Program Files\Google\google_appengine</value>
+<value>/opt/google_appengine/</value>
 </pydev_variables_property>
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
 <path>/devfest-site-demo</path>
