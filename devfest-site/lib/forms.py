@@ -34,7 +34,7 @@ class EventForm(Form):
         [validators.Optional(),validators.NumberRange(min=0,max=500)])
   location        = TextField('Location',
         [validators.Length(min=3), validators.Required()])
-  name            = TextField('City for naming (usually empty - defaults to city)')
+  name            = TextField('City for naming (usually empty - defaults to city from location)')
   status          = SelectField('Status',
         choices=[('1', 'interested'), ('2', 'planned'), ('3', 'confirmed')])
   logo            = FileField('Logo')

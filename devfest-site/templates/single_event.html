@@ -4,7 +4,7 @@
 <div class="container-fluid">
   <div class="row">
     <div id="title">
-      <h1 style="font-size: 25px; float: none; margin-bottom: 10px"> DevFest {{event.city}}!</h1>
+      <h1 style="font-size: 25px; float: none; margin-bottom: 10px"> DevFest {% if event.name %}{{event.name}} {%elif event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}!</h1>
     </div>
     <hr class="thin-line">
   </div>
