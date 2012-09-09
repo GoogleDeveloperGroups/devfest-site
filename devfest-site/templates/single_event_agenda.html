@@ -82,7 +82,11 @@
          </td>
          <td class="track">
                         
+         {% if session and session.track %}
          {% set track = track_list.get_for_key(session.track.key()) %}
+         {% else %}
+         {% set track = none %}
+         {% endif %}
          {% if track is not none %}
            {% set icon_url = track_list.get_icon_url(track) %}                          
            {% if icon_url is not none %}           
