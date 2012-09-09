@@ -297,6 +297,21 @@ body>section {
 	box-shadow: 0px 0 50px #ccc;
 }
 
+#gdg-circle {    
+	width:90%;
+	float: left;
+	border: 1px solid #ddd;
+	padding: 30px 40px 20px 40px;
+	margin: 0px;
+	background: #fff;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	-webkit-box-shadow: 0px 0 50px #ccc;
+	-moz-box-shadow: 0px 0 50px #ccc;
+	box-shadow: 0px 0 50px #ccc;
+}
+
 
 #gdg-edit-event label{
 	display:block;
@@ -464,7 +479,12 @@ body>section {
 	color:#08C;
 }
 
-
+.centered{
+	text-align:center;
+	margin-top:0px;
+	margin-bottom:0px;
+	padding:30px;
+}
 
 
 
