@@ -48,7 +48,8 @@ class SessionsEditPage(FrontendPage):
       for s in sessions:
         s.session = str(s.key())
         s.slot_key = str(s.slot.key())
-        s.track_key = str(s.track.key())
+        if s.track:
+          s.track_key = str(s.track.key())
       # get list of event tracks
       tracks = CTrackList(event_id).get()
       for t in tracks:
