@@ -193,6 +193,8 @@ class EventAgendaPage(FrontendPage):
     self.values['days'] = CDayList(event_id).get()
     self.values['track_list'] = CTrackList(event_id)
     self.values['speaker_list'] = CSpeakerList(event_id)
+    self.values['sponsors'] = CSponsorList(event_id).get()
+
 
 # list of approved events 
 class EventListPage(FrontendPage):
