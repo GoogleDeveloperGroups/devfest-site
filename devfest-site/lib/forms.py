@@ -25,7 +25,7 @@ class MultiCheckboxField(SelectMultipleField):
 
 class EventForm(Form):
   gplus_event_url = TextField('Google+ Event URL',
-        [validators.URL(), validators.Required()])
+        [validators.URL()])
   external_url    = TextField('External URL (in an iframe or linked to)',
         [validators.Optional(),validators.URL()])
   external_width  = IntegerField('Width of the iframe (if embedded)',
