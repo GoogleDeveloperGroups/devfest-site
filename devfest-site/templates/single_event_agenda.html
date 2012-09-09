@@ -41,8 +41,14 @@
             <hr>
 
 
-{% for date in agenda.date_list|sort %}
+{% for day in agenda.date_list|sort(attribute='date') %}
+{% set date = day.date %}
 <h3>{{ date }}</h3>
+{% if day.description %}
+<p class="about-text">
+{{day.description}}
+<p>
+{%endif%}
 <table>  
   {% for slot in agenda.slot_list[date]|sort(attribute='slot_key') %}
     {% if slot.sessioncount > 0 %}

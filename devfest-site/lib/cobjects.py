@@ -343,7 +343,7 @@ class CSessionAgendaList(OCachedObject):
       else :
           s.sessioncount = 0
       if s.date not in date_list:
-        date_list.append(s.date)
+        date_list.append({"date":s.date, "description":s.day.description})
         slot_list[s.date] = []
       slot_list[s.date].append(s)
 
