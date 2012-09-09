@@ -43,7 +43,7 @@
     <div class="span9">
       <div class="row">
         <div id="gdg-container">
-            <h1>{% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</h1>
+            <h1>{% if event.name %}{{event.name}} {%elif event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</h1>
             {% if user in event.organizers or is_admin %}
             <a href="/event/edit/{{event.key()}}" class="label label-info">Edit the event</a>
             {% endif %}

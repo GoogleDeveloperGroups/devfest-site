@@ -22,6 +22,7 @@ class Event(db.Model):
   register_url          = db.StringProperty()
   register_max          = db.IntegerProperty()
   status                = db.StringProperty()
+  name                  = db.StringProperty()
   location              = db.StringProperty()
   logo                  = db.StringProperty()
   city                  = db.StringProperty()
