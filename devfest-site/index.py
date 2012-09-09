@@ -55,6 +55,7 @@ app = webapp2.WSGIApplication([
                               ('^/about$', AboutPage),
                               ('^/report$', ReportBugPage),
                               ('^/branding$', BrandingPage),
+                              ('^/vhackandroid/sponsors$', VHackAndroidSponsorsPage),
                               ('^/vhackandroid$', VHackAndroidPage),
                               ('^/faq$', FaqPage),
                               ('^/register$', RegisterFormPage),

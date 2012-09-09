@@ -33,6 +33,13 @@ class VHackAndroidPage(FrontendPage):
         user = users.get_current_user()
         self.template="vhackandroid"
 
+class VHackAndroidSponsorsPage(FrontendPage):
+    def show(self):
+        self.values['current_navigation'] = 'vhackandroid'
+        user = users.get_current_user()
+        self.template="vhackandroid_sponsors"
+
+
 class RegisterFormPage(FrontendPage):
     def show(self):
         user = users.get_current_user()
