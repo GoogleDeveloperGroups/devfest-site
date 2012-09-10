@@ -297,6 +297,76 @@ body>section {
 	box-shadow: 0px 0 50px #ccc;
 }
 
+#gdg-circle {   
+    width:auto; 
+    height:auto;
+	float: none;
+	align:center;
+	text-align:center;
+	border: 1px solid #ddd;
+	padding: 30px 30px 30px 30px;
+	margin: 0px;
+	background: #fff;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	-webkit-box-shadow: 0px 0 50px #ccc;
+	-moz-box-shadow: 0px 0 50px #ccc;
+	box-shadow: 0px 0 50px #ccc;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#dummy {
+    margin-top: 100%;
+}
+
+.fixedratio {
+    width: 160%;
+    display: inline-block; 
+    float: none;
+    position: relative;
+    left: -30%;
+    right: 30%;
+}
+/* Large desktop */
+@media (min-width: 1200px) {
+    .fixedratio { 
+    width: 140%;
+    left:  -20%;
+    right: 20%;
+    }
+}
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+    .fixedratio { 
+    width: 200%;
+    left: -50%;
+    right: 50%;
+    }
+}
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+    .fixedratio { 
+        width:300px; 
+        height:300px;
+    left: 0;
+    right: 0;
+    }
+}
+/* Landscape phones and down */
+@media (max-width: 480px) {
+    .fixedratio { 
+        width:150px; 
+        height:150px;
+    left: 0;
+    right: 0;
+    }
+}
+
 
 #gdg-edit-event label{
 	display:block;
@@ -478,8 +548,16 @@ body>section {
 	color:#08C;
 }
 
+.centered{
+	text-align:center;
+	margin-top:0px;
+	margin-bottom:0px;
+	padding:30px;
+}
 
-
+.sponsorimg{
+	padding:5%;
+}
 
 
 
