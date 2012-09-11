@@ -134,6 +134,7 @@ class EventUploadPage(UploadPage):
       event.external_width = saveint(self.request.get('external_width'))
       event.external_height = saveint(self.request.get('external_height'))
       event.location = self.request.get('location')
+      event.name= self.request.get('name')
       event.register_url = self.request.get('register_url')
       if self.request.get('register_max'):
         event.register_max = saveint(self.request.get('register_max'))
@@ -192,6 +193,8 @@ class EventAgendaPage(FrontendPage):
     self.values['days'] = CDayList(event_id).get()
     self.values['track_list'] = CTrackList(event_id)
     self.values['speaker_list'] = CSpeakerList(event_id)
+    self.values['sponsors'] = CSponsorList(event_id).get()
+
 
 # list of approved events 
 class EventListPage(FrontendPage):

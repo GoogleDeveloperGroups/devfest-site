@@ -25,7 +25,7 @@ class MultiCheckboxField(SelectMultipleField):
 
 class EventForm(Form):
   gplus_event_url = TextField('Google+ Event URL',
-        [validators.URL(), validators.Required()])
+        [validators.URL()])
   external_url    = TextField('External URL (in an iframe or linked to)',
         [validators.Optional(),validators.URL()])
   external_width  = IntegerField('Width of the iframe (if embedded)',
@@ -34,6 +34,7 @@ class EventForm(Form):
         [validators.Optional(),validators.NumberRange(min=0,max=500)])
   location        = TextField('Location',
         [validators.Length(min=3), validators.Required()])
+  name            = TextField('City for naming (usually empty - defaults to city from location)')
   status          = SelectField('Status',
         choices=[('1', 'interested'), ('2', 'planned'), ('3', 'confirmed')])
   logo            = FileField('Logo')

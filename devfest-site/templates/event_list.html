@@ -5,108 +5,108 @@
 <div class="container-fluid" style="min-height:400px;">
   <div class="row">
     <div id="title">
-      <h1 style="font-size: 25px; float: none; margin-bottom: 10px">GDG DevFest
-        around the world !</h1>
+      <h1 style="font-size: 25px; float: none; margin-bottom: 10px">GDG DevFest around the world!</h1>
     </div>
     <hr class="thin-line">
   </div>
   <div class="span3">
-  <div class="row">
-    <span style="margin-left: 5px"> <img src="/images/gdgbig.png">
-    </span>
-  </div>
-</div>
-<div id="event-list-container">
-  <div class="span9">
     <div class="row">
-      <div class="event-column">
-        {% for country in events.get_first_half()|sort(attribute='name') %}
-          <ul class="event-no-bullets">
-            <li>
-              <div class="row span6">
-                <h3>{{ country.name }}</h3>
-                <ul class="event-no-bullets">
-                  {% for event in country.data|sort(attribute='location') %}
-                  <li>
-                      <!-- Type of Event- Use <i> tag and class icon-event-* -->
-                      {% if '1' in event.agenda %}
-                        <i class="icon-event icon-event-conf"></i>
-                      {% endif %}
-                      {% if '2' in event.agenda %}
-                        <i class="icon-event icon-event-hack"></i>
-                      {% endif %}
-                      {% if '3' in event.agenda %}
-                        <i class="icon-event icon-event-barcamp"></i>
-                      {% endif %}
-                      {% if '4' in event.agenda %}
-                        <i class="icon-event icon-event-live"></i>
-                      {% endif %}
-                    <h4><a href="/event/{{ event.key() }}">DevFest {% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
-                    <!-- Event Address & Date -->
-                    <h5>{{ event.location }}</h5>
-                    {% if event.start %}
-                      <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
-                    {% endif %}
-                    {% set has_registration = event.register_max > 0 %}
-                    {% if not has_registration %}
-                    {% set has_registration = event.register_url and event.register_url != "" %}
-                    {% endif %}
-                    {% if user in event.participants %}
-                    <span class="label">You are registered!</span>
-                    {% elif has_registration %}
-                    <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
-                    {% endif %}
-                  </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </li>
-          </ul>
+      <span style="margin-left: 5px"> <img src="/images/gdgbig.png"></span>
+    </div>
+  </div>
+  <div class="span8">
+    <div class="row">
+      <div id="event-list-container">
+        <div class="event-column">
+          {% for country in events.get_first_half()|sort(attribute='name') %}
+            <ul class="event-no-bullets">
+              <li>
+                <div class="row span6">
+                  <h3>{{ country.name }}</h3>
+                  <ul class="event-no-bullets">
+                    {% for event in country.data|sort(attribute='location') %}
+                      <li>
+                        <!-- Type of Event- Use <i> tag and class icon-event-* -->
+                        {% if '1' in event.agenda %}
+                          <i class="icon-event icon-event-conf"></i>
+                        {% endif %}
+                        {% if '2' in event.agenda %}
+                          <i class="icon-event icon-event-hack"></i>
+                        {% endif %}
+                        {% if '3' in event.agenda %}
+                          <i class="icon-event icon-event-barcamp"></i>
+                        {% endif %}
+                        {% if '4' in event.agenda %}
+                          <i class="icon-event icon-event-live"></i>
+                        {% endif %}
+                        <h4><a href="/event/{{ event.key() }}">DevFest {% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
+                        <!-- Event Address & Date -->
+                        <h5>{{ event.location }}</h5>
+                        {% if event.start %}
+                          <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
+                        {% endif %}
+
+                        {% set has_registration = event.register_max > 0 %}
+                        {% if not has_registration %}
+                          {% set has_registration = event.register_url and event.register_url != "" %}
+                        {% endif %}
+                        {% if user in event.participants %}
+                          <span class="label">You are registered!</span>
+                        {% elif has_registration %}
+                          <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
+                        {% endif %}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </li>
+            </ul>
           {% endfor %}
         </div>
         <div class="event-column">
           {% for country in events.get_second_half()|sort(attribute='name') %}
-          <ul class="event-no-bullets">
-            <li>
-              <div class="row span6">
-                <h3>{{ country.name }}</h3>
-                <ul class="event-no-bullets">
-                  {% for event in country.data|sort(attribute='location') %}
-                  <li>
-                      <!-- Type of Event- Use <i> tag and class icon-event-* -->
-                      {% if '1' in event.agenda %}
-                        <i class="icon-event icon-event-conf"></i>
-                      {% endif %}
-                      {% if '2' in event.agenda %}
-                        <i class="icon-event icon-event-hack"></i>
-                      {% endif %}
-                      {% if '3' in event.agenda %}
-                        <i class="icon-event icon-event-barcamp"></i>
-                      {% endif %}
-                      {% if '4' in event.agenda %}
-                        <i class="icon-event icon-event-live"></i>
-                      {% endif %}
-                    <h4><a href="/event/{{ event.key() }}">DevFest {% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
-                    <!-- Event Address & Date -->
-                    <h5>{{ event.location }}</h5>
-                    {% if event.start %}
-                      <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
-                    {% endif %}
-                    {% set has_registration = event.register_max > 0 %}
-                    {% if not has_registration %}
-                    {% set has_registration = event.register_url and event.register_url != "" %}
-                    {% endif %}
-                    {% if user in event.participants %}
-                    <span class="label">You are registered!</span>
-                    {% elif has_registration %}
-                    <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
-                    {% endif %}
-                  </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </li>
-          </ul>
+            <ul class="event-no-bullets">
+              <li>
+                <div class="row span6">
+                  <h3>{{ country.name }}</h3>
+                  <ul class="event-no-bullets">
+                    {% for event in country.data|sort(attribute='location') %}
+                      <li>
+                        <!-- Type of Event- Use <i> tag and class icon-event-* -->
+                        {% if '1' in event.agenda %}
+                          <i class="icon-event icon-event-conf"></i>
+                        {% endif %}
+                        {% if '2' in event.agenda %}
+                          <i class="icon-event icon-event-hack"></i>
+                        {% endif %}
+                        {% if '3' in event.agenda %}
+                          <i class="icon-event icon-event-barcamp"></i>
+                        {% endif %}
+                        {% if '4' in event.agenda %}
+                          <i class="icon-event icon-event-live"></i>
+                        {% endif %}
+                        <h4><a href="/event/{{ event.key() }}">DevFest {% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
+                        <!-- Event Address & Date -->
+                        <h5>{{ event.location }}</h5>
+                        {% if event.start %}
+                          <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
+                        {% endif %}
+                        
+                        {% set has_registration = event.register_max > 0 %}
+                        {% if not has_registration %}
+                          {% set has_registration = event.register_url and event.register_url != "" %}
+                        {% endif %}
+                        {% if user in event.participants %}
+                          <span class="label">You are registered!</span>
+                        {% elif has_registration %}
+                          <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
+                        {% endif %}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </li>
+            </ul>
           {% endfor %}
         </div>
       </div>

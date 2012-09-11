@@ -1,283 +1,245 @@
-{% extends "global.html" %} {% block head %} {% endblock %} {% block
-document_ready %} {% endblock %} {% block content %}
-<div class="container-fluid">
+{% extends "global.html" %}
+{% block content %}
+<div class="container-fluid" id="page_vhackandroid">
 
-	<div class="row">
-		<div id="title">
-			<h1 style="font-size: 25px; float: none; margin-bottom: 10px">V
-				Hack Android</h1>
-		</div>
-		<a class="label" href="#">Home</a> <a class="label label-info"
-			href="/vhackandroid/sponsors">Sponsors</a>
+  <div class="row">
+    <div id="title">
+      <h1>V Hack Android</h1>
+    </div>
+    <a class="label" href="#">Home</a>
+    <a class="label label-info" href="/vhackandroid/sponsors">Sponsors</a>
+    <hr class="thin-line">
+  </div>
+  <div class="row">
+    <div class="row-fluid">
 
-		<hr class="thin-line">
-	</div>
+      <div class="span2">
+        <span style="margin-left: 5px">
+          <img src="/images/vhabig.png" alt="V Hack Android Logo" />
+        </span>
+      </div>
 
-	<div class="row">
+      <div class="span7">
+        <div id="gdg-container">
+          <h2>Android's 5th Birthday Celebration:<br />European Best-of-Best Hackathon Series</h2>
 
-		<div class="row-fluid">
+          <p>
+            Android became public on November 5th, 2007. That means it'll be 5
+            years of Android this November! Can't let this go by unnoticed! So
+            the developer user groups (GDGs/GTUGs/AUGs) decided to organize
+            this Android app hackathon tournament called <b>V Hack Android</b>
+            (think GADC but with higher stakes).
+          </p>
 
-			<div class="span2">
-				<span style="margin-left: 5px"> <img src="/images/vhabig.png">
+          <p>In September/October 2012 you can participate
+            in a local hackathon organized by your GDG. Each winning team
+            receives a chance to defend their user group in a final European
+            hackathon in London. We pay your flight and hotel. This TopGun
+            hackathon takes place on the weekend of October 26th-28th, right
+            after Droidcon London.</p>
 
-				</span>
-			</div>
+          <p>Android developers from all over Europe will
+            come together from tens of locations and hack for 48 hours -
+            nonstop! There are many prizes and of course the challenge to be
+            the best Android app developer.</p>
 
-			<div class="span7">
-				<div id="gdg-container">
-					<h2>Android's 5th Birthday Celebration: European Best-of-Best
-						Hackathon Series</h2>
+          <p>
+            You can follow the livestream of the major events in September and
+            on October 26th-28th or interact with us during public Hangouts on
+            <a style="color: #08F" href="https://plus.google.com/104578858113292768239">Google+</a>.
+            Our developer wiki has a <a style="color: #08F" href="http://vhackandroid.wikia.com/">list of hacks</a>.
+          </p>
 
-					<p class="lead">
-						Android became public on November 5th, 2007. That means it'll be 5
-						years of Android this November! Can't let this go by unnoticed! So
-						the developer user groups (GDGs/GTUGs/AUGs) decided to organize
-						this Android app hackathon tournament called <b>V Hack Android</b>
-						(think GADC but with higher stakes).
-					</p>
+          <div class="well">
+            <p class="lead">Hashtag: <b>#AndroidV</b></p>
+            <p>
+              <i>Remember, remember, the fifth of November!</i><br />
+              See all <a href="/events?vha=true">VHackAndroid events here</a> and below.<br /><br />
+              <a href="https://twitter.com/intent/tweet?button_hashtag=androidV&amp;text=V%20Hack%20Android%3A%20"
+                class="twitter-hashtag-button" data-size="large"
+                data-related="pjv_">Tweet #androidV</a>
+              <script>
+                !function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = "//platform.twitter.com/widgets.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                  }
+                }(document, "script", "twitter-wjs");
+              </script>
+            </p>
+            <div class="g-plus" data-href="https://plus.google.com/104578858113292768239" data-rel="publisher"></div>
+          </div>
+        </div>
+      </div>
+      <div class="span3" id="sponsors_column">
+        <h3>Our Sponsors</h3>
+        <h4>Global Silver</h4>
+        <p class="centered">
+          <img src="/images/alcatel.png" alt="Alcatel Sponsor Logo" class="sponsorimg" />
+          <img src="/images/sony.png" alt="SONY Sponsor Logo" class="sponsorimg" />
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="row-fluid" id="sponsor_container">
+      <div class="span2" align="center">
+        <div class="fixedratio">
+          <div class="dummy"></div>
+          <div class="gdg-circle">
+            <h2 align="center">Amsterdam</h2>
+            <p class="centered">
+              <img src="/images/vha_amsterdam.png" alt="V Hack Android Amsterdam Logo" style="height: 50%;" />
+            </p>
+            <h3 align="center">Sept. 14-16</h3>
+          </div>
+        </div>
+        <h4 align="center">Local Gold</h4>
+        <p class="centered">
+          <img src="/images/luminis.png" alt="luminis Sponsor Logo" class="sponsorimg" />
+          <img src="/images/itude.png" alt="ITUDE Sponsor Logo" class="sponsorimg" />
+          <img src="/images/egeniq.png" alt="egeniq Sponsor Logo" class="sponsorimg" />
+        </p>
+        <h4 align="center">Local Silver</h4>
+        <p class="centered">
+          <img src="/images/droidconnl.png" alt="Droidcon Sponsor Logo" class="sponsorimg" />
+          <img src="/images/vxcompany.jpg" alt="VX Company Sponsor Logo" class="sponsorimg" />
+        </p>
+        <h4 align="center">Partner</h4>
+        <p class="centered">
+          <img src="/images/dutchaug.png" alt="Android User Group Sponsor Logo" class="sponsorimg" />
+        </p>
+      </div>
+      <div class="span2" align="center">
+        <div class="fixedratio">
+          <div class="dummy"></div>
+          <div class="gdg-circle">
+            <h2 align="center">Bremen</h2>
+            <p class="centered">
+              <img src="/images/vha_bremen.png" alt="V Hack Android Bremen Logo" class="vha_small" />
+            </p>
+            <h3 align="center">Sept. 15</h3>
+          </div>
+        </div>
 
-					<p class="lead">In September/October 2012 you can participate
-						in a local hackathon organized by your GDG. Each winning team
-						receives a chance to defend their user group in a final European
-						hackathon in London. We pay your flight and hotel. This TopGun
-						hackathon takes place on the weekend of October 26th-28th, right
-						after Droidcon London.</p>
+        <h4 align="center">Local Gold</h4>
+        <p class="centered">
+          <img src="/images/neusta.png" alt="Neusta Sponsor Logo" class="sponsorimg" />
+        </p>
+        <h4 align="center">Local Silver</h4>
+        <p class="centered">
+          <img src="/images/enoughsoftware.png" alt="Enough Software Sponsor Logo" class="sponsorimg" />
+        </p>
+        <h4 align="center">Partner</h4>
+        <p class="centered">
+          <img src="/images/gdg-bremen.png" alt="GDG Bremen Logo" class="sponsorimg" />
+        </p>
+      </div>
+      <div class="span2" align="center">
+        <div class="fixedratio">
+          <div class="dummy"></div>
+          <div class="gdg-circle">
+            <h2 align="center">Belgium</h2>
+            <p class="centered">
+              <img src="/images/vha_belgium.png" alt="V Hack Android Belgium Logo" class="vha_small" />
+            </p>
+            <h3 align="center">Sept. 28-30</h3>
+          </div>
+        </div>
 
-					<p class="lead">Android developers from all over Europe will
-						come together from tens of locations and hack for 48 hours -
-						nonstop! There are many prizes and of course the challenge to be
-						the best Android app developer.</p>
+        <h4 align="center">Local Silver</h4>
+        <p class="centered">
+          <img src="/images/startapp.png" alt="StartApp Sponsor Logo" class="sponsorimg" />
+          <img src="/images/enoll.png" alt="European Network of Living Labs Sponsor Logo" class="sponsorimg" />
+        </p>
+        <h4 align="center">Partner</h4>
+        <p class="centered">
+          <img src="/images/genk.png" alt="Iedereen Genkt Sponsor Logo" class="sponsorimg" />
+          <img src="/images/mm.jpg" alt="MobileMonday Sponsor Logo" class="sponsorimg" />
+          <img src="/images/brugtug.gif" alt="GTUG Brussels Logo" class="sponsorimg" />
+        </p>
+      </div>
+      <div class="span2" align="center">
+        <div class="fixedratio">
+          <div class="dummy"></div>
+          <div class="gdg-circle">
+            <h2 align="center">Ankara</h2>
+            <p class="centered">
+              <img src="/images/vhabig.png" alt="V Hack Android Logo" class="vha_small" />
+            </p>
+            <h3 align="center">Oct. 14</h3>
+          </div>
+        </div>
 
-					<p class="lead">
-						You can follow the livestream of the major events in September and
-						on October 26th-28th or interact with us during public Hangouts on
-						<a style="color: #08F" href="https://plus.google.com/104578858113292768239">Google+</a>.
-						Our developer wiki has a <a style="color: #08F" href="http://vhackandroid.wikia.com/">list of hacks</a>.
-					</p>
+        <h4 align="center">Partner</h4>
+        <p class="centered">
+          <img src="/images/gdg-ankara.png" alt="GDG Ankara" class="sponsorimg" />
+        </p>
+      </div>
+      <div class="span2" align="center">
+        <div class="fixedratio">
+          <div class="dummy"></div>
+          <div class="gdg-circle">
+            <h2 align="center">Berlin</h2>
+            <p class="centered">
+              <img src="/images/vhabig.png" alt="V Hack Android Logo" class="vha_small" />
+            </p>
+            <h3 align="center">Oct. 13-14</h3>
+          </div>
+        </div>
 
-					<div class="well">
-						<p class="lead" style="float: left">
-							Hashtag: <b>#AndroidV</b>
+        <h4 align="center">Partner</h4>
+        <p class="centered">
+          <img src="/images/berlin-gtug.png" alt="Berlin GTUG Logo" class="sponsorimg" />
+        </p>
+      </div>
+      <div class="span2" align="center">
+        <div class="fixedratio">
+          <div class="dummy"></div>
+          <div class="gdg-circle">
+            <h2 align="center">Finale London</h2>
+            <p class="centered">
+              <img src="/images/vhabig.png" alt="V Hack Android Logo" class="vha_small" />
+            </p>
+            <h3 align="center">Sept. 26-28</h3>
+          </div>
+        </div>
 
-						</p>
-						<p class="lead" style="float: right">
-							<i>Remember, remember, the fifth of November!</i></br>See all <a
-								href="events?vha=true">VHackAndroid events here</a> and below.<br>
-							<br> <a
-								href="https://twitter.com/intent/tweet?button_hashtag=androidV&text=V%20Hack%20Android%3A%20"
-								class="twitter-hashtag-button" data-size="large"
-								data-related="pjv_">Tweet #androidV</a>
-							<script>
-								!function(d, s, id) {
-									var js, fjs = d.getElementsByTagName(s)[0];
-									if (!d.getElementById(id)) {
-										js = d.createElement(s);
-										js.id = id;
-										js.src = "//platform.twitter.com/widgets.js";
-										fjs.parentNode.insertBefore(js, fjs);
-									}
-								}(document, "script", "twitter-wjs");
-							</script>
-							<br> <a href="https://twitter.com/pjv_"
-								class="twitter-follow-button" data-show-count="false"
-								data-size="large">Follow @pjv_</a>
-							<script>
-								!function(d, s, id) {
-									var js, fjs = d.getElementsByTagName(s)[0];
-									if (!d.getElementById(id)) {
-										js = d.createElement(s);
-										js.id = id;
-										js.src = "//platform.twitter.com/widgets.js";
-										fjs.parentNode.insertBefore(js, fjs);
-									}
-								}(document, "script", "twitter-wjs");
-							</script>
-							<br>
-						</p>
-						<!-- Place this tag where you want the badge to render. -->
-						<div class="g-plus"
-							data-href="https://plus.google.com/104578858113292768239"
-							data-rel="publisher"></div>
-					</div>
+        <h4 align="center">Global Partner</h4>
+        <p class="centered">
+          <img src="/images/wip.png" alt="Wireless Industrie Partnership Sponsor Logo" class="sponsorimg" />
+          <img src="/images/skills-matter.png" alt="Skills Matter Sponsor Logo" class="sponsorimg" />
+          <img src="/images/springboard.png" alt="springboard() Sponsor Logo" class="sponsorimg" />
+          <img src="/images/f6s.png" alt="F6S Sponsor Logo" class="sponsorimg" />
+          <img src="/images/oreilly.gif" alt="O'Reilly Sponsor Logo" class="sponsorimg" />
+          <img src="/images/droidconuk.jpg" alt="DroidCon UK Sponsor Logo" class="sponsorimg" />
+          <img src="/images/google.png" alt="Google Developers Sponsor Logo" class="sponsorimg" />
+        </p>
+      </div>
+    </div>
+  </div>
+    <!--
+    <div class="disclaimer-text">
+      <p>
+        <a style="color: #000;" href="mailto:android-birthday@googlegroups.com">Contact us.</a>
+      </p>
+      <p>Disclaimer: V Hack Android is an independent event organized by mostly GTUGs/GDGs; our activities and the opinions expressed here and on related pages should in no way be linked to the Google corporation, or the OHA.</p>
+    </div>
+    -->
+</div>
 
-				</div>
-			</div>
-			<div class="span3">
-				<h3 align="center">Our Sponsors</h3>
-				<br> <br>
-				<h4 align="center">Global Silver</h4>
-				<p class="centered">
-					<img src="/images/alcatel.png" class="sponsorimg" /> <br> <img
-						src="/images/sony.png" class="sponsorimg" />
-				</p>
-			</div>
-		</div>
-		<br> <br> <br>
-		<div class="row-fluid">
-
-			<div class="span2" align="center">
-				<div class="fixedratio">
-					<div id="dummy"></div>
-					<div id="gdg-circle">
-						<h2 align="center">Amsterdam</h2>
-						<p class="centered">
-							<img src="/images/vha_amsterdam.png" style="height: 50%;" />
-						</p>
-						<h3 align="center">Sept. 14-16</h3>
-					</div>
-				</div>
-				<br> <br> <br>
-				<h4 align="center">Local Gold</h4>
-				<p class="centered">
-					<img src="/images/luminis.png" class="sponsorimg" /> <img
-						src="/images/itude.png" class="sponsorimg" /><br>
-					<br> <img src="/images/egeniq.png" class="sponsorimg" />
-				</p>
-				<h4 align="center">Local Silver</h4>
-				<p class="centered">
-					<img src="/images/droidconnl.png" class="sponsorimg" /><br>
-					<br> <img src="/images/vxcompany.jpg" class="sponsorimg" />
-				</p>
-				<h4 align="center">Partner</h4>
-				<p class="centered">
-					<img src="/images/dutchaug.png" class="sponsorimg" />
-				</p>
-				<br> <br>
-			</div>
-			<div class="span2" align="center">
-				<div class="fixedratio">
-					<div id="dummy"></div>
-					<div id="gdg-circle">
-						<h2 align="center">Bremen</h2>
-						<p class="centered">
-							<img src="/images/vha_bremen.png" style="height: 50%;" />
-						</p>
-						<h3 align="center">Sept. 15</h3>
-					</div>
-				</div>
-				<br> <br> <br>
-				<h4 align="center">Local Gold</h4>
-				<p class="centered">
-					<img src="/images/neusta.png" class="sponsorimg" />
-				</p>
-				<h4 align="center">Local Silver</h4>
-				<p class="centered">
-					<img src="/images/enoughsoftware.png" class="sponsorimg" />
-				</p>
-				<h4 align="center">Partner</h4>
-				<p class="centered">
-					<img src="/images/gdg-bremen.png" class="sponsorimg" />
-				</p>
-				<br> <br>
-			</div>
-			<div class="span2" align="center">
-				<div class="fixedratio">
-					<div id="dummy"></div>
-					<div id="gdg-circle">
-						<h2 align="center">Belgium</h2>
-						<p class="centered">
-							<img src="/images/vha_belgium.png" style="height: 50%;" />
-						</p>
-						<h3 align="center">Sept. 28-30</h3>
-					</div>
-				</div>
-				<br> <br> <br>
-				<h4 align="center">Local Silver</h4>
-				<p class="centered">
-					<img src="/images/startapp.png" class="sponsorimg" /><br>
-					<br> <img src="/images/enoll.png" class="sponsorimg" />
-				</p>
-				<h4 align="center">Partner</h4>
-				<p class="centered">
-					<img src="/images/genk.png" class="sponsorimg" /><br>
-					<br> <img src="/images/mm.jpg" class="sponsorimg" /><br>
-					<br>
-					<img src="/images/brugtug.gif" class="sponsorimg" />
-				</p>
-				<br> <br>
-			</div>
-			<div class="span2" align="center">
-				<div class="fixedratio">
-					<div id="dummy"></div>
-					<div id="gdg-circle">
-						<h2 align="center">Ankara</h2>
-						<p class="centered">
-							<img src="/images/vhabig.png" style="height: 50%;" />
-						</p>
-						<h3 align="center">Oct. 14</h3>
-					</div>
-				</div>
-				<br> <br> <br>
-				<h4 align="center">Partner</h4>
-				<p class="centered">
-					<img src="/images/gdg-ankara.png" class="sponsorimg" />
-				</p>
-				<br> <br>
-			</div>
-			<div class="span2" align="center">
-				<div class="fixedratio">
-					<div id="dummy"></div>
-					<div id="gdg-circle">
-						<h2 align="center">Berlin</h2>
-						<p class="centered">
-							<img src="/images/vhabig.png" style="height: 50%;" />
-						</p>
-						<h3 align="center">Oct. 13-14</h3>
-					</div>
-				</div>
-				<br> <br> <br>
-				<h4 align="center">Partner</h4>
-				<p class="centered">
-					<img src="/images/berlin-gtug.png" class="sponsorimg" />
-				</p>
-				<br> <br>
-			</div>
-			<div class="span2" align="center">
-				<div class="fixedratio">
-					<div id="dummy"></div>
-					<div id="gdg-circle">
-						<h2 align="center">Finale London</h2>
-						<p class="centered">
-							<img src="/images/vhabig.png" style="height: 50%;" />
-						</p>
-						<h3 align="center">Sept. 26-28</h3>
-					</div>
-				</div>
-				<br> <br> <br>
-				<h4 align="center">Global Partner</h4>
-				<p class="centered">
-					<img src="/images/wip.png" class="sponsorimg" /> <img
-						src="/images/skills-matter.png" class="sponsorimg" /> <br>
-					<br> <img src="/images/springboard.png" class="sponsorimg" />
-					<br>
-					<br> <img src="/images/f6s.png" class="sponsorimg" /> <br>
-					<br>
-					<img src="/images/oreilly.gif" class="sponsorimg" /><br>
-					<br>
-					<img src="/images/droidconuk.jpg" class="sponsorimg" /> <br>
-					<br> <img src="/images/google.png" class="sponsorimg" />
-				</p>
-				<br> <br>
-			</div>
-		</div>
-
-		<br>
-		<div class="disclaimer-text" align="center"><a style="color: #000;" href="mailto:android-birthday@googlegroups.com">Contact us.</a></div><br>
-		<div class="disclaimer-text" align="center">Disclaimer: V Hack
-			Android is an independent event organized by mostly GTUGs/GDGs; our
-			activities and the opinions expressed here and on related pages
-			should in no way be linked to the Google corporation, or the OHA.</div>
-
-
-		<!-- Place this tag after the last badge tag. -->
-		<script type="text/javascript">
-			(function() {
-				var po = document.createElement('script');
-				po.type = 'text/javascript';
-				po.async = true;
-				po.src = 'https://apis.google.com/js/plusone.js';
-				var s = document.getElementsByTagName('script')[0];
-				s.parentNode.insertBefore(po, s);
-			})();
-		</script>
-		{% endblock %}
+<!-- Place this tag after the last badge tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script');
+    po.type = 'text/javascript';
+    po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(po, s);
+  })();
+</script>
+{% endblock %}
