@@ -32,7 +32,7 @@ class Event(db.Model):
   end                   = db.DateTimeProperty()
   timezone              = db.FloatProperty()
   agenda                = db.StringListProperty()
-  agenda_description    = db.StringProperty()
+  agenda_description    = db.StringProperty(multiline = True)
   technologies          = db.StringListProperty()
   is_vhackandroid       = db.BooleanProperty(default = False)
   kind_of_support       = db.TextProperty()
