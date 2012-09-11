@@ -199,6 +199,7 @@ body>section {
 #copyright {
 	padding: 10px;
 	float: right;
+  margin-top: 4px;
 }
 
 .event .eventtype {
