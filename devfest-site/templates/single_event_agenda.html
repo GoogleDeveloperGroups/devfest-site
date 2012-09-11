@@ -8,7 +8,7 @@
 {% block content %}
 {% set show_agenda = false %}
 
-<div class="container-fluid">
+<div class="container-fluid" id="single_event_agenda">
   <div class="row">
     <div id="title">
       <h1 style="font-size: 25px; float: none; margin-bottom: 10px"> DevFest {% if event.name %}{{event.name}} {%elif event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}!</h1>
@@ -155,11 +155,11 @@
      
      {%for track in track_list.get() %}
      <div class="track">
-     {{track.name}}</br> 
      {% set icon_url = track_list.get_icon_url(track) %}                          
      {% if icon_url is not none %}           
        <img class="icon trackicon" src = "{{icon_url}}"/>
      {% endif %}
+     {{track.name}}</br> 
      </div>
      {%endfor%}
      

@@ -695,3 +695,7 @@ tr.slot td {
 #sponsors_column h3,
 #sponsors_column h4 { text-align: center; }
 #sponsors_column img { display: block; }
+
+#single_event_agenda table { margin-bottom: 30px; }
+#single_event_agenda .track { clear: both; }
+#single_event_agenda .track img { float: left; margin: 0 10px 5px 0; }
