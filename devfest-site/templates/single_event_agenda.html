@@ -140,7 +140,7 @@
      
     {% else %}
     
-      <td colspan="{{ agenda.room_list|length * 2}}">
+      <td colspan="{{ agenda.room_list[date]|length * 2}}">
         {{ slot.name }}
       </td>
     {% endif %}
