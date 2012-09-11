@@ -684,3 +684,6 @@ tr.slot td {
   text-align: left;
   vertical-align: top;
 }
+
+#faqlist li { margin-bottom: 30px; }
+#faqlist h3 { margin-bottom: 10px; }
