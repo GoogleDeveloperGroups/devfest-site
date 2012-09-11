@@ -184,6 +184,7 @@ body>section {
 #footmenu>ul {
 	display: block;
 	list-style: none;
+  margin-top: 7px;
 }
 
 #footmenu>ul>li {
