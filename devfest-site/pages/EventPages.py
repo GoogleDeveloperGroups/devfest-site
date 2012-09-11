@@ -177,6 +177,8 @@ class EventPage(FrontendPage):
     user = users.get_current_user()
     self.template = 'single_event'
     event = CEvent(event_id).get()
+    if event is None:
+      return self.redirect('/404')
     self.values['event'] = event
     self.values['has_registration'] = event.register_url or event.register_max
     self.values['sponsors'] = CSponsorList(event_id).get()
