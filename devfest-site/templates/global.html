@@ -47,9 +47,9 @@
 		<div class="banner">
       <div class="dev-login">
         {% if user %}
-        <p style="margin-right:20px;">Hi, {{ user.nickname() }}
+        <p style="margin-right:20px;">Hi, {{ user.nickname() }}<br />
         <a href="/event/edit" class="btn btn_small">My events</a></p>
-        <p style="margin-right:20px;"><a href="/logout" id="logoutLink" class="btn btn_small">Logout</a></p>
+        <p style="margin-right: 20px;"><a href="/logout" id="logoutLink" class="btn btn_small">Logout</a></p>
         {% else%}
         <i class="icon-user"></i>
         <p>Sign in using your Google Account!<p>
