@@ -23,6 +23,9 @@ class JsonEventListPage(JSONPage):
                'country': country["name"],
                'city': event.city,
                'location': event.location,
+               'name': event.name,
+               'lat': event.geo_location.lat,
+               'lon': event.geo_location.lon,
                'start': event.start.isoformat(),
                'end': event.end.isoformat()
              }
@@ -38,6 +41,9 @@ class JsonEventPage(JSONPage):
         'gplus_event_url': event.gplus_event_url,
         'status': event.status,
         'location': event.location,
+        'name': event.name,
+        'lat': event.geo_location.lat,
+        'lon': event.geo_location.lon,
         'logo': event.logo,
         'city': event.city,
         'country': event.country,
