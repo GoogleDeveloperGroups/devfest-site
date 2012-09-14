@@ -59,19 +59,6 @@
                   <ul class="event-no-bullets">
                     {% for event in country.data|sort(attribute='location') %}
                       <li>
-                        <!-- Type of Event- Use <i> tag and class icon-event-* -->
-                        {% if '1' in event.agenda %}
-                          <i class="icon-event icon-event-conf"></i>
-                        {% endif %}
-                        {% if '2' in event.agenda %}
-                          <i class="icon-event icon-event-hack"></i>
-                        {% endif %}
-                        {% if '3' in event.agenda %}
-                          <i class="icon-event icon-event-barcamp"></i>
-                        {% endif %}
-                        {% if '4' in event.agenda %}
-                          <i class="icon-event icon-event-live"></i>
-                        {% endif %}
                         <h4><a href="/event/{{ event.key() }}">DevFest {% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
                         <!-- Event Address & Date -->
                         <h5>{{ event.location }}</h5>
