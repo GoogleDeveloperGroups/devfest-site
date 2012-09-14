@@ -463,3 +463,23 @@ class CSlot (DbCachedObject):
    except:
      pass
     
+# get event by sudomain
+class CEventBySubdomain(DbCachedObject):
+  def __init__(self, subdomain):
+    self.cache_key = "EventBySubdomain_"  + ("(%s)" % (subdomain))
+    self.subdomain = subdomain
+    self.entity_collection = {}
+    self.max_time = 3600
+    DbCachedObject.__init__(self, subdomain)
+
+  # load single event from DB
+  def load_from_db(self):
+    self.entity_collection = None
+
+    try:
+      data = Event.all().filter('subdomain =', self.subdomain).get()
+
+      if isinstance(data, Event):
+        self.entity_collection = data
+    except:
+      pass

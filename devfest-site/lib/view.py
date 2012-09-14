@@ -3,6 +3,7 @@ import jinja2
 import json
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import users
+from lib.cobjects import CEventBySubdomain
 
 try:
   import settings_local as settings
@@ -66,6 +67,16 @@ class FrontendPage(Page):
     self.settings = settings
     self.values['current_date'] = datetime.datetime.now()
     self.values['maps_api_key'] = settings.MAPS_API_KEY
+
+    subdomain = self.request.host.split('.')[0]
+    domain = self.request.host.replace(subdomain, 'www')
+    if subdomain != 'www':
+      try:
+        event = CEventBySubdomain(subdomain).get()
+        self.redirect('http://'+ domain +'/event/' + str(event.key()))
+      except:
+        pass
+
     user = users.get_current_user()
     if user:
       self.values['user'] = user
