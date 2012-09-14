@@ -477,7 +477,7 @@ class CEventBySubdomain(DbCachedObject):
     self.entity_collection = None
 
     try:
-      data = Event.all().filter('subdomain =', self.subdomain).get()
+      data = Event.all().filter('subdomain =', self.subdomain).filter('approved =', True).get()
 
       if isinstance(data, Event):
         self.entity_collection = data
