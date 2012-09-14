@@ -67,6 +67,7 @@ class SponsorsUploadPage(UploadPage):
             sponsor.name = self.request.get(prefix + 'name')
             sponsor.gplus_id = self.request.get(prefix + 'gplus_id')
             sponsor.description = self.request.get(prefix + 'description')
+            sponsor.url = self.request.get(prefix + 'url')    
             upload_files = self.get_uploads(prefix + 'logo')
             if len(upload_files) > 0:
               blob_info = upload_files[0]

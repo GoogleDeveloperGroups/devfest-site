@@ -50,7 +50,7 @@ class EventForm(Form):
   start           = DateTimeField('Start', format="%Y-%m-%d %H:%M")
   end             = DateTimeField('End', format="%Y-%m-%d %H:%M")
   timezone        = DecimalField('Timezone Offset of UTC')
-  agenda_description = TextAreaField('Description for the event')
+  agenda_description = TextAreaField('Description for the event', [validators.length(20, 500)])
   gdg_chapters    = TextField('GDG Chapters',
         [validators.Required()], description='Comma separated list')
   technologies    = MultiCheckboxField(
@@ -93,8 +93,9 @@ class SponsorForm(Form):
   name            = TextField('Name of Sponsor', [validators.Required()])
   gplus_id        = IntegerField('Google+ ID (21 digits)',
         [validators.number_range(10 ** 20, 10 ** 21 - 1, "21 digits required")])
+  url             = TextField('Url')
   description     = TextAreaField("Company Description",
-        [validators.length(20, 250)])
+        [validators.length(20, 250)])  
   logo            = FileField('Sponsor\'s Logo')
 
 # subform: a speaker - used in event-speakers form
@@ -120,6 +121,7 @@ class SingleSponsorForm(Form):
         [validators.number_range(10 ** 20, 10 ** 21 - 1, "21 digits required")])
   description     = TextAreaField("Company Description",
         [validators.length(20, 250)])
+  url             = TextField('Url')
   level           = TextField('Level of Sponsorship (e.g. "Gold", "Platinum")')
   logo            = FileField('Sponsor\'s Logo')
 
