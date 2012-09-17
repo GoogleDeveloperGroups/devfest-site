@@ -4,7 +4,7 @@
 <div class="container-fluid">
   <div class="row">
     <div id="title">
-      <h1 style="font-size: 25px; float: none; margin-bottom: 10px"> DevFest {% if event.name %}{{event.name}} {%elif event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}!</h1>
+      <h1 style="font-size: 25px; float: none; margin-bottom: 10px">DevFest {% if event.name %}{{event.name}} {%elif event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}!</h1>
     </div>
     <hr class="thin-line">
   </div>
@@ -52,7 +52,7 @@
     <div class="span9">
       <div class="row">
         <div id="gdg-container">
-            <h1>{% if event.name %}{{event.name}} {%elif event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</h1>
+            <h1>DevFest {% if event.name %}{{event.name}} {%elif event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</h1>
             {% if user in event.organizers or is_admin %}
             <a href="/event/edit/{{event.key()}}" class="label label-info">Edit the event</a>
             {% endif %}

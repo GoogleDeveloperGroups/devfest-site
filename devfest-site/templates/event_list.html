@@ -26,7 +26,7 @@
                   <ul class="event-no-bullets">
                     {% for event in country.data|sort(attribute='location') %}
                       <li>
-                        <h4><a href="/event/{{ event.key() }}">DevFest {% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
+                        <h4><a href="/event/{{ event.key() }}">DevFest {% if event.name %}{{ event.name }}{% elif event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
                         <!-- Event Address & Date -->
                         <h5>{{ event.location }}</h5>
                         {% if event.start %}
@@ -59,7 +59,7 @@
                   <ul class="event-no-bullets">
                     {% for event in country.data|sort(attribute='location') %}
                       <li>
-                        <h4><a href="/event/{{ event.key() }}">DevFest {% if event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
+                        <h4><a href="/event/{{ event.key() }}">DevFest {% if event.name %}{{ event.name }}{% elif event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
                         <!-- Event Address & Date -->
                         <h5>{{ event.location }}</h5>
                         {% if event.start %}
