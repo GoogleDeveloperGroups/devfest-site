@@ -42,6 +42,7 @@
                         {% elif has_registration %}
                           <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
                         {% endif %}
+                        {% if not event.approved %}(unapproved){% endif %}
                       </li>
                     {% endfor %}
                   </ul>
@@ -75,6 +76,7 @@
                         {% elif has_registration %}
                           <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
                         {% endif %}
+                        {% if not event.approved %}(unapproved){% endif %}
                       </li>
                     {% endfor %}
                   </ul>
