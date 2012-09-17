@@ -119,8 +119,8 @@ class EventUploadPage(UploadPage):
     if not users.is_current_user_admin():
       del form.approved
     if self.request.get('event') != '':
-      ev = CEvent(self.request.get('event')).get()
-      if user in ev.organizers or users.is_current_user_admin():
+      ev = Event.get(self.request.get('event'))
+      if ev is not None and user in ev.organizers or users.is_current_user_admin():
         inEdit = True
         self.values['event'] = ev
     if form.validate():
@@ -129,6 +129,10 @@ class EventUploadPage(UploadPage):
         event = ev
       else:
         event = Event()
+
+      if ev.approved == True:
+        event.approved = True
+
       event.gplus_event_url = self.request.get('gplus_event_url')
       event.external_url = self.request.get('external_url')
       event.external_width = saveint(self.request.get('external_width'))
@@ -142,7 +146,7 @@ class EventUploadPage(UploadPage):
         event.register_max = 0
       if event.organizers == []:
         event.organizers = [user]
-      if users.is_current_user_admin:
+      if users.is_current_user_admin():
         event.approved = savebool(self.request.get('approved'))
       upload_files = self.get_uploads('logo')
       if len(upload_files) > 0:
