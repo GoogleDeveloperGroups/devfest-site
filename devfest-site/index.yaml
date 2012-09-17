@@ -13,6 +13,11 @@ indexes:
 - kind: Event
   properties:
   - name: approved
+  - name: end
+
+- kind: Event
+  properties:
+  - name: approved
   - name: is_vhackandroid
   - name: end
 
