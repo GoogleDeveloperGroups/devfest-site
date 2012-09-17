@@ -76,7 +76,7 @@ class EventForm(Form):
   is_vhackandroid = BooleanField('VHackAndroid event')
   approved        = BooleanField('Approved')
   organizers      = TextField('Organizers',
-        [validators.Required()], description='Comma separated list')
+        [validators.Required()], description='Comma separated list of e-mail IDs')
 
 class ContactForm(Form):
   name            = TextField('Your Name', [validators.Required()])
