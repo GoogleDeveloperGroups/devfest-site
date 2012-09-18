@@ -15,7 +15,6 @@ from datetime import datetime
 import urllib
 import json
 import logging
-import quopri
 
 # convert to int if possible / value exists, to null otherwise
 def saveint(str):
@@ -138,7 +137,7 @@ class EventUploadPage(UploadPage):
       event.external_url = self.request.get('external_url')
       event.external_width = saveint(self.request.get('external_width'))
       event.external_height = saveint(self.request.get('external_height'))
-      event.location = u'%s' % self.request.get('location')
+      event.location = self.request.get('location')
       event.name = self.request.get('name')
       event.register_url = self.request.get('register_url')
       if self.request.get('register_max'):
