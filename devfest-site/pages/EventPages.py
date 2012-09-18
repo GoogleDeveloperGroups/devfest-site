@@ -127,11 +127,11 @@ class EventUploadPage(UploadPage):
       # create a new event (will be overwritten if in edit mode)
       if inEdit:
         event = ev
+
+        if ev is not None and ev.approved == True:
+          event.approved = True
       else:
         event = Event()
-
-      if ev.approved == True:
-        event.approved = True
 
       event.gplus_event_url = self.request.get('gplus_event_url')
       event.external_url = self.request.get('external_url')
