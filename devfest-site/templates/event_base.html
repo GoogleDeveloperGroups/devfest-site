@@ -217,7 +217,7 @@ function clone_field_list(name) {
       <div class="row">
         <div id="gdg-edit-event">
           <form method="post" class="form-horizontal"
-                enctype="multipart/form-data" action="{{ form_url }}">
+                enctype="multipart/form-data" accept-charset="utf-8" action="{{ form_url }}">
             {% if event %}
               <input type="hidden" name="event" value="{{event.key()}}">
             {% endif %}
