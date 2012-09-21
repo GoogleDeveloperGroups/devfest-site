@@ -212,6 +212,22 @@ body>section {
 	height: 250px;
 }
 
+.eventtype {
+padding: 20px;
+min-height: 180px;
+line-height: 9px;
+}
+
+.descp {
+line-height: 20px;
+border: 1px dashed #CCC;
+padding: 20px;
+}
+
+.eventtype i{
+float:right;
+}
+
 #event-list-container .event-column {
 	float: left;
 	width: 45%;
