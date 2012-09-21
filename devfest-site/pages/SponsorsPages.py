@@ -57,10 +57,10 @@ class SponsorsUploadPage(UploadPage):
           if self.request.get(prefix + 'name'):
             # is this a modification of an existing sponsor or a new one?
             sponsor_id = self.request.get(prefix + 'sponsor')
-            if sponsor_id in [s.key() for s in old_sponsors]:
-              sponsor = [s for s in old_sponsors if s.key() == sponsor_id][0]
+            if sponsor_id in [str(s.key()) for s in old_sponsors]:
+              sponsor = [s for s in old_sponsors if str(s.key()) == sponsor_id][0]
               # delete from old_sponsor
-              old_sponsors = [s for s in old_sponsors if s.key() != sponsor_id]
+              old_sponsors = [s for s in old_sponsors if str(s.key()) != sponsor_id]
             else:
               sponsor = Sponsor()
             # fill in values for old/new sponsor
