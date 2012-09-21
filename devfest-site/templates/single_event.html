@@ -24,7 +24,7 @@
              <span id="gdg-sponsor-container">
              <h1>Sponsors</h1>
              <!-- TODO sort groups by sponsor level -->             
-             {% for level, sponsors in sponsors|groupby("level") %}
+             {% for level, sponsors in sponsors|groupby("level")|sort %}
                {% for sponsor in sponsors %}
                <span class="sponsor">
                  {% if sponsor.level == "0" %}
