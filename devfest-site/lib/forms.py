@@ -113,7 +113,9 @@ class SingleSponsorForm(Form):
   description     = TextAreaField("Company Description",
         [validators.length(20, 250)])
   url             = TextField('Url')
-  level           = TextField('Level of Sponsorship (e.g. "Gold", "Platinum")')
+  level           = SelectField('Level of Sponsorship',
+                                choices=[('00', 'Diamond'), ('10', 'Platinum'), ('20', 'Gold'), 
+                                         ('30', 'Silver'), ('40', 'Bronze'), ('50', 'Partner'), ('60', 'Supporter'), ('70', 'Media Partner')])
   logo            = FileField('Sponsor\'s Logo')
 
 # allow modification of list of speakers for an event
