@@ -60,18 +60,8 @@
             <a href="#" class="label">Home</a>
             <a href="/event/agenda/{{event.key()}}" class="label label-info">Agenda</a>
             <hr>
-            <div class="eventtype">
-            {{event.location}}<br/>
-            {% if event.start %}
-            Start: {{event.start|datetime}}<br/>
-            {% endif %}
-            {% if event.end %}
-            End: {{event.end|datetime}}<br/>
-            {% endif %}
-            <span class="description">
-            {{event.agenda_description}}
-            </span>
-            <!-- Type of Event- Use <i> tag and class icon-event-* -->
+            <div class="eventtype well">
+             <!-- Type of Event- Use <i> tag and class icon-event-* -->
             {% if '1' in event.agenda %}
               <i class="icon-event icon-event-conf"></i>
             {% endif %}
@@ -84,18 +74,32 @@
             {% if '4' in event.agenda %}
               <i class="icon-event icon-event-live"></i>
             {% endif %}
-          <br><br>
-          {% if event.external_url and event.external_width %}
+            <h3>{{event.location}}</h3><br/>
+            {% if event.start %}
+           <h5> Start: {{event.start|datetime}}</h5><br/>
+            {% endif %}
+            {% if event.end %}
+            <h5>End: {{event.end|datetime}}</h5><br/>
+            {% endif %}
+            <div class="descp">
+            <span class="description">
+            <h3>
+            Description</h3>
+            {{event.agenda_description}}
+            </span>
+            <br><br>
+            {% if event.external_url and event.external_width %}
             <iframe src="{{ event.external_url }}" width="{{ event.external_width }}" height="{{ event.external_height }}" style="border: 0;" border="0">
-             </iframe>
-             <br><br>
+            </iframe>
+            <br><br>
            {% endif %}
            {% if user in event.participants %}
              <span class="label">You are registered!</span>
            {% elif has_registration %}
              <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
-           {% endif %}             
-                      
+           {% endif %}  
+           </div>
+                                 
           </div>
         </div>
       </div>
