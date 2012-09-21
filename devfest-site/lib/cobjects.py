@@ -190,7 +190,7 @@ class CAdminEventList(CEventList):
 class CVHAEventList(CEventList):
   def load_from_db(self):
     self.entity_collection = {}
-    events = Event.all().filter('approved =', True).filter('is_vhackandroid =', True).filter('end >=', datetime.datetime.now())
+    events = Event.all().filter('approved =', True).filter('is_vhackandroid =', True)
     event_list = {}
     for event in events:
       if event_list.has_key(event.country) is False:
