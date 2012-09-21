@@ -26,12 +26,13 @@
              <!-- TODO sort groups by sponsor level -->             
              {% for level, sponsors in sponsors|groupby("level")|sort %}
                {% for sponsor in sponsors %}
-               <span class="sponsor">
-                 {% if sponsor.level == "0" %}
-                   <img class="sponsor-0" src="/blob/{{sponsor.logo}}">
-                 {% else %}
-                   <img style="width:50px;height:50px;" src="/blob/{{sponsor.logo}}" >
-                 {% endif %}
+               {% if sponsor.level %}
+                 <span class="sponsor level-{{sponsor.level}}">
+               {% else %}
+                 <span class="sponsor">
+               {% endif %}  
+                 <img  src="/blob/{{sponsor.logo}}">
+
                  {% if sponsor.gplus_id %}
                    <a style="color:black;" href="https://plus.google.com/{{sponsor.gplus_id}}">{{sponsor.name}}</a>
                  {% else %}

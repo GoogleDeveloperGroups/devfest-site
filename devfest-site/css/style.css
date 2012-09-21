@@ -526,6 +526,34 @@ body>section {
 	box-shadow: 0px 0 25px #ccc;
 }
 
+
+#gdg-sponsor-container .sponsor img {
+	width: 50px;
+	height: 50px;
+}
+
+#gdg-sponsor-container .level-00 img {
+	width: 75px;
+	height: 75px;
+}
+
+#gdg-sponsor-container .level-10 img {
+	width: 75px;
+	height: 75px;
+}
+
+#gdg-sponsor-container .level-20 img {
+	width: 75px;
+	height: 75px;
+}
+
+#gdg-sponsor-container .level-30 img {
+	width: 60px;
+	height: 60px;
+}
+
+
+
 .about-list li{
 	margin-left:20px;
 }
