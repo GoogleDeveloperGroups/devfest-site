@@ -25,14 +25,28 @@
                   <h3>{{ country.name }}</h3>
                   <ul class="event-no-bullets">
                     {% for event in country.data|sort(attribute='location') %}
+                      {% if event.end and event.end < current_date  %} 
+                      {% set eventclass = "past-event col1" %}
+                      {% else %}
+                      {% set eventclass = "event col1" %}
+                      {% endif %}      
                       <li>
-                        <h4><a href="/event/{{ event.key() }}">DevFest {% if event.name %}{{ event.name }}{% elif event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
+                        <h4 class="{{eventclass}}"><a href="/event/{{ event.key() }}">DevFest {% if event.name %}{{ event.name }}{% elif event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
                         <!-- Event Address & Date -->
                         <h5>{{ event.location }}</h5>
                         {% if event.start %}
+                          {% if event.end %}
+                          <h6>{{ event.start.strftime("%Y-%m-%d") }} - {{ event.end.strftime("%Y-%m-%d") }}</h6>
+                          {% else %}
                           <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
+                          {% endif %}
+                        {% else %}
+                          {% if event.end %}
+                          <h6> until {{ event.end.strftime("%Y-%m-%d") }}</h6>
+                          {% else %}
+                          <h6></h6>
+                          {% endif %}
                         {% endif %}
-
                         {% set has_registration = event.register_max > 0 %}
                         {% if not has_registration %}
                           {% set has_registration = event.register_url and event.register_url != "" %}
@@ -59,14 +73,28 @@
                   <h3>{{ country.name }}</h3>
                   <ul class="event-no-bullets">
                     {% for event in country.data|sort(attribute='location') %}
+                      {% if event.end and event.end < current_date  %} 
+                      {% set eventclass = "past-event col2" %}
+                      {% else %}
+                      {% set eventclass = "event col2" %}
+                      {% endif %}      
                       <li>
-                        <h4><a href="/event/{{ event.key() }}">DevFest {% if event.name %}{{ event.name }}{% elif event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
+                        <h4 class="{{eventclass}}"><a href="/event/{{ event.key() }}">DevFest {% if event.name %}{{ event.name }}{% elif event.city %}{{ event.city }}{% else %}{{ event.location }}{% endif %}</a></h4>
                         <!-- Event Address & Date -->
                         <h5>{{ event.location }}</h5>
                         {% if event.start %}
+                          {% if event.end %}
+                          <h6>{{ event.start.strftime("%Y-%m-%d") }} - {{ event.end.strftime("%Y-%m-%d") }}</h6>
+                          {% else %}
                           <h6>{{ event.start.strftime("%Y-%m-%d") }}</h6>
+                          {% endif %}
+                        {% else %}
+                          {% if event.end %}
+                          <h6> until {{ event.end.strftime("%Y-%m-%d") }}</h6>
+                          {% else %}
+                          <h6></h6>
+                          {% endif %}
                         {% endif %}
-                        
                         {% set has_registration = event.register_max > 0 %}
                         {% if not has_registration %}
                           {% set has_registration = event.register_url and event.register_url != "" %}
