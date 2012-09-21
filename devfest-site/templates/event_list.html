@@ -21,7 +21,7 @@
           {% for country in events.get_first_half()|sort(attribute='name') %}
             <ul class="event-no-bullets">
               <li>
-                <div class="row span6">
+                <div class="row">
                   <h3>{{ country.name }}</h3>
                   <ul class="event-no-bullets">
                     {% for event in country.data|sort(attribute='location') %}
@@ -69,7 +69,7 @@
           {% for country in events.get_second_half()|sort(attribute='name') %}
             <ul class="event-no-bullets">
               <li>
-                <div class="row span6">
+                <div class="row">
                   <h3>{{ country.name }}</h3>
                   <ul class="event-no-bullets">
                     {% for event in country.data|sort(attribute='location') %}
