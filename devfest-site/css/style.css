@@ -235,6 +235,10 @@ body>section {
 	margin-bottom: 40px;
 }
 
+#event-list-container .event-column .event-no-bullets .past-event a {
+	color: #bbb;
+}
+
 #event-list-container .event-column .event-no-bullets a {
 	color: #15c;
 }
