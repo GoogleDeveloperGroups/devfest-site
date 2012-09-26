@@ -85,7 +85,7 @@ class FrontendPage(Page):
   def post_output(self):
     self.response.headers['Content-Type'] = 'text/html; charset=UTF-8'
     jinja_environment = jinja2.Environment(
-            loader=jinja2.FileSystemLoader(os.path.dirname(__file__) +'/../templates/'))
+            loader=jinja2.FileSystemLoader(os.path.dirname(__file__) +'/../templates/'), autoescape=True)
 
     jinja_environment.filters['datetime'] = format_datetime
     template = jinja_environment.get_template(self.template +'.html')
@@ -117,7 +117,7 @@ class UploadPage(blobstore_handlers.BlobstoreUploadHandler):
   def post_output(self):
     self.response.headers['Content-Type'] = 'text/html; charset=UTF-8'
     jinja_environment = jinja2.Environment(
-            loader=jinja2.FileSystemLoader(os.path.dirname(__file__) +'/../templates/'))
+            loader=jinja2.FileSystemLoader(os.path.dirname(__file__) +'/../templates/'), autoescape=True)
 
     template = jinja_environment.get_template(self.template +'.html')
     self.response.out.write(template.render(self.values))
