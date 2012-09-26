@@ -23,7 +23,7 @@ class SessionFormHelper:
   def add_slots(form,slots):
     # now iterate through the sessions fields in the form
     for session_form in form.sessions.entries:
-      session_form.slot_key.choices = [ ("", "Please select slot")] + [ (str(slot.key()), slot.name + " (" + slot.start.strftime('%H:%M') + "-" + slot.end.strftime('%H:%M') + ")") for slot in slots ]      
+      session_form.slot_key.choices = [ ("", "Please select slot")] + [ (str(slot.key()), slot.name + " (" + slot.start.strftime('%H:%M') + "-" + slot.end.strftime('%H:%M') + ")") for slot in slots if slot.non_session == False]      
 
   @staticmethod
   def add_tracks(form,tracks):    

@@ -88,6 +88,7 @@ class SlotsUploadPage(UploadPage):
         old_slots = CSlotList(event_id).get()
         for i in range(0,1024):
           prefix = 'slots-' + str(i) + '-'
+          # check whether the first slot has been changed.
           if self.request.get(prefix + 'name'):
             # is this a modification of an existing slot or a new one?
             slot_id = self.request.get(prefix + 'slot')
@@ -105,6 +106,9 @@ class SlotsUploadPage(UploadPage):
             (hour,min) = self.request.get(prefix + 'end').split(':')
             if hour and min:
               slot.end = time(int(hour), int(min))
+                        
+            slot.non_session = self.request.get(prefix + 'non_session') == "y"
+            logging.info(slot.non_session);
             # find date
             date = datetime.strptime(self.request.get(prefix + 'date'), '%Y-%m-%d').date()            
             day_list = [ day for day in days if day.date == date ]            
@@ -125,7 +129,7 @@ class SlotsUploadPage(UploadPage):
             slot.day = slot_day
             slot.event = event
             # update slot
-            slot.put()
+            slot.put()            
         # end for
         # now delete all slots not mentioned yet
         for s in old_slots:
