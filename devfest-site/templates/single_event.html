@@ -30,15 +30,21 @@
                  <span class="sponsor level-{{sponsor.level}}">
                {% else %}
                  <span class="sponsor">
-               {% endif %}  
-                 <img  src="/blob/{{sponsor.logo}}">
+               {% endif %}                  
 
                  {% if sponsor.gplus_id %}
-                   <a style="color:black;" href="https://plus.google.com/{{sponsor.gplus_id}}">{{sponsor.name}}</a>
+                   <a style="color:black;" href="https://plus.google.com/{{sponsor.gplus_id}}">
+                   <img  src="/blob/{{sponsor.logo}}">
+                   {{sponsor.name}}</a>
                  {% else %}
+                   <img  src="/blob/{{sponsor.logo}}">
                    {{sponsor.name}} 
                  {% endif %}
                  <br>{{sponsor.description}}
+                 {% if sponsor.url %}
+                   <br>
+                   <a style="color:black; float:right;" href="{{sponsor.url}}">Visit website</a>
+                 {% endif %}
                  <hr class="thin-line">
                </span>
                {% endfor %}  
