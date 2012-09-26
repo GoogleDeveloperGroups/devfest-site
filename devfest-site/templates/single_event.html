@@ -94,11 +94,15 @@
             {{event.agenda_description}}
             </span>
             <br><br>
-            {% if event.external_url and event.external_width %}
-            <iframe src="{{ event.external_url }}" width="{{ event.external_width }}" height="{{ event.external_height }}" style="border: 0;" border="0">
-            </iframe>
-            <br><br>
-           {% endif %}
+            {% if event.external_url %}
+              {% if event.external_width %}
+                <iframe src="{{ event.external_url }}" width="{{ event.external_width }}" height="{{ event.external_height }}" style="border: 0;" border="0">
+                </iframe>
+                <br><br>
+              {% else %}
+                <a href="{{event.external_url}}"> Visit website</a>
+              {%endif%}
+            {% endif %}
            {% if user in event.participants %}
              <span class="label">You are registered!</span>
            {% elif has_registration %}
