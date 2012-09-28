@@ -150,6 +150,7 @@ class Slot(db.Model):
   start       = db.TimeProperty()
   end         = db.TimeProperty()
   day         = db.ReferenceProperty(Day)
+  non_session = db.BooleanProperty()
   event       = db.ReferenceProperty(Event)
 
 # session tracks - defined on a per-event base

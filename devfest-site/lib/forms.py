@@ -165,6 +165,7 @@ class SingleSlotForm(Form):
   end             = TimeField('End time',
            [validators.Regexp('[0-2]?[0-9]:[0-5][0-9]')])
   date            = DateField('Date', [validators.Required()], format="%Y-%m-%d")
+  non_session     = BooleanField('Non-session slot (check for breaks, lunch,..)')
 
 # form for all days and slots of an event
 class DaysSlotsForm(Form):

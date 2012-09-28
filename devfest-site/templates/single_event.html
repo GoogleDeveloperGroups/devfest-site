@@ -30,15 +30,21 @@
                  <span class="sponsor level-{{sponsor.level}}">
                {% else %}
                  <span class="sponsor">
-               {% endif %}  
-                 <img  src="/blob/{{sponsor.logo}}">
+               {% endif %}                  
 
                  {% if sponsor.gplus_id %}
-                   <a style="color:black;" href="https://plus.google.com/{{sponsor.gplus_id}}">{{sponsor.name}}</a>
+                   <a style="color:black;" href="https://plus.google.com/{{sponsor.gplus_id}}">
+                   <img  src="/blob/{{sponsor.logo}}">
+                   {{sponsor.name}}</a>
                  {% else %}
+                   <img  src="/blob/{{sponsor.logo}}">
                    {{sponsor.name}} 
                  {% endif %}
                  <br>{{sponsor.description}}
+                 {% if sponsor.url %}
+                   <br>
+                   <a style="color:black; float:right;" href="{{sponsor.url}}">Visit website</a>
+                 {% endif %}
                  <hr class="thin-line">
                </span>
                {% endfor %}  
@@ -88,11 +94,15 @@
             {{event.agenda_description}}
             </span>
             <br><br>
-            {% if event.external_url and event.external_width %}
-            <iframe src="{{ event.external_url }}" width="{{ event.external_width }}" height="{{ event.external_height }}" style="border: 0;" border="0">
-            </iframe>
-            <br><br>
-           {% endif %}
+            {% if event.external_url %}
+              {% if event.external_width %}
+                <iframe src="{{ event.external_url }}" width="{{ event.external_width }}" height="{{ event.external_height }}" style="border: 0;" border="0">
+                </iframe>
+                <br><br>
+              {% else %}
+                <a href="{{event.external_url}}"> Visit website</a>
+              {%endif%}
+            {% endif %}
            {% if user in event.participants %}
              <span class="label">You are registered!</span>
            {% elif has_registration %}
