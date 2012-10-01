@@ -178,16 +178,20 @@ class Session(db.Model):
   title       = db.StringProperty()
   abstract    = db.TextProperty()
   slot        = db.ReferenceProperty(Slot)
+  slot_key    = db.StringProperty()
   room        = db.StringProperty()
   level       = db.StringProperty()
   track       = db.ReferenceProperty(Track)
+  track_key   = db.StringProperty()
   live_url    = db.StringProperty()
   youtube_url = db.StringProperty()
   speakers    = db.ListProperty(db.Key)
+  speakers_key = db.StringListProperty()
   # OK, I know this violates "normalized" DB best practice.
   # a slot belongs to an event so I know already the event.
   # but for fast access I duplicate the information here as well.
   event       = db.ReferenceProperty(Event)
+  event_key   = db.StringProperty()
 
 class Speaker(db.Model):
   first_name  = db.StringProperty()
@@ -197,5 +201,4 @@ class Speaker(db.Model):
   thumbnail   = db.StringProperty()
   short_bio   = db.TextProperty()
   event       = db.ReferenceProperty(Event)
-
 

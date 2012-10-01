@@ -263,9 +263,9 @@ class CSessionList(DbCachedObject):
 
   # load all sessions from db
   def load_from_db(self):
-    sessions = Session.all().filter('event =', CEvent(self.id).get())
+    sessions = Session.all().filter('event_key =', str(self.id))
     # I have to manually sort them, sorry...
-    self.entity_collection = sorted(sessions, key=lambda x: x.slot.start)
+    self.entity_collection = sorted(sessions, key=lambda x: CSlot(x.slot_key).get().start)
 
 # list of sessions per event grouped by slots and rooms
 class CSessionAgendaList(OCachedObject):
@@ -282,15 +282,16 @@ class CSessionAgendaList(OCachedObject):
     cache_key = "SessionAgendaList_"  + ("(%s)" % (event_id))
     memcache.delete(cache_key)
 
-  # helper function - key for slot
-  def key_for_slot(self, slot):
+  # helper function - txtkey for slot
+  def txtkey_for_slot(self, slot_key):
+    slot = CSlot(slot_key).get()
     return slot.start.strftime("%H:%M") + "-" + slot.end.strftime("%H:%M") + "_" + slot.name
 
   # load all sessions from db
   # very first order: days
   def load_from_db(self):
     self.entity_collection = {} 
-    sessions = Session.all().filter('event =', CEvent(self.event_id).get())    
+    sessions = Session.all().filter('event_key =', str(self.event_id))    
             
     # list of all rooms per day
     room_list = {}
@@ -305,8 +306,14 @@ class CSessionAgendaList(OCachedObject):
       # empty room? make a " " out of it.
       if not session.room:
         session.room = " "
+      # get the slot from the slot_key
+      try:
+        slot = CSlot(session.slot_key).get()
+      except:
+        # we won't be able to display this session anyway
+        continue
       # get the day for the session
-      day = session.slot.day.date
+      day = slot.day.date
       # is day known?
       if not day in room_list:
         room_list[day] = []
@@ -314,19 +321,19 @@ class CSessionAgendaList(OCachedObject):
         by_room[day] = {}
         by_slot_room[day] = {}
       # is the slot already known?
-      session.slot_key = self.key_for_slot(session.slot)
-      if session.slot_key not in by_slot[day]:
-        by_slot[day][session.slot_key] = []
-        by_slot_room[day][session.slot_key] = {}
+      session.slot_txtkey = self.txtkey_for_slot(session.slot_key)
+      if session.slot_txtkey not in by_slot[day]:
+        by_slot[day][session.slot_txtkey] = []
+        by_slot_room[day][session.slot_txtkey] = {}
       # is the room already known?
       if session.room and (session.room not in room_list[day]):
         room_list[day].append(session.room)
         by_room[day][session.room] = []
       # append the session to the three lists
-      by_slot[day][session.slot_key].append(session)
+      by_slot[day][session.slot_txtkey].append(session)
       by_room[day][session.room].append(session)
       # we want only one session at one time in one room
-      by_slot_room[day][session.slot_key][session.room] = session
+      by_slot_room[day][session.slot_txtkey][session.room] = session
       
     # list of all slots - even empty ones. we add an element count
     # for the number of sessions
@@ -334,10 +341,10 @@ class CSessionAgendaList(OCachedObject):
     date_list = []
     for s in CSlotList(self.event_id).get():
       s.date = s.day.date
-      s.slot_key = self.key_for_slot(s)
+      s.slot_txtkey = self.txtkey_for_slot(str(s.key()))
       if by_slot.has_key(s.date):
-        if s.slot_key in by_slot[s.date]:
-          s.sessioncount = len(by_slot[s.date][s.slot_key])
+        if s.slot_txtkey in by_slot[s.date]:
+          s.sessioncount = len(by_slot[s.date][s.slot_txtkey])
         else:
           s.sessioncount = 0
       else:
