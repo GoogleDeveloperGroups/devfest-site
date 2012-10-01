@@ -265,7 +265,10 @@ class CSessionList(DbCachedObject):
   def load_from_db(self):
     sessions = Session.all().filter('event_key =', str(self.id))
     # I have to manually sort them, sorry...
-    self.entity_collection = sorted(sessions, key=lambda x: CSlot(x.slot_key).get().start)
+    try:
+      self.entity_collection = sorted(sessions, key=lambda x: CSlot(x.slot_key).get().start)
+    except:
+      self.entity_collection = sessions
 
 # list of sessions per event grouped by slots and rooms
 class CSessionAgendaList(OCachedObject):
@@ -309,6 +312,8 @@ class CSessionAgendaList(OCachedObject):
       # get the slot from the slot_key
       try:
         slot = CSlot(session.slot_key).get()
+        if not slot:
+          continue
       except:
         # we won't be able to display this session anyway
         continue

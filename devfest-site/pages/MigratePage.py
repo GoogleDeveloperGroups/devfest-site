@@ -25,11 +25,14 @@ class MigratePage(JSONPage):
           s['slot'] = session.slot_key
         except:
           pass
-      if not session.speakers_key or len(session.speakers_key) == 0:
+      if not session.speakers_key:
         session.speakers_key = []
         try:
-          for s in session.speakers:
-            session.speakers_key.append(str(s.key()))
+          for sp in session.speakers:
+            try:
+              session.speakers_key.append(str(sp))
+            except:
+              pass
           s['speakers'] = session.speakers_key
         except:
           pass
