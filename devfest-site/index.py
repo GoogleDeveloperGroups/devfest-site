@@ -13,6 +13,7 @@ from pages.SessionsPages import *
 from pages.RegisterPage import *
 from pages.JsonPages import *
 from pages.SlotsPages import *
+from pages.MigratePage import *
 
 app = webapp2.WSGIApplication([
                               ('^/logout$', LogoutPage),
@@ -61,6 +62,7 @@ app = webapp2.WSGIApplication([
                               ('^/register$', RegisterFormPage),
                               ('^/contact$', ContactPage),
                               ('^/blob/(.*)$', BlobPage),
+                              ('^/migrate$', MigratePage),
                               ('^/.*$', NotFoundPage),
                               ],
                               debug=False)

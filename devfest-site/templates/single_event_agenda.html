@@ -78,7 +78,7 @@
 <p>
 {%endif%}
 <table>  
-  {% for slot in agenda.slot_list[date]|sort(attribute='slot_key') %}
+  {% for slot in agenda.slot_list[date]|sort(attribute='slot_txtkey') %}
     {% if slot.sessioncount > 0 %}
        <tr class="slot slot_sessions">
     {% else %}
@@ -89,7 +89,7 @@
        </td>
                
     {% if slot.sessioncount > 0 %}
-     {% set sessions_room = agenda.by_slot_room[date][slot.slot_key] %}
+     {% set sessions_room = agenda.by_slot_room[date][slot.slot_txtkey] %}
      {% for room in agenda.room_list[date]|sort %}     
       {% if room in sessions_room %}
        {% set session = sessions_room[room] %}
@@ -116,8 +116,8 @@
          </td>
          <td class="track">
                         
-         {% if session and session.track %}
-         {% set track = track_list.get_for_key(session.track.key()) %}
+         {% if session and session.track_key %}
+         {% set track = track_list.get_for_key(session.track_key) %}
          {% else %}
          {% set track = none %}
          {% endif %}

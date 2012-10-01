@@ -103,17 +103,29 @@ class JsonTrackListPage(JSONPage):
 class JsonSessionListPage(JSONPage):
   def show(self, event_id):
     response = []
+    # prepare tracks
+    tracks = CTrackList(event_id).get()
+    track_for_key = { str(t.key) : t for t in tracks }
+    # prepare slots
+    slots = CSlotList(event_id).get()
+    slot_for_key = { str(s.key) : s for s in slots }
     for session in CSessionList(event_id).get():
       se = { 'title': session.title,
              'abstract': session.abstract,
-             'start': session.slot.start.isoformat(),
-             'end': session.slot.end.isoformat(),
              'room': session.room,
              'level': session.level,
-             'track': session.track.name,
              'live_url': session.live_url,
              'youtube_url': session.youtube_url,
-             'speakers': [ str(key) for key in session.speakers ]
+             'speakers': session.speakers_key
            }
+      try:
+        se.track = track_for_key[session.track_key].name
+      except:
+        pass
+      try:
+        se.start = slot_for_key[session.slot_key].start.isoformat()
+        se.end = slot_for_key[session.slot_key].end.isoformat()
+      except:
+        pass
       response.append(se)
     self.values["response"] = response
