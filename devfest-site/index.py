@@ -62,7 +62,6 @@ app = webapp2.WSGIApplication([
                               ('^/register$', RegisterFormPage),
                               ('^/contact$', ContactPage),
                               ('^/blob/(.*)$', BlobPage),
-                              ('^/migrate$', MigratePage),
                               ('^/.*$', NotFoundPage),
                               ],
                               debug=False)
