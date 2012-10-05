@@ -99,11 +99,12 @@
           {% for speaker_key in session.speakers %}            
              {% set speaker = speaker_list.get_for_key(speaker_key) %}
              {% if speaker.gplus_id %}
-             <a href="http://plus.google.com/{{speaker.gplus_id}}" target="_blank">
+             <a class="btn btn-small" href="http://plus.google.com/{{speaker.gplus_id}}" target="_blank">
+               <i class="icon-user"></i>
                {{speaker.first_name}} {{speaker.last_name}} 
                {%if speaker.company is not none %}
                  , {{speaker.company}}
-               {% endif %}               
+               {% endif %}
              </a>
              {% else %}
                {{speaker.first_name}} {{speaker.last_name}} 
