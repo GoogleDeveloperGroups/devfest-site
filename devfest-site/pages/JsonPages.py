@@ -7,10 +7,12 @@ from google.appengine.ext import db
 from lib.model import Event
 from lib.forms import EventForm
 from lib.cobjects import (CEventList, CEvent, CSponsorList,
-     CSpeakerList, CSessionList, CTrackList)
+     CSpeakerList, CSessionList, CTrackList, CSlotList)
 from datetime import datetime
 import urllib
 import json
+import base64
+import zlib
 
 # export all events
 class JsonEventListPage(JSONPage):
@@ -70,7 +72,7 @@ class JsonSpeakerListPage(JSONPage):
       if speaker.thumbnail:
         sp["thumbnail_url"] = "http://www.devfest.info/blob/" + speaker.thumbnail
       response.append(sp)
-    self.values["response"] = response
+    self.values["response"] = {'devsite_speakers': response}
 
 # export all sponsors of an event
 class JsonSponsorListPage(JSONPage):
@@ -97,7 +99,7 @@ class JsonTrackListPage(JSONPage):
              'abstract': track.abstract
            }
       response.append(tr)
-    self.values["response"] = response
+    self.values["response"] = {'track': response}
 
 # export all sessions of an event
 class JsonSessionListPage(JSONPage):
@@ -105,27 +107,44 @@ class JsonSessionListPage(JSONPage):
     response = []
     # prepare tracks
     tracks = CTrackList(event_id).get()
-    track_for_key = { str(t.key) : t for t in tracks }
+    track_for_key = { str(t.key()) : t for t in tracks }
     # prepare slots
     slots = CSlotList(event_id).get()
-    slot_for_key = { str(s.key) : s for s in slots }
+    slot_for_key = { str(s.key()) : s for s in slots }
     for session in CSessionList(event_id).get():
       se = { 'title': session.title,
              'abstract': session.abstract,
              'room': session.room,
              'level': session.level,
-             'live_url': session.live_url,
+             'livestream_url': session.live_url,
              'youtube_url': session.youtube_url,
-             'speakers': session.speakers_key
+             'speaker_id': session.speakers_key,
+             'id': str(session.key()),
+             'attending': 'N'
            }
+
+      se['has_streaming'] = False
+      if session.youtube_url != '':
+        se['has_streaming'] = True
+
       try:
-        se.track = track_for_key[session.track_key].name
+        se['track'] = [track_for_key[session.track_key].name]
+        se['tags'] = track_for_key[session.track_key].name
       except:
         pass
+
       try:
-        se.start = slot_for_key[session.slot_key].start.isoformat()
-        se.end = slot_for_key[session.slot_key].end.isoformat()
+        start_time = slot_for_key[session.slot_key].start
+        end_time = slot_for_key[session.slot_key].end
+        start_date = slot_for_key[session.slot_key].day.date
+        se['start_time'] = start_time.strftime('%H:%M')
+        se['end_time'] = end_time.strftime('%H:%M')
+        se['start_date'] = start_date.strftime('%Y-%m-%d')
+        se['end_date'] = start_date.strftime('%Y-%m-%d')
       except:
-        pass
+        pass  
       response.append(se)
-    self.values["response"] = response
+
+    data_crc = zlib.crc32(json.dumps(response))
+    etag = base64.b64encode(str(data_crc))
+    self.values["response"] = {'etag': etag, 'result': [{'event_timeslots': '', 'events': response, 'event_type': 'sessions'}], 'error': 'No auth token in request'}

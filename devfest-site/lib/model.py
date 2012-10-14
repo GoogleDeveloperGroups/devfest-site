@@ -160,6 +160,7 @@ class Track(db.Model):
   icon        = db.StringProperty()
   abstract    = db.TextProperty()
   event       = db.ReferenceProperty(Event)
+  event_key   = db.StringProperty()
 
 # Sponsors for an event.
 class Sponsor(db.Model):

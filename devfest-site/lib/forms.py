@@ -141,7 +141,7 @@ class SingleSessionForm(Form):
 class SingleTrackForm(Form):
   track           = HiddenField()
   name            = TextField('Name', [validators.Required()])
-  color           = TextField('Color, e.g. #12FF34', [validators.Regexp('#[0-9A-Z]{6}')])
+  color           = TextField('Color, e.g. #12FF34', [validators.Regexp('#[0-9A-Za-z]{6}')])
   icon            = FileField('Icon')
   abstract        = TextAreaField('Abstract')
 

@@ -110,7 +110,7 @@ class SessionsUploadPage(UploadPage):
             if len(upload_files) > 0:
               blob_info = upload_files[0]
               track.icon = '%s' % blob_info.key()
-        
+
             track.event_key = event_id
             # update track
             track.put()

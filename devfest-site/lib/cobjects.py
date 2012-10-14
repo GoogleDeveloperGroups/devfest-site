@@ -231,7 +231,7 @@ class CTrackList(DbCachedObject):
 
   # load all tracks from db
   def load_from_db(self):
-    self.entity_collection = Track.all().filter('event =', CEvent(self.id).get())
+    self.entity_collection = Track.all().filter('event_key =', str(CEvent(self.id).get().key()))
 
   def get_for_key(self, track_id):
       track_list = [t for t in self.entity_collection if t.key() == track_id]
