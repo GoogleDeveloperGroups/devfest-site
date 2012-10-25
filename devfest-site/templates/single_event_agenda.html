@@ -96,7 +96,7 @@
        <td class="session">         
                       
           {{ session.title }}{% if room != " " %}, {{ room }} {% endif %}</br>                  
-          {% for speaker_key in session.speakers %}            
+          {% for speaker_key in session.speakers_key %}            
              {% set speaker = speaker_list.get_for_key(speaker_key) %}
              {% if speaker.gplus_id %}
              <a class="btn btn-small" href="http://plus.google.com/{{speaker.gplus_id}}" target="_blank">
