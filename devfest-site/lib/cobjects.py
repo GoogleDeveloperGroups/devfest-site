@@ -217,7 +217,7 @@ class CSpeakerList(DbCachedObject):
     self.entity_collection = Speaker.all().filter('event =', CEvent(self.id).get())
 
   def get_for_key(self, speaker_id):
-      speaker_list = [s for s in self.entity_collection if s.key() == speaker_id]
+      speaker_list = [s for s in self.entity_collection if str(s.key()) == str(speaker_id)]
       if len(speaker_list) > 0:
         return speaker_list[0]
       else:
