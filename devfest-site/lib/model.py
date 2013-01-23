@@ -11,7 +11,14 @@ import re
 import string
 import datetime
 
+class Series(db.Model):
+  name                  = db.StringProperty()
+  logo                  = db.StringProperty()
+  description           = db.StringProperty()
+    
 class Event(db.Model):
+  series                = db.ReferenceProperty(Serie)
+  series_key            = db.StringProperty()
   organizers            = db.ListProperty(users.User)
   participants          = db.ListProperty(users.User)
   gdg_chapters          = db.StringListProperty()
