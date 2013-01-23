@@ -133,6 +133,7 @@ class EventUploadPage(UploadPage):
       else:
         event = Event()
 
+      event.series_key = self.request.get('series_key')
       event.gplus_event_url = self.request.get('gplus_event_url')
       event.external_url = self.request.get('external_url')
       event.external_width = saveint(self.request.get('external_width'))
@@ -216,4 +217,7 @@ class EventListPage(FrontendPage):
       if users.is_current_user_admin():
         self.values['events'] = CAdminEventList()
       else:
-        self.values['events'] = CEventList()
+        if self.request.get('series'):
+          self.values['events'] = CEventList(self.request.get('series'))
+        else:
+          self.values['events'] = CEventList()  

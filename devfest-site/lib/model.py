@@ -14,10 +14,10 @@ import datetime
 class Series(db.Model):
   name                  = db.StringProperty()
   logo                  = db.StringProperty()
-  description           = db.StringProperty()
+  description           = db.StringProperty()  
     
 class Event(db.Model):
-  series                = db.ReferenceProperty(Serie)
+  series                = db.ReferenceProperty(Series)
   series_key            = db.StringProperty()
   organizers            = db.ListProperty(users.User)
   participants          = db.ListProperty(users.User)
