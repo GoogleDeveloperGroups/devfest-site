@@ -62,7 +62,7 @@
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
    <header>
 		<div class="banner">
-      <div class="dev-login">
+        <div class="dev-login">
         {% if user %}
         <p style="margin-right:20px;">Hi, {{ user.nickname() }}<br />
         <a href="/event/edit" class="btn btn_small" style="margin-right:-22px;margin-top:-1px;background:none;">My events</a></p>
@@ -73,11 +73,19 @@
         <a href="/login" id="loginLink" class="btn btn_small">Sign in</a>
         {% endif %}
 			</div>
+			<div>
   		<a id="logo" href="/"><img src="/images/logo.png" alt="GDG DevFest"></a>
 
 			<h1>&nbsp;</h1>
 			<h4>Engage, Learn & Share with the Google Developer Community</h4>
+            </div>
+			<div>
+     		<a id="logo" href="/devfestw"><img src="/images/devfestw_logo.png" alt="DevFestW"></a>
 
+			<h1>&nbsp;</h1>
+			<h4>Participate in DevFestW!</h4>
+            </div>
+            
 		</div>
 		<ul>
 		   <li{% if current_navigation == 'start' %} class="active"{% endif %}><a href="/">Home</a></li>

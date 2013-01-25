@@ -1,0 +1,91 @@
+{% extends "global.html" %}
+{% block content %}
+<div class="container-fluid" id="page_devfestw">
+
+  <div class="row">
+    <div id="title">
+      <h1>DevFestW</h1>
+    </div>
+    <a class="label" href="#">Home</a>    
+    <a class="label label-info" href="/events?series=devfestw">Events</a>
+    <a class="label href="/devfestw/faq">FAQ</a>
+    <hr class="thin-line">
+  </div>
+  <div class="row">
+    <div class="row-fluid">
+
+      <div class="span2">
+        
+        <div>
+          <div>          
+	        <span style="margin-left: 5px">
+	          <img src="/images/devfestw.png" alt="DevFestW Logo" />
+	        </span>
+	        <br/>
+	        <br/>
+	        <br/>
+	        DevFest to the power of women	        	        	      
+          </div>
+        </div>
+      </div>
+
+      <div class="span7">
+        <div id="gdg-container">
+          <h2>DevFestW is going on now until March 10th. Find an event in your area below to participate.</h2>
+
+          <p>
+            DevFestW is a series of community-led events that have technical sessions centered 
+            around Google developer technologies and platforms. DevFestW is focused 
+            specifically on bringing together women in the local developer community to teach, learn, code and network.</p>
+
+          <p>Similar in spirit to a regular DevFest, each DevFestW event should be tailored to the needs of the hosting developer community.
+          </p>
+
+
+          <div class="well">
+            <p class="lead">Hashtag: <b>#devfestw</b></p>
+            <p>
+              <i>DevFestW is going on now until March 10th. Find an event in your area below to participate.</i><br />
+              See all <a href="/events?series=devfestw">events here</a><br /><br />
+              <a href="https://twitter.com/intent/tweet?button_hashtag=devfestw&amp;text=DevFestW"
+                class="twitter-hashtag-button" data-size="large"
+                data-related="pjv_">Tweet #devfestw</a>
+              <script>
+                !function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = "//platform.twitter.com/widgets.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                  }
+                }(document, "script", "twitter-wjs");
+              </script>
+            </p>
+            <!--<div class="g-plus" data-href="https://plus.google.com/104578858113292768239" data-rel="publisher"></div>-->
+          </div>
+        </div>
+      </div>
+  </div>
+    <!--
+    <div class="disclaimer-text">
+      <p>
+        <a style="color: #000;" href="mailto:devfestw@googlegroups.com">Contact us.</a>
+      </p>
+      <p>Disclaimer: DevFestW is initiated by Google and organized by independent GDG groups</p>
+    </div>
+    -->
+</div>
+
+<!-- Place this tag after the last badge tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script');
+    po.type = 'text/javascript';
+    po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(po, s);
+  })();
+</script>
+{% endblock %}

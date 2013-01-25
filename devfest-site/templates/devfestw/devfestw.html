@@ -1,91 +1,109 @@
 {% extends "global.html" %}
+{% block head %}
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{ maps_api_key }}&sensor=true"></script>
+{% endblock %}
+{% block head2 %}
+<script type="text/javascript" src="js/lib/jquery.ui.map.min.js"></script>
+{% endblock %}
+{% block document_ready %}
+/*
+var mapOptions = {
+  center: new google.maps.LatLng(0, 0),
+  zoom: 2,
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+};
+var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+*/
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+po.src = 'https://apis.google.com/js/plusone.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+
+{% endblock %}
+
 {% block content %}
-<div class="container-fluid" id="page_devfestw">
-
-  <div class="row">
-    <div id="title">
-      <h1>DevFestW</h1>
-    </div>
-    <a class="label" href="#">Home</a>    
-    <a class="label label-info" href="/events?series=devfestw">Events</a>
-    <a class="label href="/devfestw/faq">FAQ</a>
-    <hr class="thin-line">
-  </div>
-  <div class="row">
-    <div class="row-fluid">
-
-      <div class="span2">
-        
-        <div>
-          <div>          
-	        <span style="margin-left: 5px">
-	          <img src="/images/devfestw.png" alt="DevFestW Logo" />
-	        </span>
-	        <br/>
-	        <br/>
-	        <br/>
-	        DevFest to the power of women	        	        	      
-          </div>
-        </div>
-      </div>
-
-      <div class="span7">
-        <div id="gdg-container">
-          <h2>DevFestW is going on now until March 10th. Find an event in your area below to participate.</h2>
-
-          <p>
-            DevFestW is a series of community-led events that have technical sessions centered 
-            around Google developer technologies and platforms. DevFestW is focused 
-            specifically on bringing together women in the local developer community to teach, learn, code and network.</p>
-
-          <p>Similar in spirit to a regular DevFest, each DevFestW event should be tailored to the needs of the hosting developer community.
-          </p>
-
-
-          <div class="well">
-            <p class="lead">Hashtag: <b>#devfestw</b></p>
-            <p>
-              <i>DevFestW is going on now until March 10th. Find an event in your area below to participate.</i><br />
-              See all <a href="/events?series=devfestw">events here</a><br /><br />
-              <a href="https://twitter.com/intent/tweet?button_hashtag=devfestw&amp;text=DevFestW"
-                class="twitter-hashtag-button" data-size="large"
-                data-related="pjv_">Tweet #devfestw</a>
-              <script>
-                !function(d, s, id) {
-                  var js, fjs = d.getElementsByTagName(s)[0];
-                  if (!d.getElementById(id)) {
-                    js = d.createElement(s);
-                    js.id = id;
-                    js.src = "//platform.twitter.com/widgets.js";
-                    fjs.parentNode.insertBefore(js, fjs);
-                  }
-                }(document, "script", "twitter-wjs");
-              </script>
-            </p>
-            <!--<div class="g-plus" data-href="https://plus.google.com/104578858113292768239" data-rel="publisher"></div>-->
-          </div>
-        </div>
-      </div>
-  </div>
-    <!--
-    <div class="disclaimer-text">
-      <p>
-        <a style="color: #000;" href="mailto:devfestw@googlegroups.com">Contact us.</a>
-      </p>
-      <p>Disclaimer: DevFestW is initiated by Google and organized by independent GDG groups</p>
-    </div>
-    -->
+<div class="hero-unit" style="padding:30px;">	
+	<div id="title">
+		<h1 style="font-size:25px;">DevFestW locations</h1>
+		<div class="plusonec">
+		<div class="g-plusone" data-size="small" data-annotation="inline" data-width="300"></div>			
+		</div>
+	</div>
+  <div id="map_canvas"></div>
+</div>	
+<script type="text/javascript">
+$('#map_canvas').gmap().bind('init', function() {
+  var dateFormat = function(datVal) {
+    if (typeof datVal === 'string') {
+      var parts = /^(\d{4})-(\d{2})-(\d{2})T/.exec(datVal);
+      if (parts) {
+        var utcMilliseconds = Date.UTC(parts[1], parts[2] - 1, parts[3]);
+        return new Date(utcMilliseconds).toDateString();
+      }
+    }
+    return datVal;
+  }
+  $.getJSON('/json/events?series=devfestw', function(data) {
+    $.each(data, function(i, event) {
+      var name = event.name || event.city || event.location;
+      var start = dateFormat(event.start);
+      var end = dateFormat(event.end);
+      var dateText;
+      if (start != end) {
+        dateText = start + ' - ' + end;
+      }
+      else {
+        dateText = start;
+      }
+      $('#map_canvas').gmap('addMarker', {
+        'position': new google.maps.LatLng(event.lat, event.lon),
+        'bounds': true
+      }).click(function() {
+        $('#map_canvas').gmap('openInfoWindow', {
+          'content': '<b>DevFestW ' + name + '</b><br><br>' +
+            'Event Date: ' + dateText,
+        }, this);
+      });
+    });
+  });
+});
+</script>
+<div class="row-fluid">
+		<div class="span4" >
+			<h2 id="xheadings">DevFest W</h2>
+			<hr>
+			<img src="/images/gdg-home-devfest.jpg" alt="GDG" class="gdg-home-image" width="600">
+			<p style="text-align:justify">
+			GDG DevFests are large scale community-run events that can offer speaker sessions across Google product areas, all-day hack-a-thons or both.  
+			Each GDG DevFest will be inspired by and uniquely tailored to the needs of the developer community that hosts it.  
+			But while no two events will be exactly alike, each GDG DevFest will, at its core, 
+			be powered by a shared belief that when developers come together to exchange ideas, amazing things can happen.
+			</p>
+			<p>
+				<a class="btn" href="/about">View details &raquo;</a>
+			</p>
+		</div>
+		<div class="span4">
+			<h2  id="xheadings">Participate in DevFestW!</h2>
+			<hr>
+			<img src="/images/devfestw_logo" alt="devfestw" class="gdg-home-image" width="600">
+			<p style="text-align:justify">DevFestW bridges Google technologies with women developers. 
+			Find a DevFestW event near you, or organize one for your local community.</p>
+			<p>
+				<a class="btn" href="/events?series=devfestw">View details &raquo;</a>
+			</p>
+		</div>
+		<div class="span4">
+		
+			<h2  id="xheadings"> Google Developer Groups</h2>
+			<hr>
+				<img src="/images/gdg-home.jpg" alt="GDG" class="gdg-home-image" width="600">
+			<p style="text-align:justify">Google Developer Groups (GDGs) are for developers who are interested in Google's developer technology; 
+			everything from the Android, App Engine, and Google Chrome platforms, to product APIs like the Maps API, YouTube API and Google Calendar API.</p>
+			<p>
+				<a class="btn" href="https://developers.google.com/groups/">View details &raquo;</a>
+			</p>
+		</div>
+		
 </div>
 
-<!-- Place this tag after the last badge tag. -->
-<script type="text/javascript">
-  (function() {
-    var po = document.createElement('script');
-    po.type = 'text/javascript';
-    po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(po, s);
-  })();
-</script>
 {% endblock %}
