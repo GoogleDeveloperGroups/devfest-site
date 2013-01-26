@@ -21,17 +21,18 @@ class JsonEventListPage(JSONPage):
     response = []
     for country in CEventList().get():
       for event in country["data"]:
-        ev = { 'event_id': str(event.key()),
-               'country': country["name"],
-               'city': event.city,
-               'location': event.location,
-               'name': event.name,
-               'lat': event.geo_location.lat,
-               'lon': event.geo_location.lon,
-               'start': event.start.isoformat(),
-               'end': event.end.isoformat()
-             }
-        response.append(ev)
+        if event.geo_location is not None:
+          ev = { 'event_id': str(event.key()),
+                 'country': country["name"],
+                 'city': event.city,
+                 'location': event.location,
+                 'name': event.name,
+                 'lat': event.geo_location.lat,
+                 'lon': event.geo_location.lon,
+                 'start': event.start.isoformat(),
+                 'end': event.end.isoformat()
+               }
+          response.append(ev)
     self.values["response"] = response
 
 # export one event
