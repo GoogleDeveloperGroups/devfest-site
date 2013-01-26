@@ -109,9 +109,10 @@ class OCachedObject(CachedObject):
 # list of all approved events grouped into countries
 class CEventList(OCachedObject):
   def __init__(self, series='devfest'):
-    self.cache_key = self.__class__.__name__
     self.entity_collection = {}
     self.max_time = 3600
+    self.series = series
+    self.cache_key = "%s(%s)" % (self.__class__.__name__, self.series)
     CachedObject.__init__(self, series)
 
   def load_from_db(self):
@@ -121,7 +122,7 @@ class CEventList(OCachedObject):
     if (self.id == 'devfest'):
       events = Event.all().filter('approved =', True)
     else:
-      events = Event.all().filter('approved =', True).filter('series_key = ', self.id)
+      events = Event.all().filter('approved =', True).filter('series_key =', self.series)
         
     event_list = {}
     for event in events:
