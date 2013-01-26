@@ -119,7 +119,7 @@ class CEventList(OCachedObject):
     self.entity_collection = {}
 
    
-    if (self.id == 'devfest'):
+    if (self.series == 'devfest'):
       events = Event.all().filter('approved =', True)
     else:
       events = Event.all().filter('approved =', True).filter('series_key =', self.series)
