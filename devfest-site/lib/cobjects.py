@@ -113,17 +113,16 @@ class CEventList(OCachedObject):
     self.max_time = 3600
     self.series = series
     self.cache_key = "%s(%s)" % (self.__class__.__name__, self.series)
-    CachedObject.__init__(self, series)
+    CachedObject.__init__(self)
 
   def load_from_db(self):
     self.entity_collection = {}
 
-   
-    if (self.series == 'devfest'):
+    if self.series == 'devfest':
       events = Event.all().filter('approved =', True)
     else:
       events = Event.all().filter('approved =', True).filter('series_key =', self.series)
-        
+
     event_list = {}
     for event in events:
       if event_list.has_key(event.country) is False:
