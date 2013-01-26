@@ -217,7 +217,4 @@ class EventListPage(FrontendPage):
       if users.is_current_user_admin():
         self.values['events'] = CAdminEventList()
       else:
-        if self.request.get('series'):
-          self.values['events'] = CEventList(self.request.get('series'))
-        else:
-          self.values['events'] = CEventList()  
+        self.values['events'] = CEventList(self.request.get('series', 'devfest'))
