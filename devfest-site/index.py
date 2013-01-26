@@ -50,6 +50,7 @@ app = webapp2.WSGIApplication([
                               ('^/json/event/(.*)/tracks$', JsonTrackListPage),
                               ('^/json/event/(.*)/sessions$', JsonSessionListPage),
                               ('^/json/event/(.*)$', JsonEventPage),
+                              ('^/events/(.*)$', EventListPage),
                               ('^/events$', EventListPage),
                               ('^/events/schedule$', EventSchedulePage),
                               ('^/event/(.*)$', EventPage),
@@ -70,4 +71,4 @@ app = webapp2.WSGIApplication([
                               ('^/blob/(.*)$', BlobPage),
                               ('^/.*$', NotFoundPage),
                               ],
-                              debug=False)
+                              debug=True)
