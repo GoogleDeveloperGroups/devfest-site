@@ -17,7 +17,6 @@ class Series(db.Model):
   description           = db.StringProperty()  
     
 class Event(db.Model):
-  series                = db.ReferenceProperty(Series)
   series_key            = db.StringProperty()
   organizers            = db.ListProperty(users.User)
   participants          = db.ListProperty(users.User)
