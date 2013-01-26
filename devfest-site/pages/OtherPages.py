@@ -34,6 +34,20 @@ class DevfestwPage(FrontendPage):
         user = users.get_current_user()
         self.template="devfestw/devfestw"
 
+class DevfestwAboutPage(FrontendPage):
+    def show(self):
+        self.values['current_navigation'] = 'about'
+        self.values['current_series'] = 'devfestw'
+        user = users.get_current_user()
+        self.template="devfestw/devfestw_about"
+
+class DevfestwBrandingPage(FrontendPage):
+    def show(self):
+        self.values['current_navigation'] = 'branding'
+        self.values['current_series'] = 'devfestw'
+        user = users.get_current_user()
+        self.template="branding"
+
 class DevfestwFaqPage(FrontendPage):
     def show(self):
         self.values['current_navigation'] = 'faq'

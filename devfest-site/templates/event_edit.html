@@ -28,6 +28,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
 <div id="create_map_canvas"></div>
 <h3>Basic Details</h3>
 <hr>
+{{ with_errors(form.series_key) }}
 {{ with_errors(form.gplus_event_url) }}
 {{ with_errors(form.external_url) }}
 {{ with_errors(form.external_width) }}
@@ -35,7 +36,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
 {{ with_errors(form.location) }}
 {{ with_errors(form.name) }}
 {{ with_errors(form.status) }}
-{{ with_errors(form.is_vhackandroid) }}
 {% if is_admin %}
 {{ with_errors(form.approved) }}
 {% endif %}
