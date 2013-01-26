@@ -58,7 +58,7 @@
 {% block head2 %}{% endblock %}
   
   </head>
-  <body>
+  <body>  
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
    <header>
 		<div class="banner">
@@ -73,30 +73,32 @@
         <a href="/login" id="loginLink" class="btn btn_small">Sign in</a>
         {% endif %}
 			</div>
-			<div>
+			
+			{%if ((not current_series) or (current_series == 'devfest')) %}
+			<div>					
   		<a id="logo" href="/"><img src="/images/logo.png" alt="GDG DevFest"></a>
 
 			<h1>&nbsp;</h1>
 			<h4>Engage, Learn & Share with the Google Developer Community</h4>
             </div>
+             {% else %}{% if current_series == 'devfestw'%}
 			<div>
      		<a id="logo" href="/devfestw"><img src="/images/devfestw_logo.png" alt="DevFestW"></a>
 
 			<h1>&nbsp;</h1>
 			<h4>Participate in DevFestW!</h4>
             </div>
+            {% endif %}
+            {% endif %}
             
 		</div>
 		<ul>
-		   <li{% if current_navigation == 'start' %} class="active"{% endif %}><a href="/">Home</a></li>
-		   <li{% if current_navigation == 'about' %} class="active"{% endif %}><a href="/about">About</a></li>
-       <!-- <li{% if current_navigation == 'register' %} class="active"{% endif %}><a href="/register">Register</a></li> -->
-       <li{% if current_navigation == 'events' %} class="active"{% endif %}><a href="/events">Events</a></li>
-		   <li{% if current_navigation == 'devfestw' %} class="active"{% endif %}><a href="/devfestw">DevFestW</a></li>
-		   <li{% if current_navigation == 'gadc13' %} class="active"{% endif %}><a href="/gadc13">Global Android Dev Camp</a></li>
-		 <!--  <li{% if current_navigation == 'vhackandroid' %} class="active"{% endif %}><a href="/vhackandroid">V Hack Android</a></li> -->
-		   <li{% if current_navigation == 'faq' %} class="active"{% endif %}><a href="/faq">FAQs</a></li>
-		   <li{% if current_navigation == 'branding' %} class="active"{% endif %}><a href="/branding">Branding</a></li>
+		   <li{% if current_navigation == 'start' %} class="active"{% endif %}><a href="{{current_series}}/">Home</a></li>
+		   <li{% if current_navigation == 'about' %} class="active"{% endif %}><a href="{{current_series}}/about">About</a></li>
+       <!-- <li{% if current_navigation == 'register' %} class="active"{% endif %}><a href="{{current_series}}/register">Register</a></li> -->
+       <li{% if current_navigation == 'events' %} class="active"{% endif %}><a href="{{current_series}}/events">Events</a></li>
+		   <li{% if current_navigation == 'faq' %} class="active"{% endif %}><a href="{{current_series}}/faq">FAQs</a></li>
+		   <li{% if current_navigation == 'branding' %} class="active"{% endif %}><a href="{{current_series}}/branding">Branding</a></li>
 		</ul>
 		{% block subnav %}{% endblock %}
 	</header>

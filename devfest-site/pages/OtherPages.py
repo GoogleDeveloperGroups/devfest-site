@@ -29,37 +29,43 @@ class FaqPage(FrontendPage):
 
 class DevfestwPage(FrontendPage):
     def show(self):
-        self.values['current_navigation'] = 'devfestw'
+        self.values['current_navigation'] = 'start'
+        self.values['current_series'] = 'devfestw'
         user = users.get_current_user()
-        self.template="devfestw"
+        self.template="devfestw/devfestw"
 
 class DevfestwFaqPage(FrontendPage):
     def show(self):
-        self.values['current_navigation'] = 'devfestw'
+        self.values['current_navigation'] = 'faq'
+        self.values['current_series'] = 'devfestw'
         user = users.get_current_user()
-        self.template="devfestw_faq"
+        self.template="devfestw/devfestw_faq"
 
 class GADC13Page(FrontendPage):
     def show(self):
-        self.values['current_navigation'] = 'gadc13'
+        self.values['current_navigation'] = 'start'
+        self.values['current_series'] = 'gadc13'
         user = users.get_current_user()
         self.template="gadc13"
 
 class GADC13FaqPage(FrontendPage):
     def show(self):
-        self.values['current_navigation'] = 'gadc13'
+        self.values['current_navigation'] = 'faq'
+        self.values['current_series'] = 'gadc13'
         user = users.get_current_user()
         self.template="gadc13_faq"
 
 class VHackAndroidPage(FrontendPage):
     def show(self):
-        self.values['current_navigation'] = 'vhackandroid'
+        self.values['current_navigation'] = 'start'
+        self.values['current_series'] = 'vhackandroid'
         user = users.get_current_user()
         self.template="vhackandroid"
 
 class VHackAndroidSponsorsPage(FrontendPage):
     def show(self):
-        self.values['current_navigation'] = 'vhackandroid'
+        self.values['current_navigation'] = 'sponsors'
+        self.values['current_series'] = 'vhackandroid'
         user = users.get_current_user()
         self.template="vhackandroid_sponsors"
 
