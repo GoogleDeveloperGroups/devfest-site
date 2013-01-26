@@ -205,7 +205,7 @@ class EventAgendaPage(FrontendPage):
 
 # list of approved events 
 class EventListPage(FrontendPage):
-  def show(self):
+  def show(self, *paths):
     self.values['current_navigation'] = 'events'
     user = users.get_current_user()
     self.template = 'event_list'
@@ -217,4 +217,8 @@ class EventListPage(FrontendPage):
       if users.is_current_user_admin():
         self.values['events'] = CAdminEventList()
       else:
-        self.values['events'] = CEventList(self.request.get('series', 'devfest'))
+        available = ['devfest', 'devfestw']
+        if paths[0] in available:
+          self.values['events'] = CEventList(paths[0])
+        else:
+          self.values['events'] = CEventList()
