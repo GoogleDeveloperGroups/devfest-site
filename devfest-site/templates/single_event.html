@@ -103,10 +103,12 @@
                 <a href="{{event.external_url}}"> Visit website</a>
               {%endif%}
             {% endif %}
-           {% if user in event.participants %}
-             <span class="label">You are registered!</span>
-           {% elif has_registration %}
-             <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
+           {% if event.end and event.end > current_date  %} 
+             {% if user in event.participants %}
+               <span class="label">You are registered!</span>
+             {% elif has_registration %}
+               <a class="label label-info" href="/event/register/{{ event.key() }}">Register Now</a>
+             {% endif %}  
            {% endif %}  
            </div>
                                  
