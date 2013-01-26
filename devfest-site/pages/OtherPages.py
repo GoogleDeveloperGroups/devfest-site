@@ -60,14 +60,14 @@ class GADC13Page(FrontendPage):
         self.values['current_navigation'] = 'start'
         self.values['current_series'] = 'gadc13'
         user = users.get_current_user()
-        self.template="gadc13"
+        self.template="gadc13/gadc13"
 
 class GADC13FaqPage(FrontendPage):
     def show(self):
         self.values['current_navigation'] = 'faq'
         self.values['current_series'] = 'gadc13'
         user = users.get_current_user()
-        self.template="gadc13_faq"
+        self.template="gadc13/gadc13_faq"
 
 class VHackAndroidPage(FrontendPage):
     def show(self):
