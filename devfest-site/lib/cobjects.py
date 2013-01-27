@@ -118,10 +118,8 @@ class CEventList(OCachedObject):
   def load_from_db(self):
     self.entity_collection = {}
 
-    if self.series == 'devfest':
-      events = Event.all().filter('approved =', True)
-    else:
-      events = Event.all().filter('approved =', True).filter('series_key =', self.series)
+    timelimit = datetime.datetime.now() - datetime.timedelta(weeks=9)
+    events = Event.all().filter('approved =', True).filter('end >=', timelimit)
 
     event_list = {}
     for event in events:
