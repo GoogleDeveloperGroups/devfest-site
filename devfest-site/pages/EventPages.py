@@ -218,7 +218,7 @@ class EventListPage(FrontendPage):
         self.values['events'] = CAdminEventList()
       else:
         available = ['devfest', 'devfestw']
-        if paths[0] in available:
+        if len(paths) > 0 and paths[0] in available:
           self.values['events'] = CEventList(paths[0])
         else:
           self.values['events'] = CEventList()
