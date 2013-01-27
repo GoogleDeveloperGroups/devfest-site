@@ -49,10 +49,10 @@ class EventForm(Form):
            ('4', '<img src="/images/icons/gdl-icon.png"> '
                            'Google Developer Live sessions'),
            ('5', '<img src="/images/icons/others-icon.png"> Others')])
-  start           = DateTimeField('Start', format="%Y-%m-%d %H:%M")
-  end             = DateTimeField('End', format="%Y-%m-%d %H:%M")
-  timezone        = DecimalField('Timezone Offset of UTC')
-  agenda_description = TextAreaField('Description for the event', [validators.length(20, 500)])
+  start           = DateTimeField('Start *', format="%Y-%m-%d %H:%M")
+  end             = DateTimeField('End *', format="%Y-%m-%d %H:%M")
+  timezone        = DecimalField('Timezone Offset of UTC (* decimal value)')
+  agenda_description = TextAreaField('Description for the event (* 20 -500 chars) ', [validators.length(20, 500)])
   gdg_chapters    = TextField('GDG Chapters',
         [validators.Required()], description='Comma separated list')
   technologies    = MultiCheckboxField(

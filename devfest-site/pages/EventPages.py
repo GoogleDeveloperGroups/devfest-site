@@ -216,9 +216,5 @@ class EventListPage(FrontendPage):
     else:
       if users.is_current_user_admin():
         self.values['events'] = CAdminEventList()
-      else:
-        available = ['devfest', 'devfestw']
-        if paths[0] in available:
-          self.values['events'] = CEventList(paths[0])
-        else:
-          self.values['events'] = CEventList()
+      else:       
+        self.values['events'] = CEventList()

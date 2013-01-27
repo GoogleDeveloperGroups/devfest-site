@@ -74,33 +74,14 @@
         {% endif %}
 			</div>
 			
-			{%if ((not current_series) or (current_series == 'devfest')) %}
-			<div>					
-  		<a id="logo" href="/"><img src="/images/logo.png" alt="GDG DevFest"></a>
-
-			<h1>&nbsp;</h1>
-			<h4>Engage, Learn & Share with the Google Developer Community</h4>
-            </div>
-             {% else %}{% if current_series == 'devfestw'%}
 			<div>
      		<a id="logo" href="/devfestw"><img src="/images/devfestw_logo.png" alt="DevFestW"></a>
 
 			<h1>&nbsp;</h1>
-			<h4>Participate in DevFestW!</h4>
+			<h4>DevFest to the power of women</h4>
             </div>
-             {% else %}{% if current_series == 'gadc13'%}
-			<div>
-     		<a id="logo" href="/gadc13"><img src="/images/gadc13.jpg" alt="DevFestW"></a>
-
-			<h1>&nbsp;</h1>
-			<h4>Mobilize your local business!</h4>
-            </div>
-            {% endif %}
-            {% endif %}
-            {% endif %}
             
 		</div>
-		{% if not current_series %}		
 		<ul>
 		   <li{% if current_navigation == 'start' %} class="active"{% endif %}><a href="/">Home</a></li>
 		   <li{% if current_navigation == 'about' %} class="active"{% endif %}><a href="/about">About</a></li>
@@ -109,16 +90,6 @@
 		   <li{% if current_navigation == 'faq' %} class="active"{% endif %}><a href="/faq">FAQs</a></li>
 		   <li{% if current_navigation == 'branding' %} class="active"{% endif %}><a href="/branding">Branding</a></li>
 		</ul>
-        {% else %}
-		<ul>
-		   <li{% if current_navigation == 'start' %} class="active"{% endif %}><a href="/{{current_series}}">Home</a></li>
-		   <li{% if current_navigation == 'about' %} class="active"{% endif %}><a href="/{{current_series}}/about">About</a></li>
-       <!-- <li{% if current_navigation == 'register' %} class="active"{% endif %}><a href="/{{current_series}}/register">Register</a></li> -->
-       <li{% if current_navigation == 'events' %} class="active"{% endif %}><a href="/{{current_series}}/events">Events</a></li>
-		   <li{% if current_navigation == 'faq' %} class="active"{% endif %}><a href="/{{current_series}}/faq">FAQs</a></li>
-		   <li{% if current_navigation == 'branding' %} class="active"{% endif %}><a href="/{{current_series}}/branding">Branding</a></li>
-		</ul>
-		{% endif %}
 		
 		{% block subnav %}{% endblock %}
 	</header>
@@ -131,10 +102,7 @@
 		
 		<div id="footmenu">
 		<ul>		            
-            <li><a href="/about">GDG DevFest</a></li>
-            <li><a href="/devfestw/about">DevFestW</a></li>
-            <li><a href="/gadc13/about">Global Android Dev Camp 2013</a></li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            <li><a href="/about">DevFestW</a></li>
             <li><a href="https://developers.google.com/groups/">GDG</a></li>
             <li><a href="/contact">Contact</a></li>
             <li><a href="https://docs.google.com/spreadsheet/viewform?formkey=dHZlLWtCSHlFOWI4aW40MnhhbVU3c2c6MQ#gid=0" target="_blank">Report a bug</a></li>
@@ -142,7 +110,7 @@
           </ul>
 		</div>
 		<div id="copyright">
-		<p>	Copyright © 2012 | All rights reserved 
+		<p>	Copyright © 2012 - 2013 | All rights reserved 
 		</p>
 		</div>
       </footer>

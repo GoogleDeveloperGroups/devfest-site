@@ -23,7 +23,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
 {% block content %}
 <div class="hero-unit" style="padding:30px;">	
 	<div id="title">
-		<h1 style="font-size:25px;">GDG DevFest locations</h1>
+		<h1 style="font-size:25px;">DevFestW locations</h1>
 		<div class="plusonec">
 		<div class="g-plusone" data-size="small" data-annotation="inline" data-width="300"></div>			
 		</div>
@@ -42,7 +42,7 @@ $('#map_canvas').gmap().bind('init', function() {
     }
     return datVal;
   }
-  $.getJSON('/json/events', function(data) {
+  $.getJSON('/json/events?series=devfestw', function(data) {
     $.each(data, function(i, event) {
       var name = event.name || event.city || event.location;
       var start = dateFormat(event.start);
@@ -59,7 +59,7 @@ $('#map_canvas').gmap().bind('init', function() {
         'bounds': true
       }).click(function() {
         $('#map_canvas').gmap('openInfoWindow', {
-          'content': '<b>DevFest ' + name + '</b><br><br>' +
+          'content': '<b>DevFestW ' + name + '</b><br><br>' +
             'Event Date: ' + dateText,
         }, this);
       });
@@ -69,7 +69,7 @@ $('#map_canvas').gmap().bind('init', function() {
 </script>
 <div class="row-fluid">
 		<div class="span4" >
-			<h2 id="xheadings">GDG DevFest</h2>
+			<h2 id="xheadings">DevFest W</h2>
 			<hr>
 			<img src="/images/gdg-home-devfest.jpg" alt="GDG" class="gdg-home-image" width="600">
 			<p style="text-align:justify">
@@ -83,12 +83,13 @@ $('#map_canvas').gmap().bind('init', function() {
 			</p>
 		</div>
 		<div class="span4">
-			<h2  id="xheadings">Find a GDG DevFest around you!</h2>
+			<h2  id="xheadings">Participate in DevFestW!</h2>
 			<hr>
-			<img src="/images/gdg-home-around.jpg" alt="GDG" class="gdg-home-image" width="600">
-			<p style="text-align:justify">If you can't find a GDG DevFest near you feel free to contact your local Google Developer Group.</p>
+			<img src="/images/devfestw_logo.png" alt="devfestw" class="gdg-home-image" width="600">
+			<p style="text-align:justify">DevFestW bridges Google technologies with women developers. 
+			Find a DevFestW event near you, or organize one for your local community.</p>
 			<p>
-				<a class="btn" href="/events">View details &raquo;</a>
+				<a class="btn" href="/events?series=devfestw">View details &raquo;</a>
 			</p>
 		</div>
 		<div class="span4">
