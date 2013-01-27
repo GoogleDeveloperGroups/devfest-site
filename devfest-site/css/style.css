@@ -11,7 +11,7 @@ body {
 }
 
 header .banner {
-	background: #e1e1e1 url(/images/gdd.png) repeat-x 120px 112px;
+	background: #e1e1e1 url(/images/fill_small.png) repeat-x 120px 112px;
 	padding: 16px 0 20px 26px;
 	z-index: 0;
 }

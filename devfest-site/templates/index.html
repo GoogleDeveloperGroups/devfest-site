@@ -23,7 +23,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
 {% block content %}
 <div class="hero-unit" style="padding:30px;">	
 	<div id="title">
-		<h1 style="font-size:25px;">DevFestW locations</h1>
+		<h1 style="font-size:25px;">GADC 13 locations</h1>
 		<div class="plusonec">
 		<div class="g-plusone" data-size="small" data-annotation="inline" data-width="300"></div>			
 		</div>
@@ -42,7 +42,7 @@ $('#map_canvas').gmap().bind('init', function() {
     }
     return datVal;
   }
-  $.getJSON('/json/events?series=devfestw', function(data) {
+  $.getJSON('/json/events', function(data) {
     $.each(data, function(i, event) {
       var name = event.name || event.city || event.location;
       var start = dateFormat(event.start);
@@ -59,7 +59,7 @@ $('#map_canvas').gmap().bind('init', function() {
         'bounds': true
       }).click(function() {
         $('#map_canvas').gmap('openInfoWindow', {
-          'content': '<b>DevFestW ' + name + '</b><br><br>' +
+          'content': '<b>GADC ' + name + '</b><br><br>' +
             'Event Date: ' + dateText,
         }, this);
       });
@@ -69,27 +69,29 @@ $('#map_canvas').gmap().bind('init', function() {
 </script>
 <div class="row-fluid">
 		<div class="span4" >
-			<h2 id="xheadings">DevFest W</h2>
+			<h2 id="xheadings">Global Android Dev Camp</h2>
 			<hr>
-			<img src="/images/gdg-home-devfest.jpg" alt="GDG" class="gdg-home-image" width="600">
+			<img src="/images/gadc12a.jpg" alt="GDG" class="gdg-home-image" width="600">
 			<p style="text-align:justify">
-			GDG DevFests are large scale community-run events that can offer speaker sessions across Google product areas, all-day hack-a-thons or both.  
-			Each GDG DevFest will be inspired by and uniquely tailored to the needs of the developer community that hosts it.  
-			But while no two events will be exactly alike, each GDG DevFest will, at its core, 
-			be powered by a shared belief that when developers come together to exchange ideas, amazing things can happen.
+			Global Android Dev Camp is a global community-run one-weekend Android hackathon taking place 
+			at the same time all over the world. 			
+			</p>
+			<p>
+			In 2012, more than 50 cities participated in all five continents. 
+			See <a href="http://android-dev-camp-2012.blogspot.com" style="color:#08F"> here for the 2012 edition</a>.
 			</p>
 			<p>
 				<a class="btn" href="/about">View details &raquo;</a>
 			</p>
 		</div>
 		<div class="span4">
-			<h2  id="xheadings">Participate in DevFestW!</h2>
+			<h2  id="xheadings">Participate in GADC 13!</h2>
 			<hr>
-			<img src="/images/devfestw_logo.png" alt="devfestw" class="gdg-home-image" width="600">
-			<p style="text-align:justify">DevFestW bridges Google technologies with women developers. 
-			Find a DevFestW event near you, or organize one for your local community.</p>
+			<img src="/images/blogheader2013.png" alt="gadc13" class="gdg-home-image" width="600">
+			<p style="text-align:justify">GADC brings Android developers together all over the world. 
+			Find a GADC event near you, or organize one for your local community.</p>
 			<p>
-				<a class="btn" href="/events?series=devfestw">View details &raquo;</a>
+				<a class="btn" href="/events">View details &raquo;</a>
 			</p>
 		</div>
 		<div class="span4">
