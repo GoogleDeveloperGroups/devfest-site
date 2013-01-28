@@ -159,16 +159,17 @@ function clone_field_list(name) {
 <div class="container-fluid">
   <div class="row">
     <div id="title">
+      
       {% if event %}
       <h1 style="font-size: 25px; float: none; margin-bottom: 10px">
-        Edit DevFestW
+        Edit your GADC
         {% if event.city %}{{event.city}}{% else %}{{event.location}}{% endif %}
       </h1>
       <a class="label label-info" href="/event/{{event.key()}}" >View event</a>
       <a class="label label-important" href="/event/delete/{{event.key()}}" onclick="return confirm('Are you sure you want to delete the event?')">Delete event</a>
       {% else %}
       <h1 style="font-size: 25px; float: none; margin-bottom: 10px">
-        Create your DevFestW!
+        Create your GADC!
       </h1>
       {% endif %}
     </div>
@@ -184,7 +185,7 @@ function clone_field_list(name) {
         <img src="/images/gadc13.jpg">
         {% endif %}
         </span>
-      </div>
+      </div>      
       {% if event %}
       <a href="/event/edit/{{event.key()}}">
         <div class="row {{class_base}}">
@@ -221,6 +222,15 @@ function clone_field_list(name) {
             {% if event %}
               <input type="hidden" name="event" value="{{event.key()}}">
             {% endif %}
+            
+            <ul>
+            {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+              {% for error in field_errors %}
+                <li>{{ form[field_name].label }}: {{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+            </ul>
+                           
             {% if created_successful %}
               <div class="alert alert-success">Event Created Successfully!
                     Happy Organizing !</div>

@@ -24,10 +24,8 @@ class MultiCheckboxField(SelectMultipleField):
   option_widget = widgets.CheckboxInput()
 
 class EventForm(Form):
-  series_key = SelectField('Series', 
-        choices = [('devfest', 'DevFest'), ('devfestw', 'DevFest Women'), ('gadc13', 'GADC 2013')])
   gplus_event_url = TextField('Google+ Event URL',
-        [validators.URL()])
+        [validators.Optional(), validators.URL()])
   external_url    = TextField('External URL (in an iframe or linked to)',
         [validators.Optional(),validators.URL()])
   external_width  = IntegerField('Width of the iframe (if embedded)',
@@ -51,9 +49,9 @@ class EventForm(Form):
            ('5', '<img src="/images/icons/others-icon.png"> Others')])
   start           = DateTimeField('Start *', format="%Y-%m-%d %H:%M")
   end             = DateTimeField('End *', format="%Y-%m-%d %H:%M")
-  timezone        = DecimalField('Timezone Offset of UTC (* decimal value)')
-  agenda_description = TextAreaField('Description for the event (* 20 -500 chars) ', [validators.length(20, 500)])
-  gdg_chapters    = TextField('GDG Chapters',
+  timezone        = DecimalField('Timezone Offset of UTC (decimal value)', [validators.Optional()])
+  agenda_description = TextAreaField('Description for the event (20-500 chars) ', [validators.Optional(), validators.length(20, 500)])
+  gdg_chapters    = TextField('GDG Chapters/User groups',
         [validators.Required()], description='Comma separated list')
   technologies    = MultiCheckboxField(
          'What products, technologies you propose to cover in the event',
@@ -69,8 +67,7 @@ class EventForm(Form):
                  ('Youtube', 'Youtube'),
                  ('Other', 'Other')])
   kind_of_support = TextAreaField(
-         'What kind of support you expect for this event?',
-        [validators.Required()])
+         'What kind of support you expect for this event?')
   subdomain       = TextField('Preferred subdomain for the event website')
   register_url    = TextField('URL of external registration site',
         [validators.Optional(),validators.URL()])
@@ -83,9 +80,9 @@ class ContactForm(Form):
   name            = TextField('Your Name', [validators.Required()])
   email           = TextField('Email Address',
         [validators.Email(), validators.Required()])
-  organizer       = SelectField('Are you GDG organizer?',
+  organizer       = SelectField('Are you GDG/user group organizer?',
         choices=[('0', 'No'), ('1', 'Yes')])
-  gdg_chapter     = TextField('Your GDG Chapter')
+  gdg_chapter     = TextField('Your GDG Chapter/User group')
   subject         = TextField('Subject', [validators.Required()])
   message         = TextAreaField('Message', [validators.Required()])
 

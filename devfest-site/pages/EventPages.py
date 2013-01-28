@@ -174,6 +174,8 @@ class EventUploadPage(UploadPage):
         self.values['modified_successful'] = True
       else:
         self.values['created_successful'] = True
+    else:
+      self.values['error'] = 'validation failed.'
 
 # show a single event on the front page
 class EventPage(FrontendPage):
