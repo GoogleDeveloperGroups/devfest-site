@@ -24,8 +24,6 @@ class MultiCheckboxField(SelectMultipleField):
   option_widget = widgets.CheckboxInput()
 
 class EventForm(Form):
-  series_key = SelectField('Series', 
-        choices = [('devfest', 'DevFest'), ('devfestw', 'DevFest Women'), ('gadc13', 'GADC 2013')])
   gplus_event_url = TextField('Google+ Event URL',
         [validators.URL()])
   external_url    = TextField('External URL (in an iframe or linked to)',
